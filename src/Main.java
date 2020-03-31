@@ -17,10 +17,10 @@ public final class Main {
      */
     public static void main(String[] args) {
 
-   //     try { // test zero vector
+        try { // test zero vector
             new Vector(0, 0, 0);
             out.println("ERROR: zero vector does not throw an exception");
-     //   } catch (Exception e) {}
+        } catch (Exception e) {}
 
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(-2, -4, -6);
@@ -39,10 +39,10 @@ public final class Main {
             out.println("ERROR: dotProduct() wrong value");
 
         // test Cross-Product
-   //     try { // test zero vector
+        try { // test zero vector
             v1.crossProduct(v2);
             out.println("ERROR: crossProduct() for parallel vectors does not throw an exception");
-   //     } catch (Exception e) {}
+        } catch (Exception e) {}
         Vector vr = v1.crossProduct(v3);
         if (!isZero(vr.length() - v1.length() * v3.length()))
             out.println("ERROR: crossProduct() wrong result length");
