@@ -11,7 +11,6 @@ import primitives.Vector;
  */
 public class Cylinder extends Tube {
     private double _height;
-    private Point3D _middle;
 
     /**
      * <b> Cylinder constructor. </b>
@@ -23,6 +22,18 @@ public class Cylinder extends Tube {
      */
     public Cylinder(double h, double r, Point3D m, Vector dir) {
         super(r, new Ray(m, dir));
+        _height = h;
+    }
+
+    /**
+     * <b> Cylinder constructor. </b>
+     *
+     * @param h <b> the height of the Cylinder </b>
+     * @param r <b> the radius of the Cylinder </b>
+     * @param a <b> the Rau of the Cylinder </b>
+     */
+    public Cylinder(double h, double r, Ray a) {
+        super(r, a);
         _height = h;
     }
 
@@ -54,6 +65,6 @@ public class Cylinder extends Tube {
      */
     @Override
     public String toString() {
-        return "Cylinder:\t" + "height = " + _height + ", middle = " + _middle.toString() + ", radius = " + super.getRadius();
+        return "Cylinder:\t" + "height = " + _height + ", radius = " + super.getRadius();
     }
 }
