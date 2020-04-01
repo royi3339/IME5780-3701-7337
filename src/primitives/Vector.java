@@ -55,6 +55,7 @@ public class Vector {
      */
     public Vector(Vector v) { _head = new Point3D(v.getHead()); }
 
+
     /**
      * @return Point3D <b> head </b>
      */

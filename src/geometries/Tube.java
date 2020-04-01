@@ -45,6 +45,11 @@ public class Tube extends RadialGeometry {
      */
     public Vector getDirection() { return axis.getDirection(); }
 
+    @Override
+    public Vector getNormal(Point3D p) {
+        return null;
+    }
+
     /**
      * @return String <b> the info </b>
      */

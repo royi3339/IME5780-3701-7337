@@ -67,4 +67,9 @@ public class Cylinder extends Tube {
     public String toString() {
         return "Cylinder:\t" + "height = " + _height + ", radius = " + super.getRadius();
     }
+
+    @Override
+    public Vector getNormal(Point3D p) {
+        return super.getNormal(p);
+    }
 }

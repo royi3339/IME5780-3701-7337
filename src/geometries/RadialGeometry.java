@@ -1,9 +1,12 @@
 package geometries;
 
+import primitives.Point3D;
+import primitives.Vector;
+
 /**
  * @author Royi Alishayev
  */
-public abstract class RadialGeometry {
+public abstract class RadialGeometry implements Geometry {
     private double _radius;
 
     /**
@@ -30,4 +33,9 @@ public abstract class RadialGeometry {
      */
     @Override
     public String toString() { return "radius = " + _radius; }
+
+    @Override
+    public Vector getNormal(Point3D p) {
+        return null;
+    }
 }

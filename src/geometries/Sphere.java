@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Vector;
 
 /**
  * implements the Sphere class, which extending the RadialGeometry class.
@@ -32,6 +33,11 @@ public class Sphere extends RadialGeometry {
      */
     @Override
     public double getRadius() { return super.getRadius(); }
+
+    @Override
+    public Vector getNormal(Point3D p) {
+        return null;
+    }
 
     /**
      * @return String <b> the info </b>
