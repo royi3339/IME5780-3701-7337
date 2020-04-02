@@ -23,7 +23,7 @@ public class Plane implements Geometry {
         _header = new Point3D(a);
         Vector v1 = b.subtract(a);
         Vector v2 = b.subtract(c);
-        //_normal = v1.crossProduct(v2); i will insert this in an more advance level.
+        _normal = v2.crossProduct(v1).normalized();
     }
 
     /**

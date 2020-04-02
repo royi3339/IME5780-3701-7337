@@ -34,7 +34,7 @@ public class VectorTests {
      */
     @Test
     public void subtract() {
-        assertTrue("ERROR: Point - Point does not work correctly", new Vector(1, 1, 1).equals(new Point3D(2, 3, 4).subtract(p1)));
+        assertEquals("ERROR: Point - Point does not work correctly", new Vector(1, 1, 1),new Point3D(2, 3, 4).subtract(p1));
     }
 
     /**
@@ -42,7 +42,7 @@ public class VectorTests {
      */
     @Test
     public void add() {
-        assertTrue("ERROR: Point + Vector does not work correctly", Point3D.ZERO.equals(p1.add(new Vector(-1, -2, -3))));
+        assertEquals("ERROR: Point + Vector does not work correctly", Point3D.ZERO,p1.add(new Vector(-1, -2, -3)));
     }
 
     /**
@@ -53,7 +53,7 @@ public class VectorTests {
         Vector vv1 = new Vector(v);
         vv1 = vv1.scale(3);
         Vector vv2 = new Vector(3, 6, 9);
-        assertTrue("ERROR: the scale does not work correctly", vv1.equals(vv2));
+        assertEquals("ERROR: the scale does not work correctly", vv2,vv1);
     }
 
     /**
@@ -64,7 +64,7 @@ public class VectorTests {
     @Test
     public void dotProduct() {
         assertTrue("ERROR: dotProduct() for orthogonal vectors is not zero", isZero(v1.dotProduct(v3)));
-        assertEquals("ERROR: dotProduct() wrong value", v1.dotProduct(v2), -28, 1E-8);
+        assertEquals("ERROR: dotProduct() wrong value", -28, v1.dotProduct(v2), 1E-8);
     }
 
     /**
@@ -88,7 +88,7 @@ public class VectorTests {
      */
     @Test
     public void lengthSquared() {
-        assertEquals("ERROR: lengthSquared() wrong value", v1.lengthSquared(), 14, 1E-8);
+        assertEquals("ERROR: lengthSquared() wrong value", 14, v1.lengthSquared(), 1E-8);
     }
 
     /**
@@ -96,7 +96,7 @@ public class VectorTests {
      */
     @Test
     public void length() {
-        assertEquals("ERROR: length() wrong value", new Vector(0, 3, 4).length(), 5, 1E-8);
+        assertEquals("ERROR: length() wrong value", 5,new Vector(0, 3, 4).length(), 1E-8);
     }
 
     /**
@@ -108,11 +108,10 @@ public class VectorTests {
         Vector vCopy = new Vector(v);
         Vector vCopyNormalize = vCopy.normalize();
         assertEquals("ERROR: normalize() function creates a new vector", vCopy, vCopyNormalize);
-        assertEquals("ERROR: normalize() result is not a unit vector", vCopyNormalize.length(), 1, 1E-8);
+        assertEquals("ERROR: normalize() result is not a unit vector", 1,  vCopyNormalize.length(),1E-8);
     }
 
     /**
-     *
      * test vector normalized
      */
     @Test
