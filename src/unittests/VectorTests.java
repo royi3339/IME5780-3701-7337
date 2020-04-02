@@ -21,6 +21,7 @@ public class VectorTests {
      */
     @Test
     public void testConstructor() {
+        // ============ Equivalence Partitions Tests ==============
         try { // test zero vector
             new Vector(0, 0, 0);
             fail("ERROR: zero vector does not throw an exception");
@@ -122,6 +123,7 @@ public class VectorTests {
      */
     @Test
     public void testNormalized() {
+        // ============ Equivalence Partitions Tests ==============
         Vector u = v.normalized();
         assertNotEquals("ERROR: normalizated() function does not create a new vector", u, v);
     }

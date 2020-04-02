@@ -19,6 +19,7 @@ public class TubeTests {
      */
     @Test
     public void testConstructor() {
+        // ============ Equivalence Partitions Tests ==============
         // TC01: negative radius constructor#1
         try {
             new Tube(-5, new Point3D(0, 0, 0), new Vector(0, 0, 13));
@@ -52,6 +53,7 @@ public class TubeTests {
      */
     @Test
     public void testGetNormal() {
+        // ============ Equivalence Partitions Tests ==============
         Tube t = new Tube(2, new Point3D(0, 0, 0), new Vector(0, 0, 1));
         Vector normal = new Vector(0, 1, 0);
         assertEquals("wrong normal detected", normal, t.getNormal(new Point3D(0, 2, 3339)));

@@ -13,13 +13,14 @@ import static org.junit.Assert.*;
  * @author Royi Alishayev idan darmoni
  */
 public class SphereTests {
-
     /**
      * test method for
      * {@link Sphere#Sphere(Point3D, double)}
      */
     @Test
     public void testConstructor() {
+        // ============ Equivalence Partitions Tests ==============
+
         // TC01: negative radius
         try {
             new Sphere(new Point3D(1, 1, 1), -5);
@@ -47,6 +48,7 @@ public class SphereTests {
      */
     @Test
     public void testGetNormal() {
+        // ============ Equivalence Partitions Tests ==============
         // TC01: check the normal
         Sphere s = new Sphere(new Point3D(1, 1, 1), 5);
         assertEquals(" Bad normal to Sphere ", new Vector(0, 0, 1), s.getNormal(new Point3D(1, 1, 6)));
