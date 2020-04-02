@@ -9,9 +9,12 @@ import primitives.Vector;
 import static org.junit.Assert.*;
 
 public class TriangleTests {
-
+    /**
+     * test method for
+     * {@link Triangle#getNormal(Point3D)}
+     */
     @Test
-    public void getNormal() {
+    public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Correct normal of the triangle
         double sqrt3 = Math.sqrt(1d / 3);

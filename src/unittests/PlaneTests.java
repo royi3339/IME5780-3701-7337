@@ -9,9 +9,12 @@ import primitives.Vector;
 import static org.junit.Assert.*;
 
 public class PlaneTests {
-
+    /**
+     * test methot for
+     * {@link Plane#getNormal(Point3D)}
+     */
     @Test
-    public void getNormal() {
+    public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Correct normal of the plane
         double sqrt3 = Math.sqrt(1d / 3);

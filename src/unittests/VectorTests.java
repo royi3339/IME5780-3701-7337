@@ -33,23 +33,25 @@ public class VectorTests {
      * {@link primitives.Vector#subtract(primitives.Vector)}
      */
     @Test
-    public void subtract() {
+    public void testSubtract() {
         assertEquals("ERROR: Point - Point does not work correctly", new Vector(1, 1, 1),new Point3D(2, 3, 4).subtract(p1));
     }
 
     /**
-     * Test add
+     * Test method for
+     * {@link Vector#add(Vector)}
      */
     @Test
-    public void add() {
+    public void testAdd() {
         assertEquals("ERROR: Point + Vector does not work correctly", Point3D.ZERO,p1.add(new Vector(-1, -2, -3)));
     }
 
     /**
-     * Test scale
+     * Test method for
+     * {@link Vector#scale(double)}
      */
     @Test
-    public void scale() {
+    public void testScale() {
         Vector vv1 = new Vector(v);
         vv1 = vv1.scale(3);
         Vector vv2 = new Vector(3, 6, 9);
@@ -62,7 +64,7 @@ public class VectorTests {
      * test Dot-Product
      */
     @Test
-    public void dotProduct() {
+    public void testDotProduct() {
         assertTrue("ERROR: dotProduct() for orthogonal vectors is not zero", isZero(v1.dotProduct(v3)));
         assertEquals("ERROR: dotProduct() wrong value", -28, v1.dotProduct(v2), 1E-8);
     }
@@ -72,7 +74,7 @@ public class VectorTests {
      * {@link Vector#crossProduct(Vector)}
      */
     @Test
-    public void crossProduct() {
+    public void testCrossProduct() {
         try { // test zero vector
             v1.crossProduct(v2);
             fail("ERROR: crossProduct() for parallel vectors does not throw an exception");
@@ -87,23 +89,26 @@ public class VectorTests {
      * {@link Vector#lengthSquared()}
      */
     @Test
-    public void lengthSquared() {
+    public void testLengthSquared() {
         assertEquals("ERROR: lengthSquared() wrong value", 14, v1.lengthSquared(), 1E-8);
     }
 
     /**
-     * test length
+     * test method for
+     * {@link Vector#length()}
      */
     @Test
-    public void length() {
+    public void testLength() {
         assertEquals("ERROR: length() wrong value", 5,new Vector(0, 3, 4).length(), 1E-8);
     }
 
     /**
      * test vector normalization vs vector length and cross-product
+     * test method for
+     * {@link Vector#normalize()}
      */
     @Test
-    public void normalize() {
+    public void testNormalize() {
         Vector v = new Vector(1, 2, 3);
         Vector vCopy = new Vector(v);
         Vector vCopyNormalize = vCopy.normalize();
@@ -113,9 +118,10 @@ public class VectorTests {
 
     /**
      * test vector normalized
+     * {@link Vector#normalized()}
      */
     @Test
-    public void normalized() {
+    public void testNormalized() {
         Vector u = v.normalized();
         assertNotEquals("ERROR: normalizated() function does not create a new vector", u, v);
     }
