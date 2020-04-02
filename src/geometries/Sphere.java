@@ -6,11 +6,10 @@ import primitives.Vector;
 /**
  * implements the Sphere class, which extending the RadialGeometry class.
  *
- * @author Royi Alishayev
+ * @author Royi Alishayev idan darmoni
  */
 public class Sphere extends RadialGeometry {
     private Point3D _center;
-    private double _radius;
 
     /**
      * <b> Sphere constructor. </b>
@@ -34,10 +33,15 @@ public class Sphere extends RadialGeometry {
     @Override
     public double getRadius() { return super.getRadius(); }
 
+    /**
+     * @param p <b> the Point3D on the Sphere </b>
+     * @return Vector <b> normal </b>
+     */
     @Override
     public Vector getNormal(Point3D p) {
         return (new Vector(p.subtract(_center))).normalize();
     }
+
     /**
      * @return String <b> the info </b>
      */

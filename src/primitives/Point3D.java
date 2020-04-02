@@ -3,7 +3,7 @@ package primitives;
 /**
  * implements the Point3D class.
  *
- * @author Royi Alishayev
+ * @author Royi Alishayev idan darmoni
  */
 public class Point3D {
     private Coordinate _x;

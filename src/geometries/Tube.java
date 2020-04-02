@@ -7,10 +7,9 @@ import primitives.Vector;
 /**
  * implements the Tube class, which extending the RadialGeometry class.
  *
- * @author Royi Alishayev
+ * @author Royi Alishayev idan darmoni
  */
 public class Tube extends RadialGeometry {
-    private double _radius;
     private Ray _axis;
 
     /**
@@ -37,13 +36,13 @@ public class Tube extends RadialGeometry {
     }
 
     /**
-     * @return double <b> _radius </b>
+     * @return double <b> radius </b>
      */
     @Override
     public double getRadius() { return super.getRadius(); }
 
     /**
-     * @return Ray <b> _axis </b>
+     * @return Ray <b> axis </b>
      */
     public Ray getAxis() { return _axis; }
 
@@ -58,9 +57,8 @@ public class Tube extends RadialGeometry {
     public Vector getDirection() { return _axis.getDirection(); }
 
     /**
-     *
-     * @param p <b>  </b>
-     * @return <b>  </b>
+     * @param p <b> the Point3D in the Tube </b>
+     * @return Vector <b> normal </b>
      */
     @Override
     public Vector getNormal(Point3D p) {

@@ -3,7 +3,7 @@ package primitives;
 /**
  * implements the Ray class.
  *
- * @author Royi Alishayev
+ * @author Royi Alishayev idan darmoni
  */
 public class Ray {
     private Point3D _head;

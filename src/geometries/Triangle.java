@@ -1,12 +1,11 @@
 package geometries;
 
 import primitives.Point3D;
-import primitives.Vector;
 
 /**
  * implements Triangle class, which extending the Polygon class.
  *
- * @author Royi Alishayev
+ * @author Royi Alishayev idan darmoni
  */
 public class Triangle extends Polygon {
 

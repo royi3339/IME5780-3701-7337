@@ -6,7 +6,7 @@ import primitives.Vector;
 /**
  * implements the Plane class, which implementing the Geometry interface.
  *
- * @author Royi Alishayev
+ * @author Royi Alishayev idan darmoni
  */
 public class Plane implements Geometry {
     private Vector _normal = null;

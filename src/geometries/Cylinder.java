@@ -7,7 +7,7 @@ import primitives.Vector;
 /**
  * implements the Cylinder class, which extending the Tube class.
  *
- * @author Royi Alishayev
+ * @author Royi Alishayev idan darmoni
  */
 public class Cylinder extends Tube {
     private double _height;
@@ -72,6 +72,10 @@ public class Cylinder extends Tube {
         return "Cylinder:\t" + "height = " + _height + ", radius = " + super.getRadius();
     }
 
+    /**
+     * @param p <b> the Point3D on the Cylinder </b>
+     * @return Vector <b> normal </b>
+     */
     @Override
     public Vector getNormal(Point3D p) {
         Vector subVector = p.subtract(getAxis().getHead());

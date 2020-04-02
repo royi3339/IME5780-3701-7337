@@ -6,7 +6,7 @@ import primitives.Vector;
 /**
  * implements the Geometry interface.
  *
- * @author Royi Alishayev
+ * @author Royi Alishayev idan darmoni
  */
 public interface Geometry {
     /**

@@ -4,7 +4,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- * @author Royi Alishayev
+ * @author Royi Alishayev idan darmoni
  */
 public abstract class RadialGeometry implements Geometry {
     private double _radius;
