@@ -112,6 +112,7 @@ public class VectorTests {
     }
 
     /**
+     *
      * test vector normalized
      */
     @Test
