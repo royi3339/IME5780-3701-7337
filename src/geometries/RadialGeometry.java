@@ -14,7 +14,11 @@ public abstract class RadialGeometry implements Geometry {
      *
      * @param r <b> thr radius of the RadialGeometry </b>
      */
-    public RadialGeometry(double r) { _radius = r; }
+    public RadialGeometry(double r) {
+        _radius = r;
+        if (r <= 0)
+            throw new IllegalArgumentException("Error ! ! ! the radius shuld be a positive number");
+    }
 
     /**
      * <b> RadialGeometry copy constructor. </b>

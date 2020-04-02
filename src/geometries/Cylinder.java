@@ -21,8 +21,10 @@ public class Cylinder extends Tube {
      * @param dir <b> the direction of the Cylinder </b>
      */
     public Cylinder(double h, double r, Point3D m, Vector dir) {
-        super(r, new Ray(m, dir));
+        super(r, m, dir);
         _height = h;
+        if (h <= 0)
+            throw new IllegalArgumentException("Error ! ! ! the radius shuld be a positive number");
     }
 
     /**
@@ -35,6 +37,8 @@ public class Cylinder extends Tube {
     public Cylinder(double h, double r, Ray a) {
         super(r, a);
         _height = h;
+        if (h <= 0)
+            throw new IllegalArgumentException("Error ! ! ! the radius shuld be a positive number");
     }
 
     /**
@@ -70,6 +74,14 @@ public class Cylinder extends Tube {
 
     @Override
     public Vector getNormal(Point3D p) {
+        Vector subVector = p.subtract(getAxis().getHead());
+        if ((getAxis().getDirection()).dotProduct(subVector) == 0) {
+            return getAxis().getDirection().scale(-1);
+        }
+        subVector = getAxis().getHead().add(getAxis().getDirection().scale(_height)).subtract(p);
+        if ((getAxis().getDirection()).dotProduct(subVector) == 0) {
+            return getAxis().getDirection();
+        }
         return super.getNormal(p);
     }
 }
