@@ -1,7 +1,6 @@
 package unittests;
 
 import geometries.Cylinder;
-import geometries.Tube;
 import org.junit.Test;
 import primitives.Point3D;
 import primitives.Ray;
@@ -9,6 +8,11 @@ import primitives.Vector;
 
 import static org.junit.Assert.*;
 
+/**
+ * implements the CylinderTests class.
+ *
+ * @author Royi Alishayev idan darmoni
+ */
 public class CylinderTests {
     Vector axis = new Vector(0, 0, 1);
 
@@ -81,12 +85,17 @@ public class CylinderTests {
 
 
         // =============== Boundary Values Tests ==================
-        // we decided that in this 2 boundary situation that we will calculate the normal as the normal to the bases.
-        // TC10:
+        // we decided that in those 4 boundary situations that we will calculate the normal, as the normal to the bases.
+        // TC10: the point is on the casing, and on the first base
         assertEquals("wrong normal detected", axis.scale(-1), c.getNormal(new Point3D(3, 0, 0)));
 
-        // TC11:
+        // TC11: the point is on the casing, and on the second base
         assertEquals("wrong normal detected", axis, c.getNormal(new Point3D(3, 0, 3)));
 
+        //TC12: the point is on the header of the axis
+        assertEquals("wrong normal detected", axis.scale(-1), c.getNormal(new Point3D(0, 0, 0)));
+
+        //TC13: the point is on the header of the axis
+        assertEquals("wrong normal detected", axis, c.getNormal(new Point3D(0, 0, 3)));
     }
 }

@@ -4,23 +4,25 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import static primitives.Util.isZero;
+
 /**
  * implements the Tube class, which extending the RadialGeometry class.
  *
  * @author Royi Alishayev idan darmoni
  */
 public class Tube extends RadialGeometry {
-    private Ray _axis;
+    protected Ray axis;
 
     /**
      * <b> Tube constructor. </b>
      *
      * @param r <b> the _radius of the Tube </b>
-     * @param a <b> the _axis of the Tube </b>
+     * @param a <b> the axis of the Tube </b>
      */
     public Tube(double r, Ray a) {
         super(r);
-        _axis = new Ray(a);
+        axis = new Ray(a);
     }
 
     /**
@@ -32,7 +34,7 @@ public class Tube extends RadialGeometry {
      */
     public Tube(double r, Point3D head, Vector dir) {
         super(r);
-        _axis = new Ray(head, dir);
+        axis = new Ray(head, dir);
     }
 
     /**
@@ -44,17 +46,17 @@ public class Tube extends RadialGeometry {
     /**
      * @return Ray <b> axis </b>
      */
-    public Ray getAxis() { return _axis; }
+    public Ray getAxis() { return axis; }
 
     /**
      * @return Point3D <b> middle </b>
      */
-    public Point3D getMiddle() { return _axis.getHead(); }
+    public Point3D getMiddle() { return axis.getHead(); }
 
     /**
      * @return Vector <b> direction </b>
      */
-    public Vector getDirection() { return _axis.getDirection(); }
+    public Vector getDirection() { return axis.getDirection(); }
 
     /**
      * @param p <b> the Point3D in the Tube </b>
@@ -62,19 +64,28 @@ public class Tube extends RadialGeometry {
      */
     @Override
     public Vector getNormal(Point3D p) {
-        //return null;
-        Vector v = _axis.getDirection();
-        Point3D p0 = _axis.getHead();
-        double t = v.dotProduct(p.subtract(p0));
+        Vector v = getDirection();
+        Point3D p0 = axis.getHead();
+        // if the point if on the axis
+        if (p.equals(p0)) {
+            return getDirection().scale(-1);
+        }
+        // if the point is on the base
+        if (isZero(v.dotProduct(p.subtract(p0)))) {
+            return getDirection().scale(-1);
+        }
+        // if the point is on the casing
+        double t = v.dotProduct(p.subtract(p0)); //   mistake ! ! ! ! what if t == 0 ?
         Point3D o = p0.add(v.scale(t));
         return p.subtract(o).normalize();
     }
+
 
     /**
      * @return String <b> the info </b>
      */
     @Override
     public String toString() {
-        return "Tube:\t" + super.toString() + ", _axis = " + _axis.toString();
+        return "Tube:\t" + super.toString() + ", axis = " + axis.toString();
     }
 }

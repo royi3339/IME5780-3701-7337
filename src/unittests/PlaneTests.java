@@ -1,13 +1,17 @@
 package unittests;
 
 import geometries.Plane;
-import geometries.Polygon;
 import org.junit.Test;
 import primitives.Point3D;
 import primitives.Vector;
 
 import static org.junit.Assert.*;
 
+/**
+ * implements the PlaneTests class.
+ *
+ * @author Royi Alishayev idan darmoni
+ */
 public class PlaneTests {
     /**
      * test methot for

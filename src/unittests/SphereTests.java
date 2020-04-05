@@ -33,7 +33,6 @@ public class SphereTests {
             fail("Constructed a Sphere with a ZERO radius");
         } catch (IllegalArgumentException e) {}
 
-
         // TC03: correct Sphere
         try {
             new Sphere(new Point3D(1, 2, 3), 4);

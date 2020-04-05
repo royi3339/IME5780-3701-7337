@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import static primitives.Util.isZero;
+
 /**
  * implements the Cylinder class, which extending the Tube class.
  *
@@ -78,14 +80,25 @@ public class Cylinder extends Tube {
      */
     @Override
     public Vector getNormal(Point3D p) {
-        Vector subVector = p.subtract(getAxis().getHead());
-        if ((getAxis().getDirection()).dotProduct(subVector) == 0) {
-            return getAxis().getDirection().scale(-1);
+        // if the Point 3D is on the header of the axis direction
+        if (p.equals(axis.getHead())) {
+            return getDirection().scale(-1);
         }
-        subVector = getAxis().getHead().add(getAxis().getDirection().scale(_height)).subtract(p);
-        if ((getAxis().getDirection()).dotProduct(subVector) == 0) {
-            return getAxis().getDirection();
+        // if the Point 3D is on the end of the axis direction
+        if (p.equals(axis.getHead().add(getDirection().scale(_height)))) {
+            return getDirection();
         }
+        // if the Point 3D is on the first base
+        Vector subVector = p.subtract(axis.getHead());
+        if (isZero(getDirection().dotProduct(subVector))) {
+            return getDirection().scale(-1);
+        }
+        // if the Point 3D is on the second base
+        subVector = axis.getHead().add(getDirection().scale(_height)).subtract(p);
+        if (isZero(getDirection().dotProduct(subVector))) {
+            return getDirection();
+        }
+        // if the Point3D is on the casing
         return super.getNormal(p);
     }
 }
