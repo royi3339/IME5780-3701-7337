@@ -5,7 +5,6 @@ import org.junit.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -143,7 +142,7 @@ public class SphereTests {
         assertEquals("TC21: the Ray should not intersection the Sphere", null, result);
 
         // **** Group: Special cases
-        // TC19: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
+        // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
         result = sphere.findIntersections(new Ray(new Point3D(1, 2, 0), new Vector(0, 0, 1)));
         assertEquals("TC22: the Ray should not intersection the Sphere ", null, result);
     }

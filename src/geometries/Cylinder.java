@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 /**
@@ -100,4 +102,11 @@ public class Cylinder extends Tube {
         // if the Point3D is on the casing, and the first base which implements in the Tube class.
         return super.getNormal(p);
     }
+
+    /**
+     * @param ray <b> the Ray we will find his intersections </b>
+     * @return List<Point3D> <b> find the intersections </b>
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) { return null; }
 }

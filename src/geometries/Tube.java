@@ -43,22 +43,30 @@ public class Tube extends RadialGeometry {
      * @return double <b> radius </b>
      */
     @Override
-    public double getRadius() { return super.getRadius(); }
+    public double getRadius() {
+        return super.getRadius();
+    }
 
     /**
      * @return Ray <b> axis </b>
      */
-    public Ray getAxis() { return axis; }
+    public Ray getAxis() {
+        return axis;
+    }
 
     /**
      * @return Point3D <b> middle </b>
      */
-    public Point3D getMiddle() { return axis.getHead(); }
+    public Point3D getMiddle() {
+        return axis.getHead();
+    }
 
     /**
      * @return Vector <b> direction </b>
      */
-    public Vector getDirection() { return axis.getDirection(); }
+    public Vector getDirection() {
+        return axis.getDirection();
+    }
 
     /**
      * @param p <b> the Point3D in the Tube </b>
@@ -95,7 +103,5 @@ public class Tube extends RadialGeometry {
      * @return List<Point3D> <b> find the intersections </b>
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        return null;
-    }
+    public List<Point3D> findIntersections(Ray ray) { return null; }
 }

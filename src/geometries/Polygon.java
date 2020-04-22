@@ -96,5 +96,39 @@ public class Polygon implements Geometry {
      * @return List<Point3D> <b> find the intersections </b>
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) { return null; }
+    public List<Point3D> findIntersections(Ray ray) {
+        int size = this._vertices.size();
+        Vector V=ray.getDirection();
+        List<Point3D> lst = this._plane.findIntersections(ray);
+        if (lst == null)
+            return null;
+        Point3D p0 = lst.get(0);
+        Vector v[] = new Vector[size];
+        int i;
+        try{
+        for (i = 0; i < size; i++) {
+            v[i] = this._vertices.get(i).subtract(p0);
+        }}catch (IllegalArgumentException e){//if throw zero vector exeption so the point is in vertex
+            return null;
+        }
+        Vector n[]=new Vector[size];
+        try{
+        for(i=0;i<size-1;i++) {
+            n[i]=v[i].crossProduct(v[i+1]);
+        }}catch (IllegalArgumentException e) {//check if the intersect is Outside against vertex
+            return null;
+        }
+        try {
+            n[i] = v[i].crossProduct(v[0]);//the last normal
+            double temp = V.dotProduct(n[0]);
+            //check if all v*n[i] is the same sign (+/-)
+            for (i = 0; i < size; i++) {
+                if (temp * V.dotProduct(n[i]) < 0 || isZero(alignZero(temp * V.dotProduct(n[i]))))
+                    return null;
+            }
+        }catch (IllegalArgumentException e){//if throw zero vector exeption so this point on the edge
+            return null;
+        }
+        return lst;
+    }
 }
