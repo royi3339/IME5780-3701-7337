@@ -60,4 +60,16 @@ public class Ray {
     public String toString() {
         return "Ray:\t" + "head = " + _head.toString() + ", direction = " + _direction.toString();
     }
+
+    /**
+     * @param t <b> the double of the size </b>
+     * @return Point3D <b> the Point3D on the axis of Ray with the t distance </b>
+     */
+    public Point3D getPoint(double t) {
+        Point3D p;
+        Point3D p0 = _head;
+        Vector v = _direction;
+        p = p0.add(v.scale(t));
+        return p;
+    }
 }

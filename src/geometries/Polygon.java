@@ -1,7 +1,9 @@
 package geometries;
 
 import java.util.List;
+
 import primitives.*;
+
 import static primitives.Util.*;
 
 /**
@@ -80,8 +82,19 @@ public class Polygon implements Geometry {
         }
     }
 
+    /**
+     * @param point <b> the Point3D in the Polygon </b>
+     * @return Vector <b> normal </b>
+     */
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.getNormal();
     }
+
+    /**
+     * @param ray <b> the Ray we will find his intersections </b>
+     * @return List<Point3D> <b> find the intersections </b>
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) { return null; }
 }

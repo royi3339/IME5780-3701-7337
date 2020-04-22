@@ -82,23 +82,23 @@ public class Cylinder extends Tube {
     public Vector getNormal(Point3D p) {
         // if the Point 3D is on the header of the axis direction
         if (p.equals(axis.getHead())) {
-            return getDirection().scale(-1);
+            // using the Tube getNormal method.
+            return super.getNormal(p);
         }
+
         // if the Point 3D is on the end of the axis direction
         if (p.equals(axis.getHead().add(getDirection().scale(_height)))) {
             return getDirection();
         }
-        // if the Point 3D is on the first base
-        Vector subVector = p.subtract(axis.getHead());
-        if (isZero(getDirection().dotProduct(subVector))) {
-            return getDirection().scale(-1);
-        }
+
         // if the Point 3D is on the second base
+        Vector subVector = p.subtract(axis.getHead());
         subVector = axis.getHead().add(getDirection().scale(_height)).subtract(p);
         if (isZero(getDirection().dotProduct(subVector))) {
             return getDirection();
         }
-        // if the Point3D is on the casing
+
+        // if the Point3D is on the casing, and the first base which implements in the Tube class.
         return super.getNormal(p);
     }
 }

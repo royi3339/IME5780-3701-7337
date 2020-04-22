@@ -1,6 +1,9 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
+
+import java.util.List;
 
 /**
  * implements Triangle class, which extending the Polygon class.
@@ -39,5 +42,14 @@ public class Triangle extends Polygon {
     @Override
     public String toString() {
         return "Triangle:\t" + "point a = " + _vertices.get(0).toString() + ", point b = " + _vertices.get(1).toString() + ", point c = " + _vertices.get(2).toString();
+    }
+
+    /**
+     * @param ray <b> the Ray we will find his intersections </b>
+     * @return List<Point3D> <b> find the intersections </b>
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 }

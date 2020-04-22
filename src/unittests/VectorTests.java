@@ -85,7 +85,6 @@ public class VectorTests {
     /**
      * Test method for
      * {@link primitives.Vector#dotProduct(Vector)}
-     * test Dot-Product
      */
     @Test
     public void testDotProduct() {
@@ -135,7 +134,6 @@ public class VectorTests {
     }
 
     /**
-     * test vector normalization vs vector length and cross-product
      * test method for
      * {@link Vector#normalize()}
      */

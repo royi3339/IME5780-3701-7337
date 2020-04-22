@@ -1,13 +1,16 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * @author Royi Alishayev idan darmoni
  */
 public abstract class RadialGeometry implements Geometry {
-    private double _radius;
+    protected double _radius;
 
     /**
      * <b> RadialGeometry constructor. </b>
@@ -38,8 +41,21 @@ public abstract class RadialGeometry implements Geometry {
     @Override
     public String toString() { return "radius = " + _radius; }
 
+    /**
+     * @param P <b> Point3D </b>
+     * @return Vector <b> normal </b>
+     */
     @Override
     public Vector getNormal(Point3D p) {
+        return null;
+    }
+
+    /**
+     * @param ray <b> the Ray we will find his intersections </b>
+     * @return List<Point3D> <b> find the intersections </b>
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
         return null;
     }
 }

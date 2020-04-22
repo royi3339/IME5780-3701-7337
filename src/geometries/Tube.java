@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 /**
@@ -75,11 +77,10 @@ public class Tube extends RadialGeometry {
             return getDirection().scale(-1);
         }
         // if the point is on the casing
-        double t = v.dotProduct(p.subtract(p0)); //   mistake ! ! ! ! what if t == 0 ?
+        double t = v.dotProduct(p.subtract(p0));
         Point3D o = p0.add(v.scale(t));
         return p.subtract(o).normalize();
     }
-
 
     /**
      * @return String <b> the info </b>
@@ -87,5 +88,14 @@ public class Tube extends RadialGeometry {
     @Override
     public String toString() {
         return "Tube:\t" + super.toString() + ", axis = " + axis.toString();
+    }
+
+    /**
+     * @param ray <b> the Ray we will find his intersections </b>
+     * @return List<Point3D> <b> find the intersections </b>
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 }

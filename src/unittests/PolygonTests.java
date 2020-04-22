@@ -80,7 +80,8 @@ public class PolygonTests {
     }
 
     /**
-     * Test method for {@link geometries.Polygon#getNormal(primitives.Point3D)}.
+     * Test method for
+     * {@link geometries.Polygon#getNormal(primitives.Point3D)}.
      */
     @Test
     public void testGetNormal() {

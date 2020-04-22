@@ -54,7 +54,7 @@ public class TubeTests {
 
     /**
      * test method for
-     * * {@link Tube#getNormal(Point3D)}
+     * {@link Tube#getNormal(Point3D)}
      */
     @Test
     public void testGetNormal() {
