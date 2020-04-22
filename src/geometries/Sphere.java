@@ -60,7 +60,7 @@ public class Sphere extends RadialGeometry {
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersectionsList = null; // = new ArrayList<>();
+        List<Point3D> intersectionsList = null;
 
         Point3D o = _center;
         Point3D p0 = ray.getHead();

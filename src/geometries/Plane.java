@@ -4,7 +4,10 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static primitives.Util.isZero;
 
 /**
  * implements the Plane class, which implementing the Geometry interface.
@@ -71,6 +74,23 @@ public class Plane implements Geometry {
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        return null;
+        List<Point3D> intersectionsList = null;
+
+        Point3D q0 = _header;
+        Vector normal = _normal;
+
+        Point3D p0 = ray.getHead();
+        Vector v = ray.getDirection();
+
+        if (p0.equals(q0)) { return null; }
+        if (isZero(v.dotProduct(normal))) { return null; }
+
+        double t = normal.dotProduct(q0.subtract(p0)) / normal.dotProduct(v);
+
+        if (t > 0) {
+            intersectionsList = new ArrayList<Point3D>();
+            intersectionsList.add(ray.getPoint(t));
+        }
+        return intersectionsList;
     }
 }

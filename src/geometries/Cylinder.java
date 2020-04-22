@@ -92,8 +92,7 @@ public class Cylinder extends Tube {
         }
 
         // if the Point 3D is on the second base
-        Vector subVector = p.subtract(axis.getHead());
-        subVector = axis.getHead().add(getDirection().scale(_height)).subtract(p);
+        Vector subVector = axis.getHead().add(getDirection().scale(_height)).subtract(p);
         if (isZero(getDirection().dotProduct(subVector))) {
             return getDirection();
         }
