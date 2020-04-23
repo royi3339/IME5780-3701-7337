@@ -4,6 +4,7 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static primitives.Util.isZero;
@@ -108,5 +109,19 @@ public class Cylinder extends Tube {
      * @return List<Point3D> <b> find the intersections </b>
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) { return null; }
+    public List<Point3D> findIntersections(Ray ray) {
+        List<Point3D> result=new ArrayList<Point3D>();
+        Point3D base1=this.findIntersectionsBase(ray,axis.getHead(),axis.getDirection());
+        if(base1!=null)
+        {
+            result.add(base1);
+        }
+        Point3D base2=this.findIntersectionsBase(ray,axis.getPoint(_height),axis.getDirection());
+        if(base2!=null)
+        {
+            result.add(base2);
+        }
+        //בדיקה גליל והאם יצא מהגליל
+        //לבדוק כפילויות
+    }
 }
