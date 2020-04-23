@@ -15,7 +15,7 @@ import static primitives.Util.isZero;
  * @author Royi Alishayev idan darmoni
  */
 public class Plane implements Geometry {
-    private Vector _normal = null;
+    private Vector _normal;
     private Point3D _header;
 
     /**

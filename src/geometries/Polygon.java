@@ -109,7 +109,7 @@ public class Polygon implements Geometry {
             for (i = 0; i < size; i++) {
                 v[i] = this._vertices.get(i).subtract(p0);
             }
-        } catch (IllegalArgumentException e) {//if throw zero vector exeption so the point is in vertex
+        } catch (IllegalArgumentException e) {//if throw zero vector exception so the point is in vertex
             return null;
         }
         Vector n[] = new Vector[size];
@@ -128,7 +128,7 @@ public class Polygon implements Geometry {
                 if (temp * V.dotProduct(n[i]) < 0 || isZero(alignZero(temp * V.dotProduct(n[i]))))
                     return null;
             }
-        } catch (IllegalArgumentException e) {//if throw zero vector exeption so this point on the edge
+        } catch (IllegalArgumentException e) {//if throw zero vector exception so this point on the edge
             return null;
         }
         return lst;

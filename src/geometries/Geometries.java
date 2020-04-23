@@ -35,8 +35,6 @@ public class Geometries implements Intersectable {
      * @param geometries <b> the Intersectable collection of the geometries </b>
      */
     public void add(Intersectable... geometries) {
-        if (intersectables == null)
-            intersectables = new ArrayList<Intersectable>();
         for (int i = 0; i < geometries.length; i++) {
             intersectables.add(geometries[i]);
         }

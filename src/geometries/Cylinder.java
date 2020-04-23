@@ -4,7 +4,6 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static primitives.Util.isZero;
@@ -110,9 +109,8 @@ public class Cylinder extends Tube {
 
     /**
      * @param ray <b> the Ray we will find his intersections </b>
-     * @return List<Point3D> <b> find the intersections </b>
+     * @return List<Point3D> <b> find the intersections (null) </b>
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {return null;}
-}
+    public List<Point3D> findIntersections(Ray ray) { return null; }
 }

@@ -1,9 +1,6 @@
 package geometries;
 
 import primitives.Point3D;
-import primitives.Ray;
-
-import java.util.List;
 
 /**
  * implements Triangle class, which extending the Polygon class.
@@ -43,5 +40,4 @@ public class Triangle extends Polygon {
     public String toString() {
         return "Triangle:\t" + "point a = " + _vertices.get(0).toString() + ", point b = " + _vertices.get(1).toString() + ", point c = " + _vertices.get(2).toString();
     }
-
 }

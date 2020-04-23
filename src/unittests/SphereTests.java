@@ -5,6 +5,7 @@ import org.junit.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
+
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -26,20 +27,20 @@ public class SphereTests {
         // TC01: negative radius
         try {
             new Sphere(new Point3D(1, 1, 1), -5);
-            fail("Constructed a Sphere with a negative radius");
+            fail("TC01: Constructed a Sphere with a negative radius");
         } catch (IllegalArgumentException e) {}
 
         // TC02: zero radius
         try {
             new Sphere(new Point3D(1, 1, 1), 0);
-            fail("Constructed a Sphere with a ZERO radius");
+            fail("TC02: Constructed a Sphere with a ZERO radius");
         } catch (IllegalArgumentException e) {}
 
         // TC03: correct Sphere
         try {
             new Sphere(new Point3D(1, 2, 3), 4);
         } catch (IllegalArgumentException e) {
-            fail("Failed constructing a correct Sphere");
+            fail("TC03: Failed constructing a correct Sphere");
         }
     }
 
@@ -52,7 +53,7 @@ public class SphereTests {
         // ============ Equivalence Partitions Tests ==============
         // TC01: check the normal
         Sphere s = new Sphere(new Point3D(1, 1, 1), 5);
-        assertEquals(" Bad normal to Sphere ", new Vector(0, 0, 1), s.getNormal(new Point3D(1, 1, 6)));
+        assertEquals("TC01: Bad normal to Sphere ", new Vector(0, 0, 1), s.getNormal(new Point3D(1, 1, 6)));
     }
 
     /**
