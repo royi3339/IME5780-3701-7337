@@ -18,7 +18,7 @@ public class Geometries implements Intersectable {
      * <b> Geometries default constructor. </b>
      */
     public Geometries() {
-        intersectables = null;
+        intersectables = new ArrayList<Intersectable>();
     }
 
     /**
@@ -47,16 +47,16 @@ public class Geometries implements Intersectable {
      * @return List<Point3D> <b> find the intersections (null) </b>
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray){
-        List<Point3D> lst,result=new ArrayList<Point3D>();
-        for(int i=0;i<intersectables.size();i++){
-            lst=intersectables.get(i).findIntersections(ray);
-            if(lst!=null){
+    public List<Point3D> findIntersections(Ray ray) {
+        List<Point3D> lst, result = new ArrayList<Point3D>();
+        for (int i = 0; i < intersectables.size(); i++) {
+            lst = intersectables.get(i).findIntersections(ray);
+            if (lst != null) {
                 result.addAll(lst);
             }
         }
 
-        if(result.size()==0)
+        if (result.size() == 0)
             return null;
         return result;
     }

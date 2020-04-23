@@ -107,4 +107,12 @@ public class Cylinder extends Tube {
         // if the Point3D is on the casing which implements in the Tube class.
         return super.getNormal(p);
     }
+
+    /**
+     * @param ray <b> the Ray we will find his intersections </b>
+     * @return List<Point3D> <b> find the intersections </b>
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {return null;}
+}
 }
