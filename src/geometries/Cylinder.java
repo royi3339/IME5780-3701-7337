@@ -85,13 +85,17 @@ public class Cylinder extends Tube {
     public Vector getNormal(Point3D p) {
         // if the Point 3D is on the header of the axis direction
         if (p.equals(axis.getHead())) {
-            // using the Tube getNormal method.
-            return super.getNormal(p);
+            return getDirection().scale(-1);
         }
 
         // if the Point 3D is on the end of the axis direction
         if (p.equals(axis.getHead().add(getDirection().scale(_height)))) {
             return getDirection();
+        }
+
+        // if the Point 3D is on the first base
+        if (isZero(getDirection().dotProduct(axis.getHead().subtract(p)))) {
+            return getDirection().scale(-1);
         }
 
         // if the Point 3D is on the second base
@@ -100,28 +104,7 @@ public class Cylinder extends Tube {
             return getDirection();
         }
 
-        // if the Point3D is on the casing, and the first base which implements in the Tube class.
+        // if the Point3D is on the casing which implements in the Tube class.
         return super.getNormal(p);
-    }
-
-    /**
-     * @param ray <b> the Ray we will find his intersections </b>
-     * @return List<Point3D> <b> find the intersections </b>
-     */
-    @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> result=new ArrayList<Point3D>();
-        Point3D base1=this.findIntersectionsBase(ray,axis.getHead(),axis.getDirection());
-        if(base1!=null)
-        {
-            result.add(base1);
-        }
-        Point3D base2=this.findIntersectionsBase(ray,axis.getPoint(_height),axis.getDirection());
-        if(base2!=null)
-        {
-            result.add(base2);
-        }
-        //בדיקה גליל והאם יצא מהגליל
-        //לבדוק כפילויות
     }
 }

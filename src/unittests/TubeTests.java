@@ -62,13 +62,6 @@ public class TubeTests {
         // ============ Equivalence Partitions Tests ==============
         //TC01: the point is on the casing
         assertEquals("wrong normal detected", new Vector(0, 1, 0), t.getNormal(new Point3D(0, 2, 3339)));
-
-        // =============== Boundary Values Tests ==================
-        // we decided that in those 2 boundary situations that we will calculate the normal, as the normal to the bases.
-        //TC11: the point is on the base
-        assertEquals("wrong normal detected", new Vector(0, 0, -1), t.getNormal(new Point3D(0, 2, 0)));
-
-        //TC11: the point is on the axis
-        assertEquals("wrong normal detected", new Vector(0, 0, -1), t.getNormal(new Point3D(0, 0, 0)));
+        assertEquals("wrong normal detected", new Vector(0, 1, 0), t.getNormal(new Point3D(0, 2, 0)));
     }
 }
