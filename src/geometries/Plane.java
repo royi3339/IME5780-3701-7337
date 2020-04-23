@@ -4,9 +4,9 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
@@ -70,27 +70,29 @@ public class Plane implements Geometry {
 
     /**
      * @param ray <b> the Ray we will find his intersections </b>
-     * @return List<Point3D> <b> find the intersections </b>
+     * @return List<Point3D> <b> the intersections points </b>
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersectionsList = null;
-
         Point3D q0 = _header;
         Vector normal = _normal;
 
         Point3D p0 = ray.getHead();
         Vector v = ray.getDirection();
 
-        if (p0.equals(q0)) { return null; }
-        if (isZero(v.dotProduct(normal))) { return null; }
-
-        double t = normal.dotProduct(q0.subtract(p0)) / normal.dotProduct(v);
-
-        if (t > 0) {
-            intersectionsList = new ArrayList<Point3D>();
-            intersectionsList.add(ray.getPoint(t));
+        Vector sub;
+        try {
+            sub = q0.subtract(p0);
+        } catch (IllegalArgumentException e) { // if throw zero vector exception so the intersection point is on the plane
+            return null;
         }
-        return intersectionsList;
+
+        double vn = alignZero(v.dotProduct(normal));
+        if (isZero(vn)) { return null; }
+
+        double t = alignZero(normal.dotProduct(sub) / vn);
+
+        if (t > 0) { return List.of(ray.getPoint(t)); }
+        return null;
     }
 }

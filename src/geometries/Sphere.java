@@ -56,7 +56,7 @@ public class Sphere extends RadialGeometry {
 
     /**
      * @param ray <b> the Ray we will find his intersections </b>
-     * @return List<Point3D> <b> find the intersections </b>
+     * @return List<Point3D> <b> the intersections points </b>
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
@@ -69,24 +69,25 @@ public class Sphere extends RadialGeometry {
         // check if the the subtract between point o and p0 is the ZERO Vector
         try {
             u = o.subtract(p0);
-        } catch (IllegalArgumentException e) {
-            intersectionsList = new ArrayList<Point3D>();
-            intersectionsList.add(ray.getPoint(_radius));
-            return intersectionsList;
-        }
+        } catch (IllegalArgumentException e) { return List.of(ray.getPoint(_radius)); }
+
         double tm = v.dotProduct(u);
         double d = Math.sqrt(u.lengthSquared() - tm * tm);
+
         // check if the distance bigger then the radius, if it does, this mean that its outside of the Sphere.
-        if (d > _radius) { return null; }
+        if (d >= _radius) { return null; }
         double th = Math.sqrt(_radius * _radius - d * d);
+
         // check if the Ray is tangent to the Sphere
         if (isZero(th)) { return null; }
         double t1 = tm + th, t2 = tm - th;
+
         // check if the the point is not at the back of the Ray
         if (t1 > 0) {
             intersectionsList = new ArrayList<Point3D>();
             intersectionsList.add(ray.getPoint(t1));
         }
+
         // check if the the point is not at the back of the Ray
         if (t2 > 0) {
             // check if the intersectionsList is not initialized

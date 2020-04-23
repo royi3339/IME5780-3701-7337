@@ -83,25 +83,17 @@ public class Cylinder extends Tube {
     @Override
     public Vector getNormal(Point3D p) {
         // if the Point 3D is on the header of the axis direction
-        if (p.equals(axis.getHead())) {
-            return getDirection().scale(-1);
-        }
+        if (p.equals(axis.getHead())) { return getDirection().scale(-1); }
 
         // if the Point 3D is on the end of the axis direction
-        if (p.equals(axis.getHead().add(getDirection().scale(_height)))) {
-            return getDirection();
-        }
+        if (p.equals(axis.getHead().add(getDirection().scale(_height)))) { return getDirection(); }
 
         // if the Point 3D is on the first base
-        if (isZero(getDirection().dotProduct(axis.getHead().subtract(p)))) {
-            return getDirection().scale(-1);
-        }
+        if (isZero(getDirection().dotProduct(axis.getHead().subtract(p)))) { return getDirection().scale(-1); }
 
         // if the Point 3D is on the second base
         Vector subVector = axis.getHead().add(getDirection().scale(_height)).subtract(p);
-        if (isZero(getDirection().dotProduct(subVector))) {
-            return getDirection();
-        }
+        if (isZero(getDirection().dotProduct(subVector))) { return getDirection(); }
 
         // if the Point3D is on the casing which implements in the Tube class.
         return super.getNormal(p);
@@ -109,7 +101,7 @@ public class Cylinder extends Tube {
 
     /**
      * @param ray <b> the Ray we will find his intersections </b>
-     * @return List<Point3D> <b> find the intersections (null) </b>
+     * @return List<Point3D> <b> the intersections points (null) </b>
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) { return null; }

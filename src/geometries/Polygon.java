@@ -77,8 +77,9 @@ public class Polygon implements Geometry {
             // Test the consequent edges have
             edge1 = edge2;
             edge2 = vertices[i].subtract(vertices[i - 1]);
-            if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
+            if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0)) {
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
+            }
         }
     }
 
@@ -93,42 +94,36 @@ public class Polygon implements Geometry {
 
     /**
      * @param ray <b> the Ray we will find his intersections </b>
-     * @return List<Point3D> <b> find the intersections </b>
+     * @return List<Point3D> <b> the intersections points </b>
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         int size = this._vertices.size();
         Vector V = ray.getDirection();
         List<Point3D> lst = this._plane.findIntersections(ray);
-        if (lst == null)
-            return null;
+        if (lst == null) { return null; }
         Point3D p0 = ray.getHead();
         Vector v[] = new Vector[size];
         int i;
         try {
-            for (i = 0; i < size; i++) {
-                v[i] = this._vertices.get(i).subtract(p0);
-            }
-        } catch (IllegalArgumentException e) {//if throw zero vector exception so the point is in vertex
+            for (i = 0; i < size; i++) { v[i] = this._vertices.get(i).subtract(p0); }
+        } catch (IllegalArgumentException e) { // if throw zero vector exception, so the point intersection is on the vertex
             return null;
         }
         Vector n[] = new Vector[size];
         try {
-            for (i = 0; i < size - 1; i++) {
-                n[i] = v[i].crossProduct(v[i + 1]);
-            }
-            n[i] = v[i].crossProduct(v[0]);//the last normal
-        } catch (IllegalArgumentException e) {//check if the intersect is Outside against vertex
+            for (i = 0; i < size - 1; i++) { n[i] = v[i].crossProduct(v[i + 1]); }
+            n[i] = v[i].crossProduct(v[0]); // the last normal
+        } catch (IllegalArgumentException e) { // check if the intersect is Outside against vertex
             return null;
         }
         try {
             double temp = V.dotProduct(n[0]);
-            //check if all v*n[i] is the same sign (+/-)
+            // check if all v*n[i] is the same sign (+/-)
             for (i = 0; i < size; i++) {
-                if (temp * V.dotProduct(n[i]) < 0 || isZero(alignZero(temp * V.dotProduct(n[i]))))
-                    return null;
+                if (temp * V.dotProduct(n[i]) < 0 || isZero(alignZero(temp * V.dotProduct(n[i])))) { return null; }
             }
-        } catch (IllegalArgumentException e) {//if throw zero vector exception so this point on the edge
+        } catch (IllegalArgumentException e) { // if throw zero vector exception, so the point intersection is on the edge
             return null;
         }
         return lst;
