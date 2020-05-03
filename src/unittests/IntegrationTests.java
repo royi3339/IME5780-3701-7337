@@ -10,6 +10,11 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * implements the IntegrationTests class.
+ *
+ * @author Royi Alishayev idan darmoni
+ */
 public class IntegrationTests {
     /**
      * Test method for Integration Tests.
@@ -36,7 +41,7 @@ public class IntegrationTests {
         // TC11: the plane is parallel to the view plane and toward to the camera, with 9 intersections
         assertEquals("TC11: should be 9 intersections with the Plane !", 9, sumOfIntersections(camera, new Plane(new Point3D(0, 0, 3), new Vector(0, 0, 1))));
         // TC12: the plane is not parallel to the view plane and toward to the camera, with 9 intersections
-        assertEquals("TC12: should be 9 intersections with the Plane !", 9, sumOfIntersections(camera, new Plane(new Point3D(0, 0, 10), new Vector(0, -0.5, 1))));// שיניתי את ט מ -2 ל -0.5
+        assertEquals("TC12: should be 9 intersections with the Plane !", 9, sumOfIntersections(camera, new Plane(new Point3D(0, 0, 10), new Vector(0, -0.5, 1))));
         //TC13: the plane is not parallel to the view plane and toward to the camera, with 6 intersections
         assertEquals("TC13: should be 6 intersections with the Plane !", 6, sumOfIntersections(camera, new Plane(new Point3D(0, 0, 10), new Vector(0, -1, 1))));
 

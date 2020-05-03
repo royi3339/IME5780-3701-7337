@@ -52,8 +52,6 @@ public class Camera {
     public Vector getVright() { return _vRight; }
 
     /**
-     * to write...
-     *
      * @param nX             <b> the size of the X axis </b>
      * @param nY             <b> the size of the Y axis </b>
      * @param j              <b> the value of the X index </b>
