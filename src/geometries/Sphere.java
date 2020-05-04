@@ -29,6 +29,17 @@ public class Sphere extends RadialGeometry {
     }
 
     /**
+     * <b> Sphere constructor. </b>
+     *
+     * @param r <b> the radius of the Sphere </b>
+     * @param c <b> the center Point3D of the Sphere </b>
+     */
+    public Sphere(double r, Point3D c) {
+        super(r);
+        _center = new Point3D(c);
+    }
+
+    /**
      * @return Point3D <b> center </b>
      */
     public Point3D getCenter() { return _center; }
