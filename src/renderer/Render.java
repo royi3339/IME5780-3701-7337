@@ -16,11 +16,6 @@ public class Render {
         this._scene = scene;
     }
 
-    public Render(String name) {
-
-    }
-
-
     /**
      * creating the image, with the objects.
      */
