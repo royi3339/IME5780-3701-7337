@@ -87,7 +87,7 @@ public class Plane implements Geometry {
             return null;
         }
 
-        double vn = alignZero(v.dotProduct(normal));
+        double vn = v.dotProduct(normal);
         if (isZero(vn)) { return null; }
 
         double t = alignZero(normal.dotProduct(sub) / vn);
