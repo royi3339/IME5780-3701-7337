@@ -50,6 +50,8 @@ public class RenderTests {
     }
 
     /**
+     * not active, because the method is private.
+     *
      * Test method for
      * {@link Render#getClosestPoint(List)}
      */

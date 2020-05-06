@@ -18,6 +18,8 @@ public class Camera {
     private Vector _vRight;
 
     /**
+     * <b> Camera constructor. </b>
+     *
      * @param l  <b> the location Point3D of the Camera </b>
      * @param up <b> the up Vector of the Camera </b>
      * @param to <b> the toward Vector of the Camera </b>

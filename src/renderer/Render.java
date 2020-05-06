@@ -7,10 +7,21 @@ import scene.Scene;
 
 import java.util.List;
 
+/**
+ * implements the Render class.
+ *
+ * @author Royi Alishayev idan darmoni
+ */
 public class Render {
     private Scene _scene;
     private ImageWriter _imageWriter;
 
+    /**
+     * <b> Render constructor. </b>
+     *
+     * @param imageWriter <b> the ImageWriter of the Render </b>
+     * @param scene       <b> the Scene of the Render </b>
+     */
     public Render(ImageWriter imageWriter, Scene scene) {
         this._imageWriter = imageWriter;
         this._scene = scene;

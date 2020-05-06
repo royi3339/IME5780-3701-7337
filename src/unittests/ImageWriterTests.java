@@ -5,8 +5,17 @@ import renderer.ImageWriter;
 
 import java.awt.*;
 
+/**
+ * implements the ImageWriterTests class.
+ *
+ * @author Royi Alishayev idan darmoni
+ */
 public class ImageWriterTests {
 
+    /**
+     * test method for
+     * {@link ImageWriter#writeToImage()}
+     */
     @Test
     public void writeToImageTest() {
         ImageWriter image = new ImageWriter("blue", 1000, 1600, 800, 500);
@@ -21,5 +30,4 @@ public class ImageWriterTests {
         }
         image.writeToImage();
     }
-
 }
