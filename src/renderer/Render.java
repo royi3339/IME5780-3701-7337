@@ -40,8 +40,8 @@ public class Render {
         double width = _imageWriter.getWidth();
         double height = _imageWriter.getHeight();
 
-        for (int i = 0; i < _imageWriter.getNy(); i++) {// i is pixel row number
-            for (int j = 0; j < _imageWriter.getNx(); j++) {//j is pixel in the row number
+        for (int i = 0; i < nY; i++) { // i is pixel row number
+            for (int j = 0; j < nX; j++) { //j is pixel in the row number
                 Ray ray = camera.constructRayThroughPixel(nX, nY, j, i, distance, width, height);
                 List<Point3D> intersectionPoints = geometries.findIntersections(ray);
                 if (intersectionPoints == null) {
@@ -65,7 +65,6 @@ public class Render {
      * @return Point3D <b> the most closest point to the camera point </b>
      */
     private Point3D getClosestPoint(List<Point3D> intersectionPoints) {
-        if (intersectionPoints == null) { return null; }
         Point3D begin = _scene.getCamera().getP();
         double minDistance = begin.distance(intersectionPoints.get(0));
         Point3D minPoint = new Point3D(intersectionPoints.get(0));
@@ -73,7 +72,7 @@ public class Render {
             double distance = begin.distance(point);
             if (distance < minDistance) {
                 minDistance = distance;
-                minPoint = new Point3D(point);
+                minPoint = point;
             }
         }
         return minPoint;
@@ -97,8 +96,8 @@ public class Render {
 
     /**
      * Function writeToImage produces unoptimized jpeg file of
-     * the image according to pixel color matrix in the directory
-     * of the project
+     * the image, according to pixel color matrix in the directory
+     * of the project.
      */
     public void writeToImage() { _imageWriter.writeToImage(); }
 }
