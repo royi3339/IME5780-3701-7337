@@ -38,6 +38,8 @@ public class GeometriesTests {
         geoList.add(plane, sphere, polygon, triangle);
         assertEquals("TC12: Error ! ! ! should not be found any intersections", null, geoList.findIntersections(r));
 
+
+
         // TC13: only 1 object intersection
         Ray r2 = new Ray(new Point3D(0, 5, 11), new Vector(0, 0, 1));
         assertEquals("TC13: Error ! ! ! should be found only 0ne intersection", 2, geoList.findIntersections(r2).size());
