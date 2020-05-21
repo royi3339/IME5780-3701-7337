@@ -12,8 +12,8 @@ public class Ray {
     /**
      * <b> Ray constructor. </b>
      *
-     * @param h <b> the head Point3D of the Ray </b>
-     * @param d <b> the direction Vector of the Ray </b>
+     * @param h <b> the head {@link Point3D} of the Ray </b>
+     * @param d <b> the direction {@link Vector} of the Ray </b>
      */
     public Ray(Point3D h, Vector d) {
         _head = new Point3D(h);
@@ -31,12 +31,12 @@ public class Ray {
     }
 
     /**
-     * @return Point3D <b> head </b>
+     * @return {@link Point3D} <b> head </b>
      */
     public Point3D getHead() { return _head; }
 
     /**
-     * @return Vector <b> direction </b>
+     * @return {@link Vector} <b> direction </b>
      */
     public Vector getDirection() {return _direction;}
 
@@ -63,7 +63,7 @@ public class Ray {
 
     /**
      * @param t <b> the double of the size </b>
-     * @return Point3D <b> the Point3D on the axis of Ray with the t distance </b>
+     * @return {@link Point3D} <b> the {@link Point3D} on the axis of Ray with the t distance </b>
      */
     public Point3D getPoint(double t) {
         Point3D p;

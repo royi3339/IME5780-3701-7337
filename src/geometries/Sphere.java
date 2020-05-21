@@ -1,17 +1,17 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.isZero;
 
 /**
- * implements the Sphere class, which extending the RadialGeometry class.
+ * implements the Sphere class, which extending the {@link RadialGeometry} class.
  *
  * @author Royi Alishayev idan darmoni
  */
@@ -19,9 +19,21 @@ public class Sphere extends RadialGeometry {
     private Point3D _center;
 
     /**
+     * <b> Sphere with {@link Color} constructor. </b>
+     *
+     * @param color <b> the {@link Color} of the Sphere </b>
+     * @param c     <b> the center {@link Point3D} of the Sphere </b>
+     * @param r     <b> the radius of the Sphere </b>
+     */
+    public Sphere(Color color, Point3D c, double r) {
+        this(c, r);
+        _emmission = new Color(color);
+    }
+
+    /**
      * <b> Sphere constructor. </b>
      *
-     * @param c <b> the center Point3D of the Sphere </b>
+     * @param c <b> the center {@link Point3D} of the Sphere </b>
      * @param r <b> the radius of the Sphere </b>
      */
     public Sphere(Point3D c, double r) {
@@ -33,7 +45,7 @@ public class Sphere extends RadialGeometry {
      * <b> Sphere constructor. </b>
      *
      * @param r <b> the radius of the Sphere </b>
-     * @param c <b> the center Point3D of the Sphere </b>
+     * @param c <b> the center {@link Point3D} of the Sphere </b>
      */
     public Sphere(double r, Point3D c) {
         super(r);
@@ -41,7 +53,7 @@ public class Sphere extends RadialGeometry {
     }
 
     /**
-     * @return Point3D <b> center </b>
+     * @return {@link Point3D} <b> center </b>
      */
     public Point3D getCenter() { return _center; }
 
@@ -52,8 +64,8 @@ public class Sphere extends RadialGeometry {
     public double getRadius() { return super.getRadius(); }
 
     /**
-     * @param p <b> the Point3D on the Sphere </b>
-     * @return Vector <b> normal </b>
+     * @param p <b> the {@link Point3D} on the Sphere </b>
+     * @return {@link Vector} <b> normal </b>
      */
     @Override
     public Vector getNormal(Point3D p) {
@@ -67,7 +79,7 @@ public class Sphere extends RadialGeometry {
     public String toString() { return "Sphere:\t" + "center = " + _center.toString() + ", " + super.toString(); }
 
     /**
-     * @param ray <b> the Ray we will find his intersections </b>
+     * @param ray <b> the {@link Ray} we will find his intersections </b>
      * @return List<GeoPoint> <b> the intersections points </b>
      */
     @Override

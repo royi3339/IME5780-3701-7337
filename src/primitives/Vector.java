@@ -11,10 +11,10 @@ public class Vector {
     /**
      * <b> Vector constructor. </b>
      *
-     * @param x <b> the first Coordinate of the Vector </b>
-     * @param y <b> the second Coordinate of the Vector </b>
-     * @param z <b> the third Coordinate of the Vector </b>
-     * @throws IllegalArgumentException if the Coordinate are a ZERO.
+     * @param x <b> the first {@link Coordinate} of the Vector </b>
+     * @param y <b> the second {@link Coordinate} of the Vector </b>
+     * @param z <b> the third {@link Coordinate} of the Vector </b>
+     * @throws IllegalArgumentException if the {@link Coordinate} are a ZERO.
      */
     public Vector(Coordinate x, Coordinate y, Coordinate z) {
         _head = new Point3D(x, y, z);
@@ -39,8 +39,8 @@ public class Vector {
     /**
      * <b> Vector copy constructor. </b>
      *
-     * @param p <b> the Point3D </b>
-     * @throws IllegalArgumentException if the p Point3D is a ZERO.
+     * @param p <b> the {@link Point3D} </b>
+     * @throws IllegalArgumentException if the p {@link Point3D} is a ZERO.
      */
     public Vector(Point3D p) {
         _head = new Point3D(p.getX(), p.getY(), p.getZ());
@@ -57,7 +57,7 @@ public class Vector {
 
 
     /**
-     * @return Point3D <b> head </b>
+     * @return {@link Point3D} <b> head </b>
      */
     public Point3D getHead() { return _head; }
 

@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -10,7 +11,7 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
- * implements the Plane class, which implementing the Geometry interface.
+ * implements the Plane class, which extending the {@link Geometry} abstract class.
  *
  * @author Royi Alishayev idan darmoni
  */
@@ -19,11 +20,23 @@ public class Plane extends Geometry {
     private Point3D _header;
 
     /**
+     * <b> Plane {@link Color} constructor. </b>
+     *
+     * @param color     <b> the {@link Color} of the Plane </b>
+     * @param h         <b> the {@link Point3D} of the Plane </b>
+     * @param normalVec <b> normal {@link Vector} of the Plane </b>
+     */
+    public Plane(Color color, Point3D h, Vector normalVec) {
+        this(h, normalVec);
+        _emmission = new Color(color);
+    }
+
+    /**
      * <b> Plane constructor. </b>
      *
-     * @param a <b> the first Point3D of the Plane </b>
-     * @param b <b> the second Point3D of the Plane </b>
-     * @param c <b> the third Point3D of the Plane </b>
+     * @param a <b> the first {@link Point3D} of the Plane </b>
+     * @param b <b> the second {@link Point3D} of the Plane </b>
+     * @param c <b> the third {@link Point3D} of the Plane </b>
      */
     public Plane(Point3D a, Point3D b, Point3D c) {
         _header = new Point3D(a);
@@ -35,8 +48,8 @@ public class Plane extends Geometry {
     /**
      * <b> Plane constructor. </b>
      *
-     * @param h         <b> the Point3D of the Plane </b>
-     * @param normalVec <b> normal Vector of the Plane </b>
+     * @param h         <b> the {@link Point3D} of the Plane </b>
+     * @param normalVec <b> normal {@link Vector} of the Plane </b>
      */
     public Plane(Point3D h, Vector normalVec) {
         _normal = new Vector(normalVec);
@@ -44,19 +57,19 @@ public class Plane extends Geometry {
     }
 
     /**
-     * @param P <b> Point3D </b>
-     * @return Vector <b> normal </b>
+     * @param P <b> {@link Point3D} </b>
+     * @return {@link Vector} <b> normal </b>
      */
     @Override
     public Vector getNormal(Point3D P) { return _normal; }
 
     /**
-     * @return Vector <b> normal </b>
+     * @return {@link Vector} <b> normal </b>
      */
     public Vector getNormal() { return _normal; }
 
     /**
-     * @return Point3D <b> header </b>
+     * @return {@link Point3D} <b> header </b>
      */
     public Point3D getHeader() { return _header; }
 
@@ -69,7 +82,7 @@ public class Plane extends Geometry {
     }
 
     /**
-     * @param ray <b> the Ray we will find his intersections </b>
+     * @param ray <b> the {@link Ray} we will find his intersections </b>
      * @return List<GeoPoint> <b> the intersections points </b>
      */
     @Override

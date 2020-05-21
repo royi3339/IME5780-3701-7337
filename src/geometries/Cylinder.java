@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -9,7 +10,7 @@ import java.util.List;
 import static primitives.Util.isZero;
 
 /**
- * implements the Cylinder class, which extending the Tube class.
+ * implements the Cylinder class, which extending the {@link Tube} class.
  *
  * @author Royi Alishayev idan darmoni
  */
@@ -17,32 +18,42 @@ public class Cylinder extends Tube {
     private double _height;
 
     /**
-     * <b> Cylinder constructor. </b>
+     * <b> Cylinder with {@link Color} constructor </b>
      *
-     * @param h   <b> the height of the Cylinder </b>
-     * @param r   <b> the radius of the Cylinder </b>
-     * @param m   <b> the middle Point3D of the Cylinder </b>
-     * @param dir <b> the direction of the Cylinder </b>
+     * @param color <b> the {@link Color} of the {@link Cylinder} </b>
+     * @param h     <b> the height of the {@link Cylinder} </b>
+     * @param r     <b> the radius of the {@link Cylinder} </b>
+     * @param m     <b> the middle {@link Point3D} of the {@link Cylinder} </b>
+     * @param dir   <b> the direction of the {@link Cylinder} </b>
      */
-    public Cylinder(double h, double r, Point3D m, Vector dir) {
-        super(r, m, dir);
-        _height = h;
-        if (h <= 0)
-            throw new IllegalArgumentException("Error ! ! ! the radius shuld be a positive number");
+    public Cylinder(Color color, double h, double r, Point3D m, Vector dir) {
+        this(h, r, m, dir);
+        _emmission = new Color(color);
     }
 
     /**
      * <b> Cylinder constructor. </b>
      *
-     * @param h <b> the height of the Cylinder </b>
-     * @param r <b> the radius of the Cylinder </b>
-     * @param a <b> the Rau of the Cylinder </b>
+     * @param h   <b> the height of the {@link Cylinder} </b>
+     * @param r   <b> the radius of the {@link Cylinder} </b>
+     * @param m   <b> the middle {@link Point3D} of the {@link Cylinder} </b>
+     * @param dir <b> the direction of the {@link Cylinder} </b>
+     */
+    public Cylinder(double h, double r, Point3D m, Vector dir) { this(h, r, new Ray(m, dir)); }
+
+    /**
+     * <b> Cylinder constructor. </b>
+     *
+     * @param h <b> the height of the {@link Cylinder} </b>
+     * @param r <b> the radius of the {@link Cylinder} </b>
+     * @param a <b> the Rau of the {@link Cylinder} </b>
+     * @throws IllegalArgumentException if the radius <= 0.
      */
     public Cylinder(double h, double r, Ray a) {
         super(r, a);
         _height = h;
         if (h <= 0)
-            throw new IllegalArgumentException("Error ! ! ! the radius shuld be a positive number");
+            throw new IllegalArgumentException("Error ! ! ! the radius should be a positive number");
     }
 
     /**
@@ -51,13 +62,13 @@ public class Cylinder extends Tube {
     public double getHeight() { return _height; }
 
     /**
-     * @return Point3D <b> middle </b>
+     * @return {@link Point3D} <b> middle </b>
      */
     @Override
     public Point3D getMiddle() { return super.getMiddle(); }
 
     /**
-     * @return Vector <b> direction </b>
+     * @return {@link Vector} <b> direction </b>
      */
     @Override
     public Vector getDirection() { return super.getDirection(); }
@@ -77,8 +88,8 @@ public class Cylinder extends Tube {
     }
 
     /**
-     * @param p <b> the Point3D on the Cylinder </b>
-     * @return Vector <b> normal </b>
+     * @param p <b> the {@link Point3D} on the {@link Cylinder} </b>
+     * @return {@link Vector} <b> normal </b>
      */
     @Override
     public Vector getNormal(Point3D p) {
@@ -100,7 +111,7 @@ public class Cylinder extends Tube {
     }
 
     /**
-     * @param ray <b> the Ray we will find his intersections </b>
+     * @param ray <b> the {@link Ray} we will find his intersections </b>
      * @return List<GeoPoint> <b> the intersections points (null) </b>
      */
     @Override

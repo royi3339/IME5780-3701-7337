@@ -1,6 +1,7 @@
 package renderer;
 
 import geometries.Intersectable;
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import scene.Scene;
@@ -21,8 +22,8 @@ public class Render {
     /**
      * <b> Render constructor. </b>
      *
-     * @param imageWriter <b> the ImageWriter of the Render </b>
-     * @param scene       <b> the Scene of the Render </b>
+     * @param imageWriter <b> the {@link ImageWriter} of the Render </b>
+     * @param scene       <b> the {@link Scene} of the Render </b>
      */
     public Render(ImageWriter imageWriter, Scene scene) {
         this._imageWriter = imageWriter;
@@ -57,14 +58,18 @@ public class Render {
     }
 
     /**
-     * @param geoPoint <b> the given GeoPoint </b>
-     * @return Color <b> of the given Point3D </b>
+     * @param intersection <b> the given {@link GeoPoint} </b>
+     * @return {@link Color} <b> of the given {@link Point3D} </b>
      */
-    private primitives.Color calcColor(GeoPoint geoPoint) { return _scene.getAmbientLight().getIntensity(); }
+    private Color calcColor(GeoPoint intersection) {
+        Color color = _scene.getAmbientLight().getIntensity();
+        color = color.add(intersection.geometry.getEmmission());
+        return color;
+    }
 
     /**
-     * @param intersectionPoints <b> the GeoPoint List of the intersections points </b>
-     * @return GeoPoint <b> the most closest point to the camera point </b>
+     * @param intersectionPoints <b> the {@link GeoPoint} List of the intersections points </b>
+     * @return {@link GeoPoint} <b> the most closest point to the camera point </b>
      */
     private GeoPoint getClosestPoint(List<GeoPoint> intersectionPoints) {
         Point3D begin = _scene.getCamera().getP();
@@ -84,7 +89,7 @@ public class Render {
      * create a grid to an exist image.
      *
      * @param interval <b> the interval of the grid </b>
-     * @param color    <b> the Color of the grid </b>
+     * @param color    <b> the {@link Color} of the grid </b>
      */
     public void printGrid(int interval, java.awt.Color color) {
         for (int i = 0; i < _imageWriter.getNy(); i++) {

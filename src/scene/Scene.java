@@ -28,7 +28,7 @@ public class Scene {
     }
 
     /**
-     * @return Color <b> of the background </b>
+     * @return {@link Color} <b> of the background </b>
      */
     public Color getBackground() { return _background; }
 
@@ -43,12 +43,12 @@ public class Scene {
     public elements.AmbientLight getAmbientLight() { return _ambientLight; }
 
     /**
-     * @return Geometries <b> the Geometries objects of the Scene </b>
+     * @return {@link Geometries} <b> the {@link Geometries} objects of the Scene </b>
      */
     public Geometries getGeometries() { return _geometries; }
 
     /**
-     * @return Camera <b> the camera of the Scene </b>
+     * @return Camera <b> the Camera of the Scene </b>
      */
     public elements.Camera getCamera() { return _camera; }
 
@@ -58,7 +58,7 @@ public class Scene {
     public double getDistance() { return _distance; }
 
     /**
-     * @param background <b> the new Color we want to be at the background </b>
+     * @param background <b> the new {@link Color} we want to be at the background </b>
      */
     public void setBackground(Color background) { this._background = background; }
 
@@ -80,7 +80,7 @@ public class Scene {
     /**
      * adding a List of geometries to the Scene
      *
-     * @param geometries <b> a List of geometries </b>
+     * @param geometries <b> a List of {@link Intersectable} </b>
      */
     public void addGeometries(Intersectable... geometries) { this._geometries.add(geometries); }
 }

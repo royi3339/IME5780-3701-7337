@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -9,12 +10,24 @@ import java.util.List;
 import static primitives.Util.isZero;
 
 /**
- * implements the Tube class, which extending the RadialGeometry class.
+ * implements the Tube class, which extending the {@link RadialGeometry} class.
  *
  * @author Royi Alishayev idan darmoni
  */
 public class Tube extends RadialGeometry {
     protected Ray axis;
+
+    /**
+     * <b> Tube with {@link Color} constructor. </b>
+     *
+     * @param color <b> the {@link Color} of the Tube </b>
+     * @param r     <b> the _radius of the Tube </b>
+     * @param a     <b> the axis of the Tube </b>
+     */
+    public Tube(Color color, double r, Ray a) {
+        this(r, a);
+        _emmission = new Color(color);
+    }
 
     /**
      * <b> Tube constructor. </b>
@@ -31,8 +44,8 @@ public class Tube extends RadialGeometry {
      * <b> Tube constructor. </b>
      *
      * @param r    <b> the _radius of the Tube </b>
-     * @param head <b> the header Point3D of the Tube </b>
-     * @param dir  <b> the direction Vector of the Tube </b>
+     * @param head <b> the header {@link Point3D} of the Tube </b>
+     * @param dir  <b> the direction {@link Vector} of the Tube </b>
      */
     public Tube(double r, Point3D head, Vector dir) {
         super(r);
@@ -48,29 +61,29 @@ public class Tube extends RadialGeometry {
     }
 
     /**
-     * @return Ray <b> axis </b>
+     * @return {@link Ray} <b> axis </b>
      */
     public Ray getAxis() {
         return axis;
     }
 
     /**
-     * @return Point3D <b> middle </b>
+     * @return {@link Point3D} <b> middle </b>
      */
     public Point3D getMiddle() {
         return axis.getHead();
     }
 
     /**
-     * @return Vector <b> direction </b>
+     * @return {@link Vector} <b> direction </b>
      */
     public Vector getDirection() {
         return axis.getDirection();
     }
 
     /**
-     * @param p <b> the Point3D in the Tube </b>
-     * @return Vector <b> normal </b>
+     * @param p <b> the {@link Point3D} in the Tube </b>
+     * @return {@link Vector} <b> normal </b>
      */
     @Override
     public Vector getNormal(Point3D p) {
@@ -95,7 +108,7 @@ public class Tube extends RadialGeometry {
     }
 
     /**
-     * @param ray <b> the Ray we will find his intersections </b>
+     * @param ray <b> the {@link Ray} we will find his intersections </b>
      * @return List<GeoPoint> <b> the intersections points (null) </b>
      */
     @Override

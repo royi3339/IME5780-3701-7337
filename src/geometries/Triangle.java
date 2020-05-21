@@ -1,35 +1,49 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 
 /**
- * implements Triangle class, which extending the Polygon class.
+ * implements Triangle class, which extending the {@link Polygon} class.
  *
  * @author Royi Alishayev idan darmoni
  */
 public class Triangle extends Polygon {
 
     /**
-     * Triangle constructor.
+     * <b> Triangle with {@link Color} constructor. </b>
      *
-     * @param pA <b> the first Point3D of  the Triangle </b>
-     * @param pB <b> the second Point3D of  the Triangle </b>
-     * @param pC <b> the third Point3D of  the Triangle </b>
+     * @param color <b> the {@link Color} of the Triangle </b>
+     * @param pA    <b> the first {@link Point3D} of  the Triangle </b>
+     * @param pB    <b> the second {@link Point3D} of  the Triangle </b>
+     * @param pC    <b> the third {@link Point3D} of  the Triangle </b>
+     */
+    public Triangle(Color color, Point3D pA, Point3D pB, Point3D pC) {
+        this(pA, pB, pC);
+        _emmission = new Color(color);
+    }
+
+    /**
+     * <b> Triangle constructor. </b>.
+     *
+     * @param pA <b> the first {@link Point3D} of  the Triangle </b>
+     * @param pB <b> the second {@link Point3D} of  the Triangle </b>
+     * @param pC <b> the third {@link Point3D} of  the Triangle </b>
      */
     public Triangle(Point3D pA, Point3D pB, Point3D pC) { super(pA, pB, pC); }
 
     /**
-     * @return Point3D <b> point #1 </b>
+     * @return {@link Point3D} <b> point #1 </b>
      */
     public Point3D getP1() { return _vertices.get(0); }
 
     /**
-     * @return Point3D <b> point #2 </b>
+     * @return {@link Point3D} <b> point #2 </b>
      */
     public Point3D getP2() { return _vertices.get(1); }
 
     /**
-     * @return Point3D <b> point #3 </b>
+     * @return {@link Point3D} <b> point #3 </b>
      */
     public Point3D getP3() { return _vertices.get(2); }
 

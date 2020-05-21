@@ -15,9 +15,9 @@ public class Point3D {
     /**
      * <b> Point3D constructor. </b>
      *
-     * @param x <b> the first Coordinate of the Point3D </b>
-     * @param y <b> the second Coordinate of the Point3D </b>
-     * @param z <b> the third Coordinate of the Point3D </b>
+     * @param x <b> the first {@link Coordinate} of the Point3D </b>
+     * @param y <b> the second {@link Coordinate} of the Point3D </b>
+     * @param z <b> the third {@link Coordinate} of the Point3D </b>
      */
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
         _x = new Coordinate(x.get());
@@ -66,14 +66,14 @@ public class Point3D {
 
     /**
      * @param other <b> the Point3D that will be subtract </b>
-     * @return Vector <b> subtracted Vector </b>
+     * @return {@link Vector} <b> the subtracted {@link Vector} </b>
      */
     public Vector subtract(Point3D other) {
         return new Vector(_x.get() - other.getX(), _y.get() - other.getY(), _z.get() - other.getZ());
     }
 
     /**
-     * @param v <b> the Vector that will be add </b>
+     * @param v <b> the {@link Vector} that will be add </b>
      * @return Point3D <b> added Point3D </b>
      */
     public Point3D add(Vector v) {

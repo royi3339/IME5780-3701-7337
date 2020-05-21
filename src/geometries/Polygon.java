@@ -1,6 +1,5 @@
 package geometries;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
@@ -22,6 +21,34 @@ public class Polygon extends Geometry {
      * Associated plane in which the polygon lays
      */
     protected Plane _plane;
+
+
+    /**
+     * Polygon with {@link Color} constructor based on vertices list. The list must be ordered by edge
+     * path. The polygon must be convex.
+     *
+     * @param color    <b> the {@link Color} of the Polygon </b>
+     * @param vertices list of vertices according to their order by edge path
+     * @throws IllegalArgumentException in any case of illegal combination of
+     *                                  vertices:
+     *                                  <ul>
+     *                                  <li>Less than 3 vertices</li>
+     *                                  <li>Consequent vertices are in the same
+     *                                  point
+     *                                  <li>The vertices are not in the same
+     *                                  plane</li>
+     *                                  <li>The order of vertices is not according
+     *                                  to edge path</li>
+     *                                  <li>Three consequent vertices lay in the
+     *                                  same line (180&#176; angle between two
+     *                                  consequent edges)
+     *                                  <li>The polygon is concave (not convex></li>
+     *                                  </ul>
+     */
+    public Polygon(Color color, Point3D... vertices) {
+        this(vertices);
+        _emmission = new Color(color);
+    }
 
     /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
@@ -85,8 +112,8 @@ public class Polygon extends Geometry {
     }
 
     /**
-     * @param point <b> the Point3D in the Polygon </b>
-     * @return Vector <b> normal </b>
+     * @param point <b> the {@link Point3D} in the Polygon </b>
+     * @return {@link Vector} <b> normal </b>
      */
     @Override
     public Vector getNormal(Point3D point) {
@@ -94,15 +121,16 @@ public class Polygon extends Geometry {
     }
 
     /**
-     * @param ray <b> the Ray we will find his intersections </b>
+     * @param ray <b> the {@link Ray} we will find his intersections </b>
      * @return List<GeoPoint> <b> the intersections points </b>
      */
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
         int size = this._vertices.size();
         Vector V = ray.getDirection();
-        List<GeoPoint> lst = List.of(new GeoPoint(this, this._plane.findIntersections(ray).get(0).point));
-        if (lst == null) { return null; }
+        List<GeoPoint> pointList = this._plane.findIntersections(ray);
+        if (pointList == null) { return null; }
+        List<GeoPoint> lst = List.of(new GeoPoint(this, pointList.get(0).point));
         Point3D p0 = ray.getHead();
         Vector v[] = new Vector[size];
         int i;

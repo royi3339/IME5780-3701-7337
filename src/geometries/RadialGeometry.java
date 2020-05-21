@@ -7,6 +7,8 @@ import primitives.Vector;
 import java.util.List;
 
 /**
+ * * implements the RadialGeometry abstract class, which extending the {@link Geometry} abstract class.
+ *
  * @author Royi Alishayev idan darmoni
  */
 public abstract class RadialGeometry extends Geometry {
@@ -16,6 +18,7 @@ public abstract class RadialGeometry extends Geometry {
      * <b> RadialGeometry constructor. </b>
      *
      * @param r <b> thr radius of the RadialGeometry </b>
+     * @throws IllegalArgumentException if the radius <= 0.
      */
     public RadialGeometry(double r) {
         _radius = r;
@@ -42,8 +45,8 @@ public abstract class RadialGeometry extends Geometry {
     public String toString() { return "radius = " + _radius; }
 
     /**
-     * @param P <b> Point3D </b>
-     * @return Vector <b> normal </b>
+     * @param P <b> {@link Point3D} </b>
+     * @return {@link Vector} <b> normal </b>
      */
     @Override
     public Vector getNormal(Point3D p) {
@@ -51,7 +54,7 @@ public abstract class RadialGeometry extends Geometry {
     }
 
     /**
-     * @param ray <b> the Ray we will find his intersections </b>
+     * @param ray <b> the {@link Ray} we will find his intersections </b>
      * @return List<GeoPoint> <b> the intersections points (null) </b>
      */
     @Override

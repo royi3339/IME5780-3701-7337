@@ -1,6 +1,5 @@
 package geometries;
 
-import primitives.Point3D;
 import primitives.Ray;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.List;
 import static primitives.Util.isZero;
 
 /**
- * implements the Geometries class, which implements the Intersectable class.
+ * implements the Geometries class, which implements the {@link Intersectable} class.
  *
  * @author Royi Alishayev idan darmoni
  */
@@ -35,14 +34,14 @@ public class Geometries implements Intersectable {
     }
 
     /**
-     * @param geometries <b> the Intersectable collection of the geometries </b>
+     * @param geometries <b> the {@link Intersectable} collection of the geometries </b>
      */
     public void add(Intersectable... geometries) {
         for (int i = 0; i < geometries.length; i++) { intersectables.add(geometries[i]); }
     }
 
     /**
-     * @param ray <b> the Ray we will find his intersections </b>
+     * @param ray <b> the {@link Ray} we will find his intersections </b>
      * @return List<GeoPoint> <b> the intersections points </b>
      */
     @Override

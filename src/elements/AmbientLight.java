@@ -15,13 +15,13 @@ public class AmbientLight {
      * <p>
      * calculate the intensity of the Color, by scaling the iA with the kA
      *
-     * @param iA <b> the Color of the AmbientLight </b>
-     * @param kA <b> the value of the Color </b>
+     * @param iA <b> the {@link Color} of the AmbientLight </b>
+     * @param kA <b> the value of the {@link Color} </b>
      */
     public AmbientLight(Color iA, double kA) { _intensity = iA.scale(kA); }
 
     /**
-     * @return Color <b> the intensity Color </b>
+     * @return {@link Color} <b> the intensity of the {@link Color} of the AmbientLight </b>
      */
     public Color getIntensity() { return _intensity; }
 }

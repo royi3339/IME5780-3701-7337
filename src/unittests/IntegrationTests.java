@@ -61,9 +61,9 @@ public class IntegrationTests {
      * <p>
      * this method using the constructRayThroughPixel() function.
      *
-     * @param camera <b> the given Camera </b>
-     * @param geoObj <b> the geometries object that we checking the intersections with </b>
-     * @return int <b> the sum of the intersections, with the Ray's Camera </b>
+     * @param camera <b> the given {@link Camera} </b>
+     * @param geoObj <b> the {@link Geometry} object that we checking the intersections with </b>
+     * @return int <b> the sum of the intersections, with the {@link Camera}'s {@link Ray}s </b>
      */
     public int sumOfIntersections(Camera camera, Geometry geoObj) {
         int sum = 0;
