@@ -5,6 +5,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.isZero;
@@ -67,11 +68,11 @@ public class Sphere extends RadialGeometry {
 
     /**
      * @param ray <b> the Ray we will find his intersections </b>
-     * @return List<Point3D> <b> the intersections points </b>
+     * @return List<GeoPoint> <b> the intersections points </b>
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersectionsList = null;
+    public List<GeoPoint> findIntersections(Ray ray) {
+        List<GeoPoint> intersectionsList = null;
 
         Point3D o = _center;
         Point3D p0 = ray.getHead();
@@ -80,7 +81,7 @@ public class Sphere extends RadialGeometry {
         // check if the the subtract between point o and p0 is the ZERO Vector
         try {
             u = o.subtract(p0);
-        } catch (IllegalArgumentException e) { return List.of(ray.getPoint(_radius)); }
+        } catch (IllegalArgumentException e) { return List.of(new GeoPoint(this, ray.getPoint(_radius))); }
 
         double tm = v.dotProduct(u);
         double d = Math.sqrt(u.lengthSquared() - tm * tm);
@@ -95,17 +96,17 @@ public class Sphere extends RadialGeometry {
 
         // check if the the point is not at the back of the Ray
         if (t1 > 0) {
-            intersectionsList = new ArrayList<Point3D>();
-            intersectionsList.add(ray.getPoint(t1));
+            intersectionsList = new LinkedList<GeoPoint>();
+            intersectionsList.add(new GeoPoint(this, ray.getPoint(t1)));
         }
 
         // check if the the point is not at the back of the Ray
         if (t2 > 0) {
             // check if the intersectionsList is not initialized
             if (intersectionsList == null) {
-                intersectionsList = new ArrayList<Point3D>();
+                intersectionsList = new LinkedList<GeoPoint>();
             }
-            intersectionsList.add(ray.getPoint(t2));
+            intersectionsList.add(new GeoPoint(this, ray.getPoint(t2)));
         }
         return intersectionsList;
     }

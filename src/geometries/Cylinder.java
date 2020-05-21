@@ -101,8 +101,8 @@ public class Cylinder extends Tube {
 
     /**
      * @param ray <b> the Ray we will find his intersections </b>
-     * @return List<Point3D> <b> the intersections points (null) </b>
+     * @return List<GeoPoint> <b> the intersections points (null) </b>
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) { return null; }
+    public List<GeoPoint> findIntersections(Ray ray) { return null; }
 }

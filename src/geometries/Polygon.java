@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
@@ -12,7 +13,7 @@ import static primitives.Util.*;
  *
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -94,13 +95,13 @@ public class Polygon implements Geometry {
 
     /**
      * @param ray <b> the Ray we will find his intersections </b>
-     * @return List<Point3D> <b> the intersections points </b>
+     * @return List<GeoPoint> <b> the intersections points </b>
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         int size = this._vertices.size();
         Vector V = ray.getDirection();
-        List<Point3D> lst = this._plane.findIntersections(ray);
+        List<GeoPoint> lst = List.of(new GeoPoint(this, this._plane.findIntersections(ray).get(0).point));
         if (lst == null) { return null; }
         Point3D p0 = ray.getHead();
         Vector v[] = new Vector[size];

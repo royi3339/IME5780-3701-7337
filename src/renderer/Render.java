@@ -7,6 +7,8 @@ import scene.Scene;
 
 import java.util.List;
 
+import geometries.Intersectable.GeoPoint;
+
 /**
  * implements the Render class.
  *
@@ -43,11 +45,11 @@ public class Render {
         for (int i = 0; i < nY; i++) { // i is pixel row number
             for (int j = 0; j < nX; j++) { //j is pixel in the row number
                 Ray ray = camera.constructRayThroughPixel(nX, nY, j, i, distance, width, height);
-                List<Point3D> intersectionPoints = geometries.findIntersections(ray);
+                List<GeoPoint> intersectionPoints = geometries.findIntersections(ray);
                 if (intersectionPoints == null) {
                     _imageWriter.writePixel(j, i, background);
                 } else {
-                    Point3D closestPoint = getClosestPoint(intersectionPoints);
+                    GeoPoint closestPoint = getClosestPoint(intersectionPoints);
                     _imageWriter.writePixel(j, i, calcColor(closestPoint).getColor());
                 }
             }
@@ -55,24 +57,24 @@ public class Render {
     }
 
     /**
-     * @param point <b> the given Point3D </b>
+     * @param geoPoint <b> the given GeoPoint </b>
      * @return Color <b> of the given Point3D </b>
      */
-    private primitives.Color calcColor(Point3D point) { return _scene.getAmbientLight().getIntensity(); }
+    private primitives.Color calcColor(GeoPoint geoPoint) { return _scene.getAmbientLight().getIntensity(); }
 
     /**
-     * @param intersectionPoints <b> the Point3D's List of the intersections points </b>
-     * @return Point3D <b> the most closest point to the camera point </b>
+     * @param intersectionPoints <b> the GeoPoint List of the intersections points </b>
+     * @return GeoPoint <b> the most closest point to the camera point </b>
      */
-    private Point3D getClosestPoint(List<Point3D> intersectionPoints) {
+    private GeoPoint getClosestPoint(List<GeoPoint> intersectionPoints) {
         Point3D begin = _scene.getCamera().getP();
-        double minDistance = begin.distance(intersectionPoints.get(0));
-        Point3D minPoint = new Point3D(intersectionPoints.get(0));
-        for (Point3D point : intersectionPoints) {
-            double distance = begin.distance(point);
+        double minDistance = begin.distance(intersectionPoints.get(0).point);
+        GeoPoint minPoint = intersectionPoints.get(0);
+        for (GeoPoint geoPoint : intersectionPoints) {
+            double distance = begin.distance(geoPoint.point);
             if (distance < minDistance) {
                 minDistance = distance;
-                minPoint = point;
+                minPoint = geoPoint;
             }
         }
         return minPoint;

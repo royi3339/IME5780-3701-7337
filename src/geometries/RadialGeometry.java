@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Royi Alishayev idan darmoni
  */
-public abstract class RadialGeometry implements Geometry {
+public abstract class RadialGeometry extends Geometry {
     protected double _radius;
 
     /**
@@ -52,10 +52,10 @@ public abstract class RadialGeometry implements Geometry {
 
     /**
      * @param ray <b> the Ray we will find his intersections </b>
-     * @return List<Point3D> <b> the intersections points (null) </b>
+     * @return List<GeoPoint> <b> the intersections points (null) </b>
      */
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         return null;
     }
 }

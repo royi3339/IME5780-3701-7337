@@ -9,6 +9,8 @@ import primitives.*;
 
 import java.util.List;
 
+import geometries.Intersectable.GeoPoint;
+
 /**
  * Testing Polygons
  *
@@ -99,8 +101,8 @@ public class PolygonTests {
         // ============ Equivalence Partitions Tests ==============
         // TC01: inside polygon
         Ray ray = new Ray(new Point3D(2, 1.5, 0), new Vector(0, 0, 1));
-        List<Point3D> result = polygon.findIntersections(ray);
-        assertEquals("TC01 : intersect in the polygon", List.of(new Point3D(2, 1.5, 5)), result);
+        List<GeoPoint> result = polygon.findIntersections(ray);
+        assertEquals("TC01 : intersect in the polygon", List.of(new GeoPoint(polygon, new Point3D(2, 1.5, 5))), result);
         // TC02 : Outside against edge
         ray = new Ray(new Point3D(1, 3, 0), new Vector(0, 0, 1));
         result = polygon.findIntersections(ray);

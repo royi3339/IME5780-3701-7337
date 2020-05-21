@@ -10,6 +10,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+import geometries.Intersectable.GeoPoint;
+
 /**
  * implements the PlaneTests class.
  *
@@ -37,14 +39,14 @@ public class PlaneTests {
      */
     @Test
     public void testFindIntersections() {
-        List<Point3D> result;
+        List<GeoPoint> result;
         Plane plane = new Plane(new Point3D(0, 0, 1), new Vector(0, 0, 1));
 
         // ============ Equivalence Partitions Tests ==============
         // TC01: Ray intersects the Plane
         Ray ray = new Ray(new Point3D(4, 8, 0), new Vector(0, 1, 1));
         result = plane.findIntersections(ray);
-        assertEquals("TC01: the Ray should intersect the Plane", List.of(new Point3D(4, 9, 1)), result);
+        assertEquals("TC01: the Ray should intersect the Plane", List.of(new GeoPoint(plane, new Point3D(4, 9, 1))), result);
 
         // TC02: Ray does not intersect the Plane
         ray = new Ray(new Point3D(4, 8, 9), new Vector(0, 1, 1));
@@ -70,7 +72,7 @@ public class PlaneTests {
         // TC13: Ray is orthogonal to the plane, and before the Plane
         ray = new Ray(new Point3D(1, 1, -1), new Vector(0, 0, 1));
         result = plane.findIntersections(ray);
-        assertEquals("TC13: the Ray should intersect the Plane", List.of(new Point3D(1, 1, 1)), result);
+        assertEquals("TC13: the Ray should intersect the Plane", List.of(new GeoPoint(plane, new Point3D(1, 1, 1))), result);
 
         // TC14: Ray is orthogonal to the plane, and in the Plane
         ray = new Ray(new Point3D(1, 1, 1), new Vector(0, 0, 1));
