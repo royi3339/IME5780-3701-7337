@@ -1,9 +1,12 @@
 package renderer;
 
+import elements.Light;
+import elements.LightSource;
 import geometries.Intersectable;
 import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Vector;
 import scene.Scene;
 
 import java.util.List;
@@ -20,10 +23,10 @@ public class Render {
     private ImageWriter _imageWriter;
 
     /**
-     * <b> Render constructor. </b>
+     * <b> {@link Render} constructor. </b>
      *
-     * @param imageWriter <b> the {@link ImageWriter} of the Render </b>
-     * @param scene       <b> the {@link Scene} of the Render </b>
+     * @param imageWriter <b> the {@link ImageWriter} of the {@link Render} </b>
+     * @param scene       <b> the {@link Scene} of the {@link Render} </b>
      */
     public Render(ImageWriter imageWriter, Scene scene) {
         this._imageWriter = imageWriter;
@@ -62,16 +65,63 @@ public class Render {
      * @return {@link Color} <b> of the given {@link Point3D} </b>
      */
     private Color calcColor(GeoPoint intersection) {
-        Color color = _scene.getAmbientLight().getIntensity();
-        color = color.add(intersection.geometry.getEmmission());
+
+        Color color = _scene.getAmbientLight().getIntensity();          // kA * iA
+        color = color.add(intersection.geometry.getEmission());         // (kA * iA) + iE
+
+        double kd = intersection.geometry.getMaterial().getKD();
+        double ks = intersection.geometry.getMaterial().getKS();
+        int nSh = intersection.geometry.getMaterial().getNShininess();
+
+        Vector l, r;
+        Vector n = intersection.geometry.getNormal(intersection.point);
+        Vector v = _scene.getCamera().getVto();
+        Color iL;
+
+        for (LightSource lS : _scene.getLights()) {
+            l = lS.getL(intersection.point).normalized();
+            r = l.subtract(n.scale(2 * l.dotProduct(n)));
+
+            if (l.dotProduct(n) * v.dotProduct(n) > 0) {
+                iL = lS.getIntensity(intersection.point);
+                color = color.add(calcDiffusive(kd, l, n, iL), calcSpecular(ks, r, v, nSh, iL));
+            }
+        }
         return color;
     }
 
     /**
-     * @param intersectionPoints <b> the {@link GeoPoint} List of the intersections points </b>
-     * @return {@link GeoPoint} <b> the most closest point to the camera point </b>
+     * calculating the diffusive.
+     *
+     * @param kd <b> the diffuse's value factor of the Material </b>
+     * @param l  <b> the normalized {@link Vector} of the {@link Light} </b>
+     * @param n  <b> the normalized orthogonal {@link Vector} to the object </b>
+     * @param iL <b> the light intensity of the {@link Light} at the specific intersection point with the object </b>
+     * @return {@link Color} <b> the diffusive {@link Color} </b>
      */
-    private GeoPoint getClosestPoint(List<GeoPoint> intersectionPoints) {
+    private Color calcDiffusive(double kd, Vector l, Vector n, Color iL) {
+        return iL.scale(kd * Math.abs(l.dotProduct(n)));
+    }
+
+    /**
+     * calculating the specular.
+     *
+     * @param ks  <b> the specular's value factor of the Material </b>
+     * @param r   <b>  </b>
+     * @param v   <b>  </b>
+     * @param nSh <b> the object’s shininess </b>
+     * @param iL  <b> the light intensity of the {@link Light} at the specific intersection point with the object </b>
+     * @return {@link Color} <b> the specular {@link Color} </b>
+     */
+    private Color calcSpecular(double ks, Vector r, Vector v, int nSh, Color iL) {
+        return iL.scale(ks * (Math.pow(r.dotProduct(v), nSh)));
+    }
+
+    /**
+     * @param intersectionPoints <b> the {@link GeoPoint} List of the intersections points </b>
+     * @return {@link GeoPoint} <b> the most closest point to the camera's point </b>
+     */
+    public GeoPoint getClosestPoint(List<GeoPoint> intersectionPoints) {
         Point3D begin = _scene.getCamera().getP();
         double minDistance = begin.distance(intersectionPoints.get(0).point);
         GeoPoint minPoint = intersectionPoints.get(0);

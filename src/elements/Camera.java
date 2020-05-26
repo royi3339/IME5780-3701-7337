@@ -18,11 +18,11 @@ public class Camera {
     private Vector _vRight;
 
     /**
-     * <b> Camera constructor. </b>
+     * <b> {@link Camera} constructor. </b>
      *
-     * @param l  <b> the location {@link Point3D} of the Camera </b>
-     * @param up <b> the up {@link Vector} of the Camera </b>
-     * @param to <b> the toward {@link Vector} of the Camera </b>
+     * @param l  <b> the location {@link Point3D} of the {@link Camera} </b>
+     * @param up <b> the up {@link Vector} of the {@link Camera} </b>
+     * @param to <b> the toward {@link Vector} of the {@link Camera} </b>
      */
     public Camera(Point3D l, Vector to, Vector up) {
         _p0 = new Point3D(l);
@@ -34,22 +34,22 @@ public class Camera {
     }
 
     /**
-     * @return {@link Point3D} <b> the location {@link Point3D} of the Camera </b>
+     * @return {@link Point3D} <b> the location {@link Point3D} of the {@link Camera} </b>
      */
     public Point3D getP() { return _p0; }
 
     /**
-     * @return {@link Vector} <b> the up {@link Vector} of the Camera </b>
+     * @return {@link Vector} <b> the up {@link Vector} of the {@link Camera} </b>
      */
     public Vector getVup() { return _vUp; }
 
     /**
-     * @return {@link Vector} <b> the toward {@link Vector} of the Camera </b>
+     * @return {@link Vector} <b> the toward {@link Vector} of the {@link Camera} </b>
      */
     public Vector getVto() { return _vTo; }
 
     /**
-     * @return {@link Vector} <b> the right {@link Vector} of the Camera </b>
+     * @return {@link Vector} <b> the right {@link Vector} of the {@link Camera} </b>
      */
     public Vector getVright() { return _vRight; }
 

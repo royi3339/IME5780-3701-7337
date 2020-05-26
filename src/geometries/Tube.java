@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -18,39 +15,45 @@ public class Tube extends RadialGeometry {
     protected Ray axis;
 
     /**
-     * <b> Tube with {@link Color} constructor. </b>
+     * <b> {@link Tube} with {@link Color}, and with {@link Material} constructor. </b>
      *
-     * @param color <b> the {@link Color} of the Tube </b>
-     * @param r     <b> the _radius of the Tube </b>
-     * @param a     <b> the axis of the Tube </b>
+     * @param color    <b> the {@link Color} of the {@link Tube} </b>
+     * @param material <b> the {@link Material} of the {@link Cylinder} </b>
+     * @param r        <b> the radius of the {@link Tube} </b>
+     * @param a        <b> the axis of the {@link Tube} </b>
      */
-    public Tube(Color color, double r, Ray a) {
-        this(r, a);
-        _emmission = new Color(color);
-    }
-
-    /**
-     * <b> Tube constructor. </b>
-     *
-     * @param r <b> the _radius of the Tube </b>
-     * @param a <b> the axis of the Tube </b>
-     */
-    public Tube(double r, Ray a) {
-        super(r);
+    public Tube(Color color, Material material, double r, Ray a) {
+        super(color, material, r);
         axis = new Ray(a);
     }
 
     /**
-     * <b> Tube constructor. </b>
+     * <b> {@link Tube} with {@link Color} constructor. </b>
      *
-     * @param r    <b> the _radius of the Tube </b>
-     * @param head <b> the header {@link Point3D} of the Tube </b>
-     * @param dir  <b> the direction {@link Vector} of the Tube </b>
+     * @param color <b> the {@link Color} of the {@link Tube} </b>
+     * @param r     <b> the radius of the {@link Tube} </b>
+     * @param a     <b> the axis of the {@link Tube} </b>
      */
-    public Tube(double r, Point3D head, Vector dir) {
-        super(r);
-        axis = new Ray(head, dir);
+    public Tube(Color color, double r, Ray a) {
+        this(color, new Material(0, 0, 0), r, a);
     }
+
+    /**
+     * <b> {@link Tube} constructor. </b>
+     *
+     * @param r <b> the radius of the {@link Tube} </b>
+     * @param a <b> the axis of the {@link Tube} </b>
+     */
+    public Tube(double r, Ray a) { this(Color.BLACK, r, a); }
+
+    /**
+     * <b> {@link Tube} constructor. </b>
+     *
+     * @param r    <b> the radius of the {@link Tube} </b>
+     * @param head <b> the header {@link Point3D} of the {@link Tube} </b>
+     * @param dir  <b> the direction {@link Vector} of the {@link Tube} </b>
+     */
+    public Tube(double r, Point3D head, Vector dir) { this(r, new Ray(head, dir)); }
 
     /**
      * @return double <b> radius </b>
@@ -82,7 +85,7 @@ public class Tube extends RadialGeometry {
     }
 
     /**
-     * @param p <b> the {@link Point3D} in the Tube </b>
+     * @param p <b> the {@link Point3D} in the {@link Tube} </b>
      * @return {@link Vector} <b> normal </b>
      */
     @Override

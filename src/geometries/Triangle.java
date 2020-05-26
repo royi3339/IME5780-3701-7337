@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Color;
+import primitives.Material;
 import primitives.Point3D;
 
 /**
@@ -11,26 +12,38 @@ import primitives.Point3D;
 public class Triangle extends Polygon {
 
     /**
-     * <b> Triangle with {@link Color} constructor. </b>
+     * <b> {@link Triangle} with {@link Color}, and with {@link Material} constructor. </b>
      *
-     * @param color <b> the {@link Color} of the Triangle </b>
-     * @param pA    <b> the first {@link Point3D} of  the Triangle </b>
-     * @param pB    <b> the second {@link Point3D} of  the Triangle </b>
-     * @param pC    <b> the third {@link Point3D} of  the Triangle </b>
+     * @param color    <b> the {@link Color} of the {@link Triangle} </b>
+     * @param material <b> the {@link Material} of the {@link Triangle} </b>
+     * @param pA       <b> the first {@link Point3D} of  the {@link Triangle} </b>
+     * @param pB       <b> the second {@link Point3D} of  the {@link Triangle} </b>
+     * @param pC       <b> the third {@link Point3D} of  the {@link Triangle} </b>
      */
-    public Triangle(Color color, Point3D pA, Point3D pB, Point3D pC) {
-        this(pA, pB, pC);
-        _emmission = new Color(color);
+    public Triangle(Color color, Material material, Point3D pA, Point3D pB, Point3D pC) {
+        super(color, material, pA, pB, pC);
     }
 
     /**
-     * <b> Triangle constructor. </b>.
+     * <b> {@link Triangle} with {@link Color} constructor. </b>
      *
-     * @param pA <b> the first {@link Point3D} of  the Triangle </b>
-     * @param pB <b> the second {@link Point3D} of  the Triangle </b>
-     * @param pC <b> the third {@link Point3D} of  the Triangle </b>
+     * @param color <b> the {@link Color} of the {@link Triangle} </b>
+     * @param pA    <b> the first {@link Point3D} of  the {@link Triangle} </b>
+     * @param pB    <b> the second {@link Point3D} of  the {@link Triangle} </b>
+     * @param pC    <b> the third {@link Point3D} of  the {@link Triangle} </b>
      */
-    public Triangle(Point3D pA, Point3D pB, Point3D pC) { super(pA, pB, pC); }
+    public Triangle(Color color, Point3D pA, Point3D pB, Point3D pC) {
+        this(color, new Material(0, 0, 0), pA, pB, pC);
+    }
+
+    /**
+     * <b> {@link Triangle} constructor. </b>.
+     *
+     * @param pA <b> the first {@link Point3D} of  the {@link Triangle} </b>
+     * @param pB <b> the second {@link Point3D} of  the {@link Triangle} </b>
+     * @param pC <b> the third {@link Point3D} of  the {@link Triangle} </b>
+     */
+    public Triangle(Point3D pA, Point3D pB, Point3D pC) { this(Color.BLACK, pA, pB, pC); }
 
     /**
      * @return {@link Point3D} <b> point #1 </b>

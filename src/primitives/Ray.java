@@ -10,10 +10,10 @@ public class Ray {
     private Vector _direction;
 
     /**
-     * <b> Ray constructor. </b>
+     * <b> {@link Ray} constructor. </b>
      *
-     * @param h <b> the head {@link Point3D} of the Ray </b>
-     * @param d <b> the direction {@link Vector} of the Ray </b>
+     * @param h <b> the head {@link Point3D} of the {@link Ray} </b>
+     * @param d <b> the direction {@link Vector} of the {@link Ray} </b>
      */
     public Ray(Point3D h, Vector d) {
         _head = new Point3D(h);
@@ -21,9 +21,9 @@ public class Ray {
     }
 
     /**
-     * <b> Ray copy constructor. </b>
+     * <b> {@link Ray} copy constructor. </b>
      *
-     * @param r <b> the Ray </b>
+     * @param r <b> the {@link Ray} </b>
      */
     public Ray(Ray r) {
         _head = r._head;
@@ -63,7 +63,7 @@ public class Ray {
 
     /**
      * @param t <b> the double of the size </b>
-     * @return {@link Point3D} <b> the {@link Point3D} on the axis of Ray with the t distance </b>
+     * @return {@link Point3D} <b> the {@link Point3D} on the axis of {@link Ray} with the t distance </b>
      */
     public Point3D getPoint(double t) {
         Point3D p;

@@ -10,13 +10,13 @@ import primitives.Color;
 public class AmbientLight extends Light {
 
     /**
-     * <b> AmbientLight constructor. </b>
+     * <b> {@link AmbientLight} constructor. </b>
      * <p>
      * calculate the intensity of the Color, by scaling the iA with the kA,
      * <p>
-     * and send it to the Light constructor.
+     * and send it to the {@link Light} constructor.
      *
-     * @param iA <b> the {@link Color} of the AmbientLight </b>
+     * @param iA <b> the {@link Color} of the {@link AmbientLight} </b>
      * @param kA <b> the value of the {@link Color} </b>
      */
     public AmbientLight(Color iA, double kA) { super(iA.scale(kA)); }

@@ -29,10 +29,10 @@ public interface Intersectable {
         public Point3D point;
 
         /**
-         * <b> GeoPoint constructor </b>
+         * <b> {@link GeoPoint} constructor </b>
          *
-         * @param g <b> the {@link Geometry} of the GeoPoint </b>
-         * @param p <b> the {@link Point3D} of the GeoPoint </b>
+         * @param g <b> the {@link Geometry} of the {@link GeoPoint} </b>
+         * @param p <b> the {@link Point3D} of the {@link GeoPoint} </b>
          */
         public GeoPoint(Geometry g, Point3D p) {
             geometry = g;
@@ -40,13 +40,13 @@ public interface Intersectable {
         }
 
         /**
-         * @param o<b> the other Object </b>
+         * @param o<b> the other object </b>
          * @return boolean <b> true / false </b>
          */
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof GeoPoint)) return false;
+            if (this == o) { return true; }
+            if (!(o instanceof GeoPoint)) { return false; }
             GeoPoint geoPoint = (GeoPoint) o;
             return point.equals(geoPoint.point) && geometry.equals(geoPoint.geometry);
         }

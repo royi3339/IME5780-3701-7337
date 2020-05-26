@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -17,43 +14,64 @@ import static primitives.Util.isZero;
 public class Cylinder extends Tube {
     private double _height;
 
+
     /**
-     * <b> Cylinder with {@link Color} constructor </b>
+     * <b> {@link Cylinder} with {@link Color}, and with {@link Material} constructor </b>
+     *
+     * @param color    <b> the {@link Color} of the {@link Cylinder} </b>
+     * @param material <b> the {@link Material} of the {@link Cylinder} </b>
+     * @param h        <b> the height of the {@link Cylinder} </b>
+     * @param r        <b> the radius of the {@link Cylinder} </b>
+     * @param m        <b> the middle {@link Point3D} of the {@link Cylinder} </b>
+     * @param dir      <b> the direction of the {@link Cylinder} </b>
+     * @throws IllegalArgumentException if the radius <= 0.
+     * @throws IllegalArgumentException if the height <= 0.
+     */
+    public Cylinder(Color color, Material material, double h, double r, Point3D m, Vector dir) {
+        super(color, material, r, new Ray(m, dir));
+        _height = h;
+        if (h <= 0)
+            throw new IllegalArgumentException("Error ! ! ! the height should be a positive number");
+    }
+
+    /**
+     * <b> {@link Cylinder} with {@link Color} constructor </b>
      *
      * @param color <b> the {@link Color} of the {@link Cylinder} </b>
      * @param h     <b> the height of the {@link Cylinder} </b>
      * @param r     <b> the radius of the {@link Cylinder} </b>
      * @param m     <b> the middle {@link Point3D} of the {@link Cylinder} </b>
      * @param dir   <b> the direction of the {@link Cylinder} </b>
+     * @throws IllegalArgumentException if the radius <= 0.
+     * @throws IllegalArgumentException if the height <= 0.
      */
     public Cylinder(Color color, double h, double r, Point3D m, Vector dir) {
-        this(h, r, m, dir);
-        _emmission = new Color(color);
+        this(color, new Material(0, 0, 0), h, r, m, dir);
     }
 
     /**
-     * <b> Cylinder constructor. </b>
+     * <b> {@link Cylinder} constructor. </b>
      *
      * @param h   <b> the height of the {@link Cylinder} </b>
      * @param r   <b> the radius of the {@link Cylinder} </b>
      * @param m   <b> the middle {@link Point3D} of the {@link Cylinder} </b>
      * @param dir <b> the direction of the {@link Cylinder} </b>
+     * @throws IllegalArgumentException if the radius <= 0.
+     * @throws IllegalArgumentException if the height <= 0.
      */
     public Cylinder(double h, double r, Point3D m, Vector dir) { this(h, r, new Ray(m, dir)); }
 
     /**
-     * <b> Cylinder constructor. </b>
+     * <b> {@link Cylinder} constructor. </b>
      *
      * @param h <b> the height of the {@link Cylinder} </b>
      * @param r <b> the radius of the {@link Cylinder} </b>
      * @param a <b> the Rau of the {@link Cylinder} </b>
      * @throws IllegalArgumentException if the radius <= 0.
+     * @throws IllegalArgumentException if the height <= 0.
      */
     public Cylinder(double h, double r, Ray a) {
-        super(r, a);
-        _height = h;
-        if (h <= 0)
-            throw new IllegalArgumentException("Error ! ! ! the radius should be a positive number");
+        this(Color.BLACK, h, r, a.getHead(), a.getDirection());
     }
 
     /**

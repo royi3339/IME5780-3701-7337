@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Color;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,38 +16,44 @@ public class Sphere extends RadialGeometry {
     private Point3D _center;
 
     /**
-     * <b> Sphere with {@link Color} constructor. </b>
+     * <b> {@link Sphere} with {@link Color}, and with {@link Material} constructor. </b>
      *
-     * @param color <b> the {@link Color} of the Sphere </b>
-     * @param c     <b> the center {@link Point3D} of the Sphere </b>
-     * @param r     <b> the radius of the Sphere </b>
+     * @param color    <b> the {@link Color} of the {@link Sphere} </b>
+     * @param material <b> the {@link Material} of the {@link Sphere} </b>
+     * @param c        <b> the center {@link Point3D} of the {@link Sphere}  </b>
+     * @param r        <b> the radius of the {@link Sphere}  </b>
+     */
+    public Sphere(Color color, Material material, Point3D c, double r) {
+        super(color, material, r);
+        _center = new Point3D(c);
+    }
+
+    /**
+     * <b> {@link Sphere}  with {@link Color} constructor. </b>
+     *
+     * @param color <b> the {@link Color} of the {@link Sphere}  </b>
+     * @param c     <b> the center {@link Point3D} of the {@link Sphere}  </b>
+     * @param r     <b> the radius of the {@link Sphere}  </b>
      */
     public Sphere(Color color, Point3D c, double r) {
-        this(c, r);
-        _emmission = new Color(color);
+        this(color, new Material(0, 0, 0), c, r);
     }
 
     /**
-     * <b> Sphere constructor. </b>
+     * <b> {@link Sphere}  constructor. </b>
      *
-     * @param c <b> the center {@link Point3D} of the Sphere </b>
-     * @param r <b> the radius of the Sphere </b>
+     * @param c <b> the center {@link Point3D} of the {@link Sphere}  </b>
+     * @param r <b> the radius of the {@link Sphere}  </b>
      */
-    public Sphere(Point3D c, double r) {
-        super(r);
-        _center = new Point3D(c);
-    }
+    public Sphere(Point3D c, double r) { this(Color.BLACK, c, r); }
 
     /**
-     * <b> Sphere constructor. </b>
+     * <b> {@link Sphere}  constructor. </b>
      *
-     * @param r <b> the radius of the Sphere </b>
-     * @param c <b> the center {@link Point3D} of the Sphere </b>
+     * @param r <b> the radius of the {@link Sphere}  </b>
+     * @param c <b> the center {@link Point3D} of the {@link Sphere}  </b>
      */
-    public Sphere(double r, Point3D c) {
-        super(r);
-        _center = new Point3D(c);
-    }
+    public Sphere(double r, Point3D c) { this(c, r); }
 
     /**
      * @return {@link Point3D} <b> center </b>
@@ -64,7 +67,7 @@ public class Sphere extends RadialGeometry {
     public double getRadius() { return super.getRadius(); }
 
     /**
-     * @param p <b> the {@link Point3D} on the Sphere </b>
+     * @param p <b> the {@link Point3D} on the {@link Sphere}  </b>
      * @return {@link Vector} <b> normal </b>
      */
     @Override

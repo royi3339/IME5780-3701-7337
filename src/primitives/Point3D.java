@@ -13,11 +13,11 @@ public class Point3D {
     public static final Point3D ZERO = new Point3D(0, 0, 0);
 
     /**
-     * <b> Point3D constructor. </b>
+     * <b> {@link Point3D} constructor. </b>
      *
-     * @param x <b> the first {@link Coordinate} of the Point3D </b>
-     * @param y <b> the second {@link Coordinate} of the Point3D </b>
-     * @param z <b> the third {@link Coordinate} of the Point3D </b>
+     * @param x <b> the first {@link Coordinate} of the {@link Point3D} </b>
+     * @param y <b> the second {@link Coordinate} of the {@link Point3D} </b>
+     * @param z <b> the third {@link Coordinate} of the {@link Point3D} </b>
      */
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
         _x = new Coordinate(x.get());
@@ -26,7 +26,7 @@ public class Point3D {
     }
 
     /**
-     * <b> Point3D constructor. </b>
+     * <b> {@link Point3D} constructor. </b>
      *
      * @param x <b> the first double </b>
      * @param y <b> the second double </b>
@@ -39,9 +39,9 @@ public class Point3D {
     }
 
     /**
-     * <b> Point3D copy constructor. </b>
+     * <b> {@link Point3D} copy constructor. </b>
      *
-     * @param p <b> the Point3D </b>
+     * @param p <b> the {@link Point3D} </b>
      */
     public Point3D(Point3D p) {
         _x = new Coordinate(p._x);
@@ -65,7 +65,7 @@ public class Point3D {
     public double getZ() { return _z.get(); }
 
     /**
-     * @param other <b> the Point3D that will be subtract </b>
+     * @param other <b> the {@link Point3D} that will be subtract </b>
      * @return {@link Vector} <b> the subtracted {@link Vector} </b>
      */
     public Vector subtract(Point3D other) {
@@ -74,14 +74,14 @@ public class Point3D {
 
     /**
      * @param v <b> the {@link Vector} that will be add </b>
-     * @return Point3D <b> added Point3D </b>
+     * @return {@link Point3D} <b> adding {@link Point3D} </b>
      */
     public Point3D add(Vector v) {
         return new Point3D(_x.get() + v.getPointX(), _y.get() + v.getPointY(), _z.get() + v.getPointZ());
     }
 
     /**
-     * @param p <b> the other Point3D </b>
+     * @param p <b> the other {@link Point3D} </b>
      * @return double <b> squared distance </b>
      */
     public double distanceSquared(Point3D p) {
@@ -92,7 +92,7 @@ public class Point3D {
     }
 
     /**
-     * @param p <b> the other Point3D </b>
+     * @param p <b> the other {@link Point3D} </b>
      * @return double <b> distance </b>
      */
     public double distance(Point3D p) { return Math.sqrt(distanceSquared(p)); }

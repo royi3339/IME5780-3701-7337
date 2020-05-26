@@ -17,14 +17,14 @@ public class Geometries implements Intersectable {
     private List<Intersectable> intersectables;
 
     /**
-     * <b> Geometries default constructor. </b>
+     * <b> {@link Geometries} default constructor. </b>
      */
     public Geometries() {
         intersectables = new ArrayList<Intersectable>();
     }
 
     /**
-     * <b> Geometries constructor. </b>
+     * <b> {@link Geometries} constructor. </b>
      *
      * @param geometries <b> the Intersectable collection of the geometries </b>
      */
@@ -34,10 +34,12 @@ public class Geometries implements Intersectable {
     }
 
     /**
+     * adding a List of {@link Intersectable} to the intersectables's List.
+     *
      * @param geometries <b> the {@link Intersectable} collection of the geometries </b>
      */
     public void add(Intersectable... geometries) {
-        for (int i = 0; i < geometries.length; i++) { intersectables.add(geometries[i]); }
+        for (Intersectable intersectable : geometries) { intersectables.add(intersectable); }
     }
 
     /**
@@ -52,7 +54,6 @@ public class Geometries implements Intersectable {
             lst = intersectables.get(i).findIntersections(ray);
             if (lst != null) { result.addAll(lst); }
         }
-
         if (isZero(result.size())) { return null; }
         return result;
     }

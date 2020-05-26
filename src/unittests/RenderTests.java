@@ -5,9 +5,16 @@ import org.junit.Test;
 import elements.*;
 import geometries.*;
 import primitives.*;
+import primitives.Color;
 import renderer.ImageWriter;
 import renderer.Render;
 import scene.Scene;
+
+import geometries.Intersectable.GeoPoint;
+
+import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
 
 /**
  * Test rendering abasic image
@@ -73,20 +80,23 @@ public class RenderTests {
     }
 
 
-/**
- * not active, because the method is private.
- *
- * Test method for
- * {@link Render#getClosestPoint(List)}
- */
-    /*
+    /**
+     * not active, because the method is private.
+     * <p>
+     * Test method for
+     * {@link Render#getClosestPoint(List)}
+     */
+
     @Test         // render.getClosestPoint() must be public if we want to test this method !
     public void getClosestPointTest() {
         ImageWriter imageWriter = new ImageWriter("renderTest", 800, 500, 16, 10);
         Scene scene = new Scene("sceneTest");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(1, 0, 0)));
         Render render = new Render(imageWriter, scene);
-        render.getClosestPoint(List.of(new Point3D(0, 0, 1), new Point3D(0, 4, 3), new Point3D(12, 0, -13)));
-        assertEquals("it is should be the closest Point !", new Point3D(0, 0, 1), p2);
-    }       */
+        Sphere sphere = new Sphere(new Point3D(11, 22, 33), 39);
+        GeoPoint g1 = new GeoPoint(sphere, new Point3D(0, 0, 1));
+        GeoPoint g2 = new GeoPoint(sphere, new Point3D(0, 4, 3));
+        GeoPoint p2 = render.getClosestPoint(List.of(g1, g2));
+        assertEquals("it is should be the closest Point !", g1, p2);
+    }
 }

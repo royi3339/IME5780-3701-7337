@@ -1,8 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -15,21 +13,34 @@ public abstract class RadialGeometry extends Geometry {
     protected double _radius;
 
     /**
-     * <b> RadialGeometry constructor. </b>
+     * <b> {@link RadialGeometry} with {@link Color} and with {@link Material} constructor. </b>
      *
-     * @param r <b> thr radius of the RadialGeometry </b>
+     * @param color    <b> the {@link Color} of the {@link RadialGeometry} </b>
+     * @param material <b> {@link Material} of the {@link RadialGeometry} </b>
+     * @param r        <b> thr radius of the {@link RadialGeometry} </b>
      * @throws IllegalArgumentException if the radius <= 0.
      */
-    public RadialGeometry(double r) {
+    public RadialGeometry(Color color, Material material, double r) {
+        super(color, material);
         _radius = r;
         if (r <= 0)
-            throw new IllegalArgumentException("Error ! ! ! the radius shuld be a positive number");
+            throw new IllegalArgumentException("Error ! ! ! the radius should be a positive number");
     }
 
     /**
-     * <b> RadialGeometry copy constructor. </b>
+     * <b> {@link RadialGeometry} constructor. </b>
      *
-     * @param r <b> the RadialGeometry </b>
+     * @param r <b> thr radius of the {@link RadialGeometry} </b>
+     * @throws IllegalArgumentException if the radius <= 0.
+     */
+    public RadialGeometry(double r) {
+        this(Color.BLACK, new Material(0, 0, 0), r);
+    }
+
+    /**
+     * <b> {@link RadialGeometry} copy constructor. </b>
+     *
+     * @param r <b> the {@link RadialGeometry} </b>
      */
     public RadialGeometry(RadialGeometry r) { _radius = r._radius; }
 
@@ -58,7 +69,5 @@ public abstract class RadialGeometry extends Geometry {
      * @return List<GeoPoint> <b> the intersections points (null) </b>
      */
     @Override
-    public List<GeoPoint> findIntersections(Ray ray) {
-        return null;
-    }
+    public List<GeoPoint> findIntersections(Ray ray) { return null; }
 }

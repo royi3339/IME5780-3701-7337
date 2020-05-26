@@ -6,6 +6,10 @@ import primitives.Vector;
 
 /**
  * implements the PointLight class.
+ * <p>
+ * which extending {@link Light} abstract class,
+ * <p>
+ * and implements the {@link LightSource} interface.
  *
  * @author Royi Alishayev idan darmoni
  */
@@ -16,10 +20,10 @@ public class PointLight extends Light implements LightSource {
 
 
     /**
-     * <b> PointLight constructor. </b>
+     * <b> {@link PointLight} constructor. </b>
      *
-     * @param intensity <b> of the {@link Color} of the PointLight </b>
-     * @param position  <b> the position {@link Point3D} of PointLight  </b>
+     * @param intensity <b> of the {@link Color} of the {@link PointLight} </b>
+     * @param position  <b> the position {@link Point3D} of {@link PointLight} </b>
      * @param kC        <b>  </b>
      * @param kL        <b>  </b>
      * @param kQ        <b>  </b>
@@ -33,18 +37,22 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * @param intensity
-     * @return
+     * @param point <b> the other {@link Point3D} of the object </b>
+     * @return {@link Color} <b> the {@link Color} of {@link Light} </b>
      */
     @Override
-    public Color getIntensity(Point3D intensity) { }            // לממששששששששששש
+    public Color getIntensity(Point3D point) {
+        double d = _position.distance(point);
+        Color iL = _intensity.scale(1d / (_kC + _kL * d + _kQ * d * d));
+        return iL;
+    }
 
     /**
-     * @param p
-     * @return
+     * @param p <b> the other {@link Point3D} of the object </b>
+     * @return {@link Vector} <b> the {@link Vector} between the given {@link Point3D} which it's on the object,
+     * <p>
+     * and between the {@link Light} position </b>
      */
     @Override
-    public Vector getL(Point3D p) { }                           // למממשששששששששששש
-
-
+    public Vector getL(Point3D p) { return p.subtract(_position); }
 }

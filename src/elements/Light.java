@@ -1,24 +1,26 @@
 package elements;
 
 import primitives.Color;
+import primitives.Point3D;
 
 /**
  * implements the Light abstract class.
  *
  * @author Royi Alishayev idan darmoni
  */
-private abstract class Light {
+public abstract class Light {
     protected Color _intensity;
 
     /**
-     * <b> Light constructor. </b>
+     * <b> {@link Light} constructor. </b>
      *
-     * @param intensity <b> the intensity of the {@link Color} of the Light </b>
+     * @param intensity <b> the {@link Color} intensity of the {@link Light} </b>
      */
     public Light(Color intensity) { _intensity = new Color(intensity); }
 
     /**
-     * @return {@link Color} <b> the intensity </b>
+     * @param point <b> the other {@link Point3D} of the object </b>
+     * @return {@link Color} <b> the {@link Color} of {@link Light} </b>
      */
     public Color getIntensity() { return _intensity; }
 }

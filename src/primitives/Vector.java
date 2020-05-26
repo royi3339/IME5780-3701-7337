@@ -9,11 +9,11 @@ public class Vector {
     private Point3D _head;
 
     /**
-     * <b> Vector constructor. </b>
+     * <b> {@link Vector} constructor. </b>
      *
-     * @param x <b> the first {@link Coordinate} of the Vector </b>
-     * @param y <b> the second {@link Coordinate} of the Vector </b>
-     * @param z <b> the third {@link Coordinate} of the Vector </b>
+     * @param x <b> the first {@link Coordinate} of the {@link Vector} </b>
+     * @param y <b> the second {@link Coordinate} of the {@link Vector} </b>
+     * @param z <b> the third {@link Coordinate} of the {@link Vector} </b>
      * @throws IllegalArgumentException if the {@link Coordinate} are a ZERO.
      */
     public Vector(Coordinate x, Coordinate y, Coordinate z) {
@@ -23,7 +23,7 @@ public class Vector {
     }
 
     /**
-     * <b> Vector constructor. </b>
+     * <b> {@link Vector} constructor. </b>
      *
      * @param x <b> the first double </b>
      * @param y <b> the second double </b>
@@ -37,7 +37,7 @@ public class Vector {
     }
 
     /**
-     * <b> Vector copy constructor. </b>
+     * <b> {@link Vector} copy constructor. </b>
      *
      * @param p <b> the {@link Point3D} </b>
      * @throws IllegalArgumentException if the p {@link Point3D} is a ZERO.
@@ -49,9 +49,9 @@ public class Vector {
     }
 
     /**
-     * <b> Vector copy constructor. </b>
+     * <b> {@link Vector} copy constructor. </b>
      *
-     * @param v <b> the Vector </b>
+     * @param v <b> the {@link Vector} </b>
      */
     public Vector(Vector v) { _head = new Point3D(v.getHead()); }
 
@@ -77,31 +77,31 @@ public class Vector {
     public double getPointZ() { return _head.getZ(); }
 
     /**
-     * @param v <b> the Vector that will be subtract </b>
-     * @return Vector <b> subtracted Vector </b>
+     * @param v <b> the {@link Vector} that will be subtract </b>
+     * @return {@link Vector} <b> subtracting {@link Vector} </b>
      */
     public Vector subtract(Vector v) {
         return new Vector(_head.getX() - v.getPointX(), _head.getY() - v.getPointY(), _head.getZ() - v.getPointZ());
     }
 
     /**
-     * @param v <b> the Vector that will be add </b>
-     * @return Vector <b> added Vector </b>
+     * @param v <b> the {@link Vector} that will be add </b>
+     * @return {@link Vector} <b> adding {@link Vector} </b>
      */
     public Vector add(Vector v) {
         return new Vector(_head.getX() + v.getPointX(), _head.getY() + v.getPointY(), _head.getZ() + v.getPointZ());
     }
 
     /**
-     * @param num <b> the double that will multiply the Vector </b>
-     * @return Vector <b> multiplied Vector </b>
+     * @param num <b> the double that will multiply the {@link Vector} </b>
+     * @return {@link Vector} <b> multiplied {@link Vector} </b>
      */
     public Vector scale(double num) {
         return new Vector(num * _head.getX(), num * _head.getY(), num * _head.getZ());
     }
 
     /**
-     * @param v <b> Vector </b>
+     * @param v <b> the {@link Vector} </b>
      * @return double <b> the sum of 2 multiplied Vectors </b>
      */
     public double dotProduct(Vector v) {
@@ -115,8 +115,8 @@ public class Vector {
     }
 
     /**
-     * @param v <b> Vector </b>
-     * @return Vector <b> the normal Vector, of 2 Vector </b>
+     * @param v <b> the {@link Vector} </b>
+     * @return {@link Vector} <b> the normal {@link Vector}, of 2 {@link Vector} </b>
      */
     public Vector crossProduct(Vector v) {
         double x1 = _head.getX();
@@ -129,17 +129,17 @@ public class Vector {
     }
 
     /**
-     * @return double <b> squared length of the Vector </b>
+     * @return double <b> squared length of the {@link Vector} </b>
      */
     public double lengthSquared() { return this.dotProduct(this); }
 
     /**
-     * @return double <b> length of the Vector </b>
+     * @return double <b> length of the {@link Vector} </b>
      */
     public double length() { return Math.sqrt(lengthSquared()); }
 
     /**
-     * @return Vector <b> normalize the Vector himself </b>
+     * @return {@link Vector} <b> normalize the {@link Vector} himself </b>
      */
     public Vector normalize() {
         double d = 1 / (this.length());
@@ -148,7 +148,7 @@ public class Vector {
     }
 
     /**
-     * @return Vector <b> normalize the Vector, without change the origin </b>
+     * @return {@link Vector} <b> normalize the {@link Vector}, without change the origin </b>
      */
     public Vector normalized() {
         return new Vector(this).normalize();
