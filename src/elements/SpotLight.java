@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
+import static primitives.Util.alignZero;
+
 /**
  * implements the SpotLight class, which extending the {@link PointLight} class.
  *
@@ -35,16 +37,11 @@ public class SpotLight extends PointLight {
     @Override
     public Color getIntensity(Point3D point) {
         Vector l = getL(point);
-        Color i0 = super.getIntensity(point);
-        return i0.scale(Math.max(0d, _direction.dotProduct(l)));
-    }
 
-    /**
-     * @param p <b> the other {@link Point3D} of the object </b>
-     * @return {@link Vector} <b> the {@link Vector} between the given {@link Point3D} which it's on the object,
-     * <p>
-     * and between the {@link Light} position </b>
-     */
-    @Override
-    public Vector getL(Point3D p) { return super.getL(p).normalized(); }
+        double dl = alignZero(_direction.dotProduct(l));
+        if (dl <= 0) { return Color.BLACK; }
+
+        Color i0 = super.getIntensity(point);
+        return i0.scale(dl);
+    }
 }

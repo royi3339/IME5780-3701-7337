@@ -147,16 +147,17 @@ public class Polygon extends Geometry {
     }
 
     /**
-     * @param ray <b> the {@link Ray} we will find his intersections </b>
+     * @param ray         <b> the {@link Ray} we will find his intersections </b>
+     * @param maxDistance <b> the range of the distance checking of the {@link Ray} </b>
      * @return List<GeoPoint> <b> the intersections points </b>
      */
     @Override
-    public List<GeoPoint> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray, double maxDistance) {
         int size = this._vertices.size();
         Vector V = ray.getDirection();
-        List<GeoPoint> pointList = this._plane.findIntersections(ray);
+        List<GeoPoint> pointList = this._plane.findIntersections(ray, maxDistance);
         if (pointList == null) { return null; }
-        List<GeoPoint> lst = List.of(new GeoPoint(this, pointList.get(0).point));
+
         Point3D p0 = ray.getHead();
         Vector v[] = new Vector[size];
         int i;
@@ -181,6 +182,7 @@ public class Polygon extends Geometry {
         } catch (IllegalArgumentException e) { // if throw zero vector exception, so the point intersection is on the edge
             return null;
         }
-        return lst;
+        pointList.get(0).geometry = this;
+        return pointList;
     }
 }

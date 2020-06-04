@@ -27,7 +27,7 @@ public abstract class Geometry implements Intersectable {
     }
 
     /**
-     * <b> {@link Geometry} {@link Color} constructor </b>
+     * <b> {@link Geometry} with {@link Color} constructor </b>
      *
      * @param emission <b> the emission {@link Color} of the {@link Geometry} </b>
      */
@@ -53,4 +53,23 @@ public abstract class Geometry implements Intersectable {
      * @return {@link Material} <b> the {@link Material} of the {@link Geometry} </b>
      */
     public Material getMaterial() { return _material; }
+
+    /**
+     * @param kr
+     * @return
+     */
+    public Geometry setKr(double kr) {
+        _material.setKr(kr);
+        return this;
+    }
+
+    /**
+     * @param kt
+     * @return
+     */
+    public Geometry setKt(double kt) {
+        _material.setKt(kt);
+        return this;
+    }
+
 }

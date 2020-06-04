@@ -19,7 +19,14 @@ public interface Intersectable {
      * @param ray <b> the {@link Ray} we will find his intersections </b>
      * @return List<Point3D> <b> the intersections points </b>
      */
-    List<GeoPoint> findIntersections(Ray ray);
+    default List<GeoPoint> findIntersections(Ray ray) { return findIntersections(ray, Double.POSITIVE_INFINITY); }
+
+    /**
+     * @param ray
+     * @param maxDistance <b> the range of the checking of the {@link Ray} </b>
+     * @return
+     */
+    List<GeoPoint> findIntersections(Ray ray, double maxDistance);
 
     /**
      * the GeoPoint's static class implements
@@ -48,7 +55,10 @@ public interface Intersectable {
             if (this == o) { return true; }
             if (!(o instanceof GeoPoint)) { return false; }
             GeoPoint geoPoint = (GeoPoint) o;
-            return point.equals(geoPoint.point) && geometry.equals(geoPoint.geometry);
+            return point.equals(geoPoint.point) && geometry == geoPoint.geometry;
         }
+
+        @Override
+        public String toString() { return "GeoPoint: " + "point = " + point + "geometry = " + geometry; }
     }
 }

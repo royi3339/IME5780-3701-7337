@@ -19,7 +19,6 @@ public abstract class Light {
     public Light(Color intensity) { _intensity = new Color(intensity); }
 
     /**
-     * @param point <b> the other {@link Point3D} of the object </b>
      * @return {@link Color} <b> the {@link Color} of {@link Light} </b>
      */
     public Color getIntensity() { return _intensity; }

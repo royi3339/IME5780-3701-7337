@@ -28,19 +28,19 @@ public class SphereTests {
 
         // TC01: negative radius
         try {
-            new Sphere(new Point3D(1, 1, 1), -5);
+            new Sphere(-5, new Point3D(1, 1, 1));
             fail("TC01: Constructed a Sphere with a negative radius");
         } catch (IllegalArgumentException e) {}
 
         // TC02: zero radius
         try {
-            new Sphere(new Point3D(1, 1, 1), 0);
+            new Sphere(0, new Point3D(1, 1, 1));
             fail("TC02: Constructed a Sphere with a ZERO radius");
         } catch (IllegalArgumentException e) {}
 
         // TC03: correct Sphere
         try {
-            new Sphere(new Point3D(1, 2, 3), 4);
+            new Sphere(4, new Point3D(1, 2, 3));
         } catch (IllegalArgumentException e) {
             fail("TC03: Failed constructing a correct Sphere");
         }
@@ -54,7 +54,7 @@ public class SphereTests {
     public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: check the normal
-        Sphere s = new Sphere(new Point3D(1, 1, 1), 5);
+        Sphere s = new Sphere(5, new Point3D(1, 1, 1));
         assertEquals("TC01: Bad normal to Sphere ", new Vector(0, 0, 1), s.getNormal(new Point3D(1, 1, 6)));
     }
 
@@ -64,7 +64,7 @@ public class SphereTests {
      */
     @Test
     public void testFindIntersections() {
-        Sphere sphere = new Sphere(new Point3D(1, 0, 0), 1d);
+        Sphere sphere = new Sphere(1d, new Point3D(1, 0, 0));
 
         // ============ Equivalence Partitions Tests ==============
 

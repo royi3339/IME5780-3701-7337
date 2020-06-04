@@ -74,6 +74,9 @@ public class PlaneTests {
         result = plane.findIntersections(ray);
         assertEquals("TC13: the Ray should intersect the Plane", List.of(new GeoPoint(plane, new Point3D(1, 1, 1))), result);
 
+
+
+      //  Plane plane = new Plane(new Point3D(0, 0, 1), new Vector(0, 0, 1));
         // TC14: Ray is orthogonal to the plane, and in the Plane
         ray = new Ray(new Point3D(1, 1, 1), new Vector(0, 0, 1));
         result = plane.findIntersections(ray);

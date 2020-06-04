@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
@@ -43,15 +44,16 @@ public class Geometries implements Intersectable {
     }
 
     /**
-     * @param ray <b> the {@link Ray} we will find his intersections </b>
+     * @param ray         <b> the {@link Ray} we will find his intersections </b>
+     * @param maxDistance <b> the range of the distance checking of the {@link Ray} </b>
      * @return List<GeoPoint> <b> the intersections points </b>
      */
     @Override
-    public List<GeoPoint> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray, double maxDistance) {
         List<GeoPoint> lst, result = new LinkedList<GeoPoint>();
 
-        for (int i = 0; i < intersectables.size(); i++) {
-            lst = intersectables.get(i).findIntersections(ray);
+        for (Intersectable intersectable : intersectables) {
+            lst = intersectable.findIntersections(ray, maxDistance);
             if (lst != null) { result.addAll(lst); }
         }
         if (isZero(result.size())) { return null; }

@@ -79,24 +79,23 @@ public class RenderTests {
         render.writeToImage();
     }
 
-
     /**
      * not active, because the method is private.
      * <p>
      * Test method for
-     * {@link Render#getClosestPoint(List)}
+     * {@link Render#findClosestIntersection(Ray)}
      */
-
-    @Test         // render.getClosestPoint() must be public if we want to test this method !
-    public void getClosestPointTest() {
+/*
+    @Test         // render.findClosestIntersection() must be public if we want to test this method !
+    public void findClosestIntersectionTest() {
         ImageWriter imageWriter = new ImageWriter("renderTest", 800, 500, 16, 10);
         Scene scene = new Scene("sceneTest");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(1, 0, 0)));
         Render render = new Render(imageWriter, scene);
-        Sphere sphere = new Sphere(new Point3D(11, 22, 33), 39);
-        GeoPoint g1 = new GeoPoint(sphere, new Point3D(0, 0, 1));
-        GeoPoint g2 = new GeoPoint(sphere, new Point3D(0, 4, 3));
-        GeoPoint p2 = render.getClosestPoint(List.of(g1, g2));
-        assertEquals("it is should be the closest Point !", g1, p2);
-    }
+        Sphere sphere = new Sphere(9, new Point3D(0,0 , 33));
+        scene.addGeometries(sphere);
+        GeoPoint g = new GeoPoint(sphere, new Point3D(0, 0, 24));
+        GeoPoint p = render.findClosestIntersection(new Ray(scene.getCamera().getP(), scene.getCamera().getVto()));
+        assertEquals("it is should be the closest Point !", g, p);
+    }*/
 }

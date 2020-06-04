@@ -111,9 +111,10 @@ public class Tube extends RadialGeometry {
     }
 
     /**
-     * @param ray <b> the {@link Ray} we will find his intersections </b>
+     * @param ray         <b> the {@link Ray} we will find his intersections </b>
+     * @param maxDistance <b> the range of the distance checking of the {@link Ray} </b>
      * @return List<GeoPoint> <b> the intersections points (null) </b>
      */
     @Override
-    public List<GeoPoint> findIntersections(Ray ray) { return null; }
+    public List<GeoPoint> findIntersections(Ray ray, double maxDistance) { return null; }
 }

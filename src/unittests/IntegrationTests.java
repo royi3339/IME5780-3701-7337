@@ -26,16 +26,16 @@ public class IntegrationTests {
         // **** Group: Ray's intersections test with Sphere
         // TC01: Sphere test r = 1, with 2 intersections at the center Ray
         camera = new Camera(new Point3D(Point3D.ZERO), new Vector(0, 0, 1), new Vector(0, -1, 0));
-        assertEquals("TC01: should be 2 intersections with the Sphere !", 2, sumOfIntersections(camera, new Sphere(new Point3D(0, 0, 3), 1)));
+        assertEquals("TC01: should be 2 intersections with the Sphere !", 2, sumOfIntersections(camera, new Sphere(1, new Point3D(0, 0, 3))));
         // TC02: Sphere test r = 2.5, with 18 intersections, enter and exit of all of the Rays
         camera = new Camera(new Point3D(0, 0, -0.5), new Vector(0, 0, 1), new Vector(0, -1, 0));
-        assertEquals("TC02: should be 18 intersections with the Sphere !", 18, sumOfIntersections(camera, new Sphere(new Point3D(0, 0, 2.5), 2.5)));
+        assertEquals("TC02: should be 18 intersections with the Sphere !", 18, sumOfIntersections(camera, new Sphere(2.5, new Point3D(0, 0, 2.5))));
         // TC03: Sphere test r = 2, with 10 intersections, enter and exit of all of the Ray excluded the corners
-        assertEquals("TC03: should be 10 intersections with the Sphere !", 10, sumOfIntersections(camera, new Sphere(new Point3D(0, 0, 2), 2)));
+        assertEquals("TC03: should be 10 intersections with the Sphere !", 10, sumOfIntersections(camera, new Sphere(2, new Point3D(0, 0, 2))));
         // TC04: Sphere test r = 4, with 9 intersections exit for all of the Rays
-        assertEquals("TC04: should be 9 intersections with the Sphere !", 9, sumOfIntersections(camera, new Sphere(new Point3D(0, 0, 1), 4)));
+        assertEquals("TC04: should be 9 intersections with the Sphere !", 9, sumOfIntersections(camera, new Sphere(4, new Point3D(0, 0, 1))));
         // TC05: Sphere test r = 0.5, with 0 intersections, the Sphere is behind the camera
-        assertEquals("TC05: should not be any intersections with the Sphere !", 0, sumOfIntersections(camera, new Sphere(new Point3D(0, 0, -1), 0.5)));
+        assertEquals("TC05: should not be any intersections with the Sphere !", 0, sumOfIntersections(camera, new Sphere(0.5, new Point3D(0, 0, -1))));
 
         // **** Group: Ray's intersections test with Plane
         // TC11: the plane is parallel to the view plane and toward to the camera, with 9 intersections

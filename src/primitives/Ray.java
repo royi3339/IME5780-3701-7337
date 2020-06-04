@@ -10,6 +10,11 @@ public class Ray {
     private Vector _direction;
 
     /**
+     * the value of the checking range
+     */
+    private static final double DELTA = 0.1;
+
+    /**
      * <b> {@link Ray} constructor. </b>
      *
      * @param h <b> the head {@link Point3D} of the {@link Ray} </b>
@@ -20,14 +25,25 @@ public class Ray {
         _direction = new Vector(d.normalized());
     }
 
+
     /**
      * <b> {@link Ray} copy constructor. </b>
      *
      * @param r <b> the {@link Ray} </b>
      */
-    public Ray(Ray r) {
-        _head = r._head;
-        _direction = r._direction;
+    public Ray(Ray r) { this(r._head, r._direction); }
+
+    /**
+     * <b> {@link Ray} constructor. </b>
+     *
+     * @param h      <b> the head {@link Point3D} of the {@link Ray} </b>
+     * @param d      <b> the direction {@link Vector} of the {@link Ray} </b>
+     * @param normal <b> the normal {@link Vector} </b>>
+     */
+    public Ray(Point3D h, Vector d, Vector normal) {
+        Vector delta = normal.normalized().scale(normal.dotProduct(d) > 0 ? DELTA : -DELTA);
+        _head= h.add(delta);
+        _direction=d;
     }
 
     /**
@@ -36,7 +52,7 @@ public class Ray {
     public Point3D getHead() { return _head; }
 
     /**
-     * @return {@link Vector} <b> direction </b>
+     * @return {@link Vector} <b> normalized direction {@link Vector} </b>
      */
     public Vector getDirection() {return _direction;}
 

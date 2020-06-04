@@ -32,12 +32,11 @@ public class GeometriesTests {
         Ray r = new Ray(new Point3D(0, 0, -10), new Vector(0, 2, 0));
         Triangle triangle = new Triangle(new Point3D(15, 0, 0), new Point3D(-15, 0, 0), new Point3D(0, 15, 0));
         Plane plane = new Plane(new Point3D(15, 0, 2), new Point3D(-15, 0, 2), new Point3D(0, 15, 2));
-        Sphere sphere = new Sphere(new Point3D(0, 5, 22), 1);
+        Sphere sphere = new Sphere(1, new Point3D(0, 5, 22));
         Polygon polygon = new Polygon(new Point3D(-1, 6, 1), new Point3D(3, 6, 1),
                 new Point3D(6, 2, 1), new Point3D(2, 0, 1), new Point3D(-2, -1, 1));
         geoList.add(plane, sphere, polygon, triangle);
         assertEquals("TC12: Error ! ! ! should not be found any intersections", null, geoList.findIntersections(r));
-
 
 
         // TC13: only 1 object intersection
@@ -49,7 +48,7 @@ public class GeometriesTests {
 
         // ============ Equivalence Partitions Tests ==============
         // TC01: few (2) object will intersections, but not all of them
-        geoList.add(new Sphere(new Point3D(0, 7, 9), 1), new Sphere(new Point3D(0, 5, 9), 1));
+        geoList.add(new Sphere(1, new Point3D(0, 7, 9)), new Sphere(1, new Point3D(0, 5, 9)));
         Ray r3 = new Ray(new Point3D(0, 1, 9), new Vector(0, 1, 0));
         assertEquals("TC01: Error ! ! ! should be intersections with few objects, but not all of them", 4, geoList.findIntersections(r3).size());
     }

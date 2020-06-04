@@ -21,6 +21,8 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * <b> {@link PointLight} constructor. </b>
+     * <p>
+     * the {@link PointLight} must not be on surface of an object.
      *
      * @param intensity <b> of the {@link Color} of the {@link PointLight} </b>
      * @param position  <b> the position {@link Point3D} of {@link PointLight} </b>
@@ -37,7 +39,9 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * @param point <b> the other {@link Point3D} of the object </b>
+     * Provides intensity of light from {@link LightSource} at a point according to light propagation model.
+     *
+     * @param p <b> a {@link Point3D} object's surface </b>
      * @return {@link Color} <b> the {@link Color} of {@link Light} </b>
      */
     @Override
@@ -49,10 +53,18 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * @param p <b> the other {@link Point3D} of the object </b>
-     * @return {@link Vector} <b> the {@link Vector} between the given {@link Point3D} which it's on the object,
+     * @return {@link Vector} <b> the normalized {@link Vector} between the given {@link Point3D} which it's on the object,
      * <p>
      * and between the {@link Light} position </b>
      */
     @Override
-    public Vector getL(Point3D p) { return p.subtract(_position); }
+    public Vector getL(Point3D p) { return p.subtract(_position).normalized(); }
+
+
+    /**
+     * @param p
+     * @return
+     */
+    @Override
+    public double getDistance(Point3D p) { return _position.distance(p); }
 }
