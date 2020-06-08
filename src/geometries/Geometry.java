@@ -55,8 +55,10 @@ public abstract class Geometry implements Intersectable {
     public Material getMaterial() { return _material; }
 
     /**
-     * @param kr
-     * @return
+     * setting the KR
+     *
+     * @param kr <b> the reflection factor of the {@link Material} </b>
+     * @return {@link Geometry} <b> for concatenation </b>
      */
     public Geometry setKr(double kr) {
         _material.setKr(kr);
@@ -64,12 +66,13 @@ public abstract class Geometry implements Intersectable {
     }
 
     /**
-     * @param kt
-     * @return
+     * setting the KT
+     *
+     * @param kt <b> the transparency factor of the {@link Material} </b>
+     * @return {@link Geometry} <b> for concatenation </b>
      */
     public Geometry setKt(double kt) {
         _material.setKt(kt);
         return this;
     }
-
 }

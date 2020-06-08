@@ -48,8 +48,8 @@ public class DirectionalLight extends Light implements LightSource {
 
 
     /**
-     * @param p
-     * @return
+     * @param p <b> the {@link Point3D} that we check the distance with </b>
+     * @return double <b> return distance (because its the {@link DirectionalLight} will return INFINITY positive) </b>
      */
     @Override
     public double getDistance(Point3D p) { return Double.POSITIVE_INFINITY; }

@@ -18,7 +18,6 @@ public class PointLight extends Light implements LightSource {
     protected Point3D _position;
     protected double _kC, _kL, _kQ;
 
-
     /**
      * <b> {@link PointLight} constructor. </b>
      * <p>
@@ -26,9 +25,11 @@ public class PointLight extends Light implements LightSource {
      *
      * @param intensity <b> of the {@link Color} of the {@link PointLight} </b>
      * @param position  <b> the position {@link Point3D} of {@link PointLight} </b>
-     * @param kC        <b>  </b>
-     * @param kL        <b>  </b>
-     * @param kQ        <b>  </b>
+     *                  <p>
+     *                  with those 3 parameters we can use the distance to calculate intensity :
+     * @param kC        <b> free factor </b>
+     * @param kL        <b> factor of the first exponent </b>
+     * @param kQ        <b> factor of the second exponent </b>
      */
     public PointLight(Color intensity, Point3D position, double kC, double kL, double kQ) {
         super(intensity);
@@ -42,7 +43,7 @@ public class PointLight extends Light implements LightSource {
      * Provides intensity of light from {@link LightSource} at a point according to light propagation model.
      *
      * @param p <b> a {@link Point3D} object's surface </b>
-     * @return {@link Color} <b> the {@link Color} of {@link Light} </b>
+     * @return {@link Color} <b> the intensity {@link Color} of {@link Light} </b>
      */
     @Override
     public Color getIntensity(Point3D point) {
@@ -62,8 +63,8 @@ public class PointLight extends Light implements LightSource {
 
 
     /**
-     * @param p
-     * @return
+     * @param p <b> the {@link Point3D} that we check the distance with </b>
+     * @return double <b> return distance </b>
      */
     @Override
     public double getDistance(Point3D p) { return _position.distance(p); }

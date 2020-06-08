@@ -17,7 +17,7 @@ public class Material {
      * @param kS         <b> the specular's value factor of the {@link Material} </b>
      * @param nShininess <b> the object’s shininess value of the {@link Material} </b>
      * @param kT         <b> the transparency factor of the {@link Material} </b>
-     * @param kR<b>      <b> the reflection factor of the {@link Material} </b>
+     * @param kR         <b> the reflection factor of the {@link Material} </b>
      */
     public Material(double kD, double kS, int nShininess, double kT, double kR) {
         _kD = kD;
@@ -62,12 +62,16 @@ public class Material {
     public int getNShininess() { return _nShininess; }
 
     /**
-     * @param kr
+     * setting the KR
+     *
+     * @param kr <b> the reflection factor of the {@link Material} </b>
      */
     public void setKr(double kr) { this._kR = kr; }
 
     /**
-     * @param kt
+     * setting the KT
+     *
+     * @param kt <b> the transparency factor of the {@link Material} </b>
      */
     public void setKt(double kt) { this._kT = kt; }
 }

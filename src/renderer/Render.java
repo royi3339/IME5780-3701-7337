@@ -65,18 +65,18 @@ public class Render {
      *
      * @param a <b> the first number </b>
      * @param b <b> the second number </b>
-     * @return boolean <b>  if the sign of a and b are the same: return true, else: return false <b>
+     * @return boolean <b> if the sign of a and b are the same: return true, else: return false <b>
      */
     private boolean sameSign(double a, double b) {
-        if (a < 0 && b < 0 || a > 0 && b > 0) { return true; }
+        if ((a < 0 && b < 0) || (a > 0 && b > 0)) { return true; }
         return false;
     }
 
     /**
      * @param n     <b> the normal {@link Vector} </b>
-     * @param point
-     * @param ray
-     * @return
+     * @param point <b> the given {@link Point3D} that we checking </b>
+     * @param ray   <b> the given {@link Ray} that we checking </b>
+     * @return {@link Ray} <b> return the Reflection {@link Ray} </b>
      */
     private Ray constructReflectedRay(Vector n, Point3D point, Ray ray) {
         Vector v = ray.getDirection();
@@ -84,12 +84,11 @@ public class Render {
         return new Ray(point, r, n);
     }
 
-
     /**
-     * @param n        <b> the normal {@link Vector} </b>
-     * @param ray
-     * @param material
-     * @return
+     * @param n     <b> the normal {@link Vector} </b>
+     * @param point <b> the given {@link Point3D} that we checking </b>
+     * @param ray   <b> the given {@link Ray} that we checking </b>
+     * @return {@link Ray} <b> return the Refraction {@link Ray} </b>
      */
     private Ray constructRefractedRay(Vector n, Point3D point, Ray ray) { return new Ray(point, ray.getDirection(), n); }
 
@@ -117,7 +116,7 @@ public class Render {
 
     /**
      * @param intersection <b> the given {@link GeoPoint} </b>
-     * @param inRay        <b>  </b>
+     * @param inRay        <b> the {@link Ray} that we check in this step os the recursion </b>
      * @return {@link Color} <b> of the given {@link Point3D} </b>
      */
     private Color calcColor(GeoPoint geoPoint, Ray inRay) {
@@ -126,8 +125,8 @@ public class Render {
 
     /**
      * @param geoPoint <b> the given {@link GeoPoint} </b>
-     * @param inRay
-     * @param level
+     * @param inRay    <b> the {@link Ray} that we check in this step os the recursion </b>
+     * @param level    <b> the parameter of the recursion </b>
      * @param k        <b> the multiple value of the all previous kr </b>
      * @return {@link Color} <b> of the given {@link Point3D} </b>
      */
@@ -138,7 +137,7 @@ public class Render {
         double ks = geoPoint.geometry.getMaterial().getKS();
         int nSh = geoPoint.geometry.getMaterial().getNShininess();
 
-        Vector l, r;
+        Vector l;
         Vector n = geoPoint.geometry.getNormal(geoPoint.point);
         Vector v = _scene.getCamera().getVto();
         Color iL;
@@ -146,13 +145,15 @@ public class Render {
         Color color = geoPoint.geometry.getEmission(); // iE
         for (LightSource lS : _scene.getLights()) {
             l = lS.getL(geoPoint.point);
-            r = l.subtract(n.scale(2 * l.dotProduct(n)));
 
             double ln = alignZero(l.dotProduct(n));
             double vn = alignZero(v.dotProduct(n));
-            if (sameSign(ln, vn) && unshaded(lS, l, n, geoPoint)) {
-                iL = lS.getIntensity(geoPoint.point);
-                color = color.add(calcDiffusive(kd, l, n, iL), calcSpecular(ks, r, v, nSh, iL));
+            if (sameSign(ln, vn)) {
+                double ktr = transparency(lS, l, n, geoPoint);
+                if (ktr * k > MIN_CALC_COLOR_K) {
+                    iL = lS.getIntensity(geoPoint.point).scale(ktr);
+                    color = color.add(calcDiffusive(kd, l, n, iL), calcSpecular(ks, l, n, v, nSh, iL));
+                }
             }
         }
         double kr = geoPoint.geometry.getMaterial().getKR();            // the reflection factor
@@ -195,13 +196,15 @@ public class Render {
      * calculating the specular.
      *
      * @param ks  <b> the specular's value factor of the Material </b>
-     * @param r   <b> the return {@link Vector} from the object </b>
+     * @param l   <b> the normalized {@link Vector} of the {@link Light} </b>
+     * @param n   <b> the normalized orthogonal {@link Vector} to the object </b>
      * @param v   <b> the direction {@link Vector} of the Camera </b>
      * @param nSh <b> the object’s shininess of the Material </b>
      * @param iL  <b> the light intensity of the {@link Light} at the specific intersection point with the object </b>
      * @return {@link Color} <b> the specular {@link Color} </b>
      */
-    private Color calcSpecular(double ks, Vector r, Vector v, int nSh, Color iL) {
+    private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nSh, Color iL) {
+        Vector r = l.subtract(n.scale(2 * l.dotProduct(n)));
         double vr = alignZero(v.dotProduct(r));
         if (vr >= 0) { return Color.BLACK; }
         return iL.scale(ks * (Math.pow(-vr, nSh)));
@@ -231,27 +234,54 @@ public class Render {
     public void writeToImage() { _imageWriter.writeToImage(); }
 
     /**
-     * @param l
-     * @param n
-     * @param geoPoint
-     * @return
+     * not in use
+     *
+     * @param light    <b> the given {@link LightSource} </b>
+     * @param l        <b> the forward {@link Vector} of the {@link LightSource} </b>
+     * @param n        <b> the normal {@link Vector} of the intersection point to the surface </b>
+     * @param geoPoint <b> the intersection point </b>
+     * @return boolean <b> true if there is no other object in the way, else return false </b>
      */
     private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geoPoint) {
         Vector shadeDirection = l.scale(-1); // from point to light source
 
         Ray shadeRay = new Ray(geoPoint.point, shadeDirection, n);
 
-        double distanceLight = light.getDistance(geoPoint.point);
+        double lightDistance = light.getDistance(geoPoint.point);
 
-        List<GeoPoint> intersections = _scene.getGeometries().findIntersections(shadeRay, distanceLight);
+        List<GeoPoint> intersections = _scene.getGeometries().findIntersections(shadeRay, lightDistance);
         if (intersections == null) { return true; }
 
         for (GeoPoint gp : intersections) {
-            if (/*alignZero(gp.point.distance(geoPoint.point) - distanceLight) <= 0 &&*/ isZero(gp.geometry.getMaterial().getKT())) { // check if at least one of the point is "atum" in Hebrew.
+            if (isZero(gp.geometry.getMaterial().getKT())) { // check if at least one of the point is "atum" in Hebrew.
                 return false;
             }
         }
         return true;
+    }
 
+    /**
+     * @param ls       <b> the given {@link LightSource} </b>
+     * @param l        <b> the forward {@link Vector} of the {@link LightSource} </b>
+     * @param n        <b> the normal {@link Vector} of the intersection point to the surface </b>
+     * @param geoPoint <b> the intersection point </b>
+     * @return double <b> number between 1 to 0 includes that present the factor of the transparency </b>
+     */
+    private double transparency(LightSource ls, Vector l, Vector n, GeoPoint geoPoint) {
+        Vector shadeDirection = l.scale(-1); // from point to light source
+
+        Ray shadeRay = new Ray(geoPoint.point, shadeDirection, n);
+
+        double lightDistance = ls.getDistance(geoPoint.point);
+
+        List<GeoPoint> intersections = _scene.getGeometries().findIntersections(shadeRay, lightDistance);
+        if (intersections == null) { return 1d; }
+
+        double ktr = 1d;
+        for (GeoPoint gp : intersections) {
+            ktr *= gp.geometry.getMaterial().getKT();
+            if (ktr < MIN_CALC_COLOR_K) { return 0d; }
+        }
+        return ktr;
     }
 }

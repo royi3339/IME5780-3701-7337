@@ -29,8 +29,8 @@ public interface LightSource {
 
 
     /**
-     * @param p
-     * @return
+     * @param p <b> the {@link Point3D} that we check the distance with </b>
+     * @return double <b> return distance </b>
      */
     public double getDistance(Point3D p);
 }

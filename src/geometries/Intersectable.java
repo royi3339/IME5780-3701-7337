@@ -22,7 +22,7 @@ public interface Intersectable {
     default List<GeoPoint> findIntersections(Ray ray) { return findIntersections(ray, Double.POSITIVE_INFINITY); }
 
     /**
-     * @param ray
+     * @param ray         <b> the {@link Ray} we will find his intersections </b>
      * @param maxDistance <b> the range of the checking of the {@link Ray} </b>
      * @return
      */
@@ -47,7 +47,7 @@ public interface Intersectable {
         }
 
         /**
-         * @param o<b> the other object </b>
+         * @param o <b> the other object </b>
          * @return boolean <b> true / false </b>
          */
         @Override
@@ -58,7 +58,7 @@ public interface Intersectable {
             return point.equals(geoPoint.point) && geometry == geoPoint.geometry;
         }
 
-        @Override
-        public String toString() { return "GeoPoint: " + "point = " + point + "geometry = " + geometry; }
+//        @Override
+        //      public String toString() { return "GeoPoint: " + "point = " + point + "geometry = " + geometry; } // helper for the tests
     }
 }

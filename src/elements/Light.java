@@ -1,7 +1,6 @@
 package elements;
 
 import primitives.Color;
-import primitives.Point3D;
 
 /**
  * implements the Light abstract class.

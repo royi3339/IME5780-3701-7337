@@ -20,9 +20,11 @@ public class SpotLight extends PointLight {
      *
      * @param intensity <b> of the {@link Color} of the {@link SpotLight} </b>
      * @param position  <b> the position {@link Point3D} of {@link SpotLight}  </b>
-     * @param kC        <b>  </b>
-     * @param kL        <b>  </b>
-     * @param kQ        <b>  </b>
+     *                  <p>
+     *                  with those 3 parameters we can use the distance to calculate intensity :
+     * @param kC        <b> free factor </b>
+     * @param kL        <b> factor of the first exponent </b>
+     * @param kQ        <b> factor of the second exponent </b>
      * @param direction <b> the direction {@link Vector} of the {@link SpotLight} </b>
      */
     public SpotLight(Color intensity, Point3D position, Vector direction, double kC, double kL, double kQ) {
