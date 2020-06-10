@@ -2,7 +2,6 @@ package renderer;
 
 import elements.Light;
 import elements.LightSource;
-import geometries.Intersectable;
 import primitives.*;
 import scene.Scene;
 
@@ -10,8 +9,7 @@ import java.util.List;
 
 import geometries.Intersectable.GeoPoint;
 
-import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 /**
  * implements the Render class.
@@ -43,7 +41,6 @@ public class Render {
      */
     public void renderImage() {
         elements.Camera camera = _scene.getCamera();
-        Intersectable geometries = _scene.getGeometries();
         java.awt.Color background = _scene.getBackground().getColor();
         int nX = _imageWriter.getNx();
         int nY = _imageWriter.getNy();
@@ -58,18 +55,6 @@ public class Render {
                 _imageWriter.writePixel(j, i, closestPoint == null ? background : calcColor(closestPoint, ray).getColor());
             }
         }
-    }
-
-    /**
-     * helper method checking if the sing of doubles are the same.
-     *
-     * @param a <b> the first number </b>
-     * @param b <b> the second number </b>
-     * @return boolean <b> if the sign of a and b are the same: return true, else: return false <b>
-     */
-    private boolean sameSign(double a, double b) {
-        if ((a < 0 && b < 0) || (a > 0 && b > 0)) { return true; }
-        return false;
     }
 
     /**
@@ -131,8 +116,6 @@ public class Render {
      * @return {@link Color} <b> of the given {@link Point3D} </b>
      */
     private Color calcColor(GeoPoint geoPoint, Ray inRay, int level, double k) {
-        if (level == 1 || k < MIN_CALC_COLOR_K) { return Color.BLACK; }
-
         double kd = geoPoint.geometry.getMaterial().getKD();
         double ks = geoPoint.geometry.getMaterial().getKS();
         int nSh = geoPoint.geometry.getMaterial().getNShininess();
@@ -156,6 +139,8 @@ public class Render {
                 }
             }
         }
+        if (level == 1) { return Color.BLACK; }
+
         double kr = geoPoint.geometry.getMaterial().getKR();            // the reflection factor
         double kkr = k * kr;
         if (kkr > MIN_CALC_COLOR_K) {
@@ -261,11 +246,13 @@ public class Render {
     }
 
     /**
+     * provided number between 1 to 0 includes that present the factor of the transparency.
+     *
      * @param ls       <b> the given {@link LightSource} </b>
      * @param l        <b> the forward {@link Vector} of the {@link LightSource} </b>
      * @param n        <b> the normal {@link Vector} of the intersection point to the surface </b>
      * @param geoPoint <b> the intersection point </b>
-     * @return double <b> number between 1 to 0 includes that present the factor of the transparency </b>
+     * @return double <b> number between 1 to 0 </b>
      */
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint geoPoint) {
         Vector shadeDirection = l.scale(-1); // from point to light source

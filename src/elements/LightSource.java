@@ -20,10 +20,12 @@ public interface LightSource {
     public Color getIntensity(Point3D p);
 
     /**
-     * @param p <b> the other {@link Point3D} of the object </b>
-     * @return {@link Vector} <b> the normalized {@link Vector} between the given {@link Point3D} which it's on the object,
+     * provided the normalized {@link Vector} between the given {@link Point3D} which it's on the object,
      * <p>
-     * and between the {@link Light} position </b>
+     * and between the {@link Light} position.
+     *
+     * @param p <b> the other {@link Point3D} of the object </b>
+     * @return {@link Vector} <b>  the normalized {@link Vector} </b>
      */
     public Vector getL(Point3D p);
 

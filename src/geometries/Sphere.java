@@ -2,7 +2,6 @@ package geometries;
 
 import primitives.*;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -76,6 +75,12 @@ public class Sphere extends RadialGeometry {
     public String toString() { return "Sphere:\t" + "center = " + _center.toString() + ", " + super.toString(); }
 
     /**
+     * checking the Points which intersections with the object, and with the given {@link Ray}, and return a List of those points.
+     * <p>
+     * in range of the given distance.
+     * <p>
+     * if there is no intersections, will return null.
+     *
      * @param ray         <b> the {@link Ray} we will find his intersections </b>
      * @param maxDistance <b> the range of the distance checking of the {@link Ray} </b>
      * @return List<GeoPoint> <b> the intersections points </b>

@@ -129,6 +129,12 @@ public class Cylinder extends Tube {
     }
 
     /**
+     * checking the Points which intersections with the object, and with the given {@link Ray}, and return a List of those points.
+     * <p>
+     * in range of the given distance.
+     * <p>
+     * if there is no intersections, will return null.
+     *
      * @param ray         <b> the {@link Ray} we will find his intersections </b>
      * @param maxDistance <b> the range of the checking of the {@link Ray} </b>
      * @return List<GeoPoint> <b> the intersections points (null) </b>

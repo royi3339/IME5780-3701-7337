@@ -40,4 +40,18 @@ public abstract class Util {
     public static double alignZero(double number) {
         return getExp(number) < ACCURACY ? 0.0 : number;
     }
+
+    /**
+     * helper method checking if the sing of doubles are the same,
+     * <p>
+     * if the sign of a and b are the same: return true, else: return false.
+     *
+     * @param a <b> the first number </b>
+     * @param b <b> the second number </b>
+     * @return boolean <b> true / false <b>
+     */
+    public static boolean sameSign(double a, double b) {
+        if ((a < 0 && b < 0) || (a > 0 && b > 0)) { return true; }
+        return false;
+    }
 }

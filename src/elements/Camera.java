@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.awt.image.PixelGrabber;
+
 import static primitives.Util.isZero;
 
 /**

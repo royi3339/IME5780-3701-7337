@@ -22,9 +22,15 @@ public interface Intersectable {
     default List<GeoPoint> findIntersections(Ray ray) { return findIntersections(ray, Double.POSITIVE_INFINITY); }
 
     /**
+     * checking the Points which intersections with the object, and with the given {@link Ray}, and return a List of those points.
+     * <p>
+     * in range of the given distance.
+     * <p>
+     * if there is no intersections, will return null.
+     *
      * @param ray         <b> the {@link Ray} we will find his intersections </b>
      * @param maxDistance <b> the range of the checking of the {@link Ray} </b>
-     * @return
+     * @return List<Point3D> <b> the intersections points </b>
      */
     List<GeoPoint> findIntersections(Ray ray, double maxDistance);
 

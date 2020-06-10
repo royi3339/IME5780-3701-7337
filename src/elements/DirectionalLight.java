@@ -38,10 +38,12 @@ public class DirectionalLight extends Light implements LightSource {
     public Color getIntensity(Point3D point) { return _intensity; }
 
     /**
-     * @param p <b> the other {@link Point3D} of the object </b>
-     * @return {@link Vector} <b> the normalized {@link Vector} between the given {@link Point3D} which it's on the object,
+     * provided the normalized {@link Vector} between the given {@link Point3D} which it's on the object,
      * <p>
-     * and between the {@link Light} position </b>
+     * and between the {@link Light} position.
+     *
+     * @param p <b> the other {@link Point3D} of the object </b>
+     * @return {@link Vector} <b>  the normalized {@link Vector} </b>
      */
     @Override
     public Vector getL(Point3D p) { return _direction.normalized(); }

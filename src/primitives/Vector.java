@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * implements the Vector class.
  *
@@ -172,4 +174,16 @@ public class Vector {
      */
     @Override
     public String toString() { return "Vector = " + _head.toString(); }
+
+    /**
+     * provided the orthogonal {@link Vector} of this {@link Vector}.
+     *
+     * @return {@link Vector} <b> orthogonal {@link Vector} <b/>
+     */
+    public Vector getOrthogonal() {
+        double x = getPointX(), y = getPointY(), z = getPointZ();
+        if (0 == x) return new Vector(0, -z, y);
+        if (0 == y) return new Vector(-z, 0, x);
+        else return new Vector(-y, x, 0);
+    }
 }

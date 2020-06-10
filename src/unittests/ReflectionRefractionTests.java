@@ -150,8 +150,9 @@ public class ReflectionRefractionTests {
                 , new Triangle(new Color(java.awt.Color.GREEN), new Material(0.25, 0.75, 20, 0.5, 0), p4, p1, p5)
         );
         scene.addLights(new DirectionalLight(new Color(255, 255, 255), new Vector(1, 0, 0)));
+        boolean b4K = false; // לא חייב את זה ....
         // helper method.
-        imagesWriter4K(false, cameraList, scene);
+        imagesWriter4K(b4K, cameraList, scene);
     }
 
     /**
