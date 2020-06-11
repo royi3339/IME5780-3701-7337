@@ -103,9 +103,9 @@ public class Ray {
         Vector vX = _direction.getOrthogonal().normalize();
         Vector vZ = v.crossProduct(vX).normalize();
 
-        double d=1;
-        
+        double d = 1;
 
 
+        return null;
     }
 }

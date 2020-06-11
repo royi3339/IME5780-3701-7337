@@ -173,7 +173,7 @@ public class Render {
                 color = color.add(calcColor(rPoint, inRay, level - 1, kkr, effect).scale(kr));
             } else {
                 List<Ray> rayBeam = inRay.getRayBeam(k);
-                for (Ray ray : rayBeam) {
+                for (Ray ray : rayBeam) {//
                     color = color.add(calcColor(rPoint, ray, level - 1, kkr, effect).scale(kr));
                 }
                 color = color.scale(1 / rayBeam.size());

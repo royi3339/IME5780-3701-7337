@@ -1,13 +1,11 @@
 package primitives;
 
-import java.util.List;
-
 /**
  * implements the Vector class.
  *
  * @author Royi Alishayev idan darmoni
  */
-public class Vector {
+public class Vector {//
     private Point3D _head;
 
     /**
