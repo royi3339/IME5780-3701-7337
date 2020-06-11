@@ -25,7 +25,6 @@ public class Ray {
         _direction = new Vector(d.normalized());
     }
 
-
     /**
      * <b> {@link Ray} copy constructor. </b>
      *
