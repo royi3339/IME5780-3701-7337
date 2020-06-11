@@ -20,12 +20,12 @@ import java.util.List;
  * @author dzilb && Royi Alishayev idan darmoni
  */
 public class ReflectionRefractionTests {
-
     /**
      * Produce a picture of a sphere lighted by a spot light
      */
     @Test
     public void twoSpheres() {
+        final boolean EFFECT = false;
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -43,7 +43,7 @@ public class ReflectionRefractionTests {
         ImageWriter imageWriter = new ImageWriter("twoSpheres", 150, 150, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -52,6 +52,7 @@ public class ReflectionRefractionTests {
      */
     @Test
     public void twoSpheresOnMirrors() {
+        final boolean EFFECT = false;
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -10000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(10000);
@@ -72,7 +73,7 @@ public class ReflectionRefractionTests {
         ImageWriter imageWriter = new ImageWriter("twoSpheresMirrored", 2500, 2500, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -82,6 +83,7 @@ public class ReflectionRefractionTests {
      */
     @Test
     public void trianglesTransparentSphere() {
+        final boolean EFFECT = false;
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -102,7 +104,7 @@ public class ReflectionRefractionTests {
         ImageWriter imageWriter = new ImageWriter("shadow with transparency", 200, 200, 600, 600);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -111,6 +113,7 @@ public class ReflectionRefractionTests {
      */
     @Test
     public void numOfObjectsTest() {
+        final boolean EFFECT = false;
 
         Scene scene = new Scene("Objects Test scene");
         scene.setDistance(10000);
@@ -151,8 +154,8 @@ public class ReflectionRefractionTests {
         );
         scene.addLights(new DirectionalLight(new Color(255, 255, 255), new Vector(1, 0, 0)));
         boolean b4K = false; // לא חייב את זה ....
-        // helper method.
-        imagesWriter4K(b4K, cameraList, scene);
+        // helper method
+        imagesWriter4K(b4K, cameraList, scene,EFFECT);
     }
 
     /**
@@ -162,7 +165,7 @@ public class ReflectionRefractionTests {
      * @param cameraList <b> the List of the {@link Camera}s </b>
      * @param scene      <b> the {@link Scene} of our numOfObjectsTest </b>
      */
-    private void imagesWriter4K(boolean b4K, List<Camera> cameraList, Scene scene) {
+    private void imagesWriter4K(boolean b4K, List<Camera> cameraList, Scene scene,boolean effect) {
         String str;
         int nX, nY;
         // 4K or regular resolution checker
@@ -185,7 +188,7 @@ public class ReflectionRefractionTests {
                 imageWriter = new ImageWriter(str + i, 5760, 3900, nY, nX);
             }
             Render render = new Render(imageWriter, scene);
-            render.renderImage();
+            render.renderImage(effect);
             render.writeToImage();
             i++;
         }

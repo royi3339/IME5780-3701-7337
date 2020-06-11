@@ -2,12 +2,14 @@ package renderer;
 
 import elements.Light;
 import elements.LightSource;
-import primitives.*;
+import geometries.Intersectable.GeoPoint;
+import primitives.Color;
+import primitives.Point3D;
+import primitives.Ray;
+import primitives.Vector;
 import scene.Scene;
 
 import java.util.List;
-
-import geometries.Intersectable.GeoPoint;
 
 import static primitives.Util.*;
 
@@ -39,7 +41,7 @@ public class Render {
     /**
      * creating the image, with the objects.
      */
-    public void renderImage() {
+    public void renderImage(boolean effect) {
         elements.Camera camera = _scene.getCamera();
         java.awt.Color background = _scene.getBackground().getColor();
         int nX = _imageWriter.getNx();
@@ -52,7 +54,7 @@ public class Render {
             for (int j = 0; j < nX; j++) { //j is pixel in the row number
                 Ray ray = camera.constructRayThroughPixel(nX, nY, j, i, distance, width, height);
                 GeoPoint closestPoint = findClosestIntersection(ray);
-                _imageWriter.writePixel(j, i, closestPoint == null ? background : calcColor(closestPoint, ray).getColor());
+                _imageWriter.writePixel(j, i, closestPoint == null ? background : calcColor(closestPoint, ray, effect).getColor());
             }
         }
     }
@@ -75,7 +77,9 @@ public class Render {
      * @param ray   <b> the given {@link Ray} that we checking </b>
      * @return {@link Ray} <b> return the Refraction {@link Ray} </b>
      */
-    private Ray constructRefractedRay(Vector n, Point3D point, Ray ray) { return new Ray(point, ray.getDirection(), n); }
+    private Ray constructRefractedRay(Vector n, Point3D point, Ray ray) {
+        return new Ray(point, ray.getDirection(), n);
+    }
 
     /**
      * find the most closest {@link GeoPoint} intersection to a {@link Ray}.
@@ -85,7 +89,9 @@ public class Render {
      */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> intersections = _scene.getGeometries().findIntersections(ray);
-        if (intersections == null) { return null; }
+        if (intersections == null) {
+            return null;
+        }
         Point3D p0 = ray.getHead();
         double minDistance = p0.distance(intersections.get(0).point);
         GeoPoint closestPoint = intersections.get(0);
@@ -104,8 +110,8 @@ public class Render {
      * @param inRay        <b> the {@link Ray} that we check in this step os the recursion </b>
      * @return {@link Color} <b> of the given {@link Point3D} </b>
      */
-    private Color calcColor(GeoPoint geoPoint, Ray inRay) {
-        return _scene.getAmbientLight().getIntensity().add(calcColor(geoPoint, inRay, MAX_CALC_COLOR_LEVEL, 1.0)); // ka * ia + calcColor
+    private Color calcColor(GeoPoint geoPoint, Ray inRay, boolean effect) {
+        return _scene.getAmbientLight().getIntensity().add(calcColor(geoPoint, inRay, MAX_CALC_COLOR_LEVEL, 1.0, effect)); // ka * ia + calcColor
     }
 
     /**
@@ -115,7 +121,7 @@ public class Render {
      * @param k        <b> the multiple value of the all previous kr </b>
      * @return {@link Color} <b> of the given {@link Point3D} </b>
      */
-    private Color calcColor(GeoPoint geoPoint, Ray inRay, int level, double k) {
+    private Color calcColor(GeoPoint geoPoint, Ray inRay, int level, double k, boolean effect) {
         double kd = geoPoint.geometry.getMaterial().getKD();
         double ks = geoPoint.geometry.getMaterial().getKS();
         int nSh = geoPoint.geometry.getMaterial().getNShininess();
@@ -139,24 +145,38 @@ public class Render {
                 }
             }
         }
-        if (level == 1) { return Color.BLACK; }
+        if (level == 1) {
+            return Color.BLACK;
+        }
 
         double kr = geoPoint.geometry.getMaterial().getKR();            // the reflection factor
+
         double kkr = k * kr;
         if (kkr > MIN_CALC_COLOR_K) {
             Ray reflectedRay = constructReflectedRay(n, geoPoint.point, inRay);
-            GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
-            if (reflectedPoint != null) {
-                color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
-            }
+            color = callRecursiveCalcColor(reflectedRay, level, kkr, kr, effect,ks);
         }
         double kt = geoPoint.geometry.getMaterial().getKT();            // the transparency (refraction) factor
         double kkt = k * kt;
         if (kkt > MIN_CALC_COLOR_K) {
             Ray refractedRay = constructRefractedRay(n, geoPoint.point, inRay);
-            GeoPoint refractedPoint = findClosestIntersection(refractedRay);
-            if (refractedPoint != null) {
-                color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
+            color = callRecursiveCalcColor(refractedRay, level, kkr, kr, effect,kd);
+        }
+        return color;
+    }
+
+    private Color callRecursiveCalcColor(Ray inRay, int level, double kkr, double kr, boolean effect,double k) {
+        GeoPoint rPoint = findClosestIntersection(inRay);
+        Color color = Color.BLACK;
+        if (rPoint != null) {
+            if (!effect) {
+                color = color.add(calcColor(rPoint, inRay, level - 1, kkr, effect).scale(kr));
+            } else {
+                List<Ray> rayBeam = inRay.getRayBeam(k);
+                for (Ray ray : rayBeam) {
+                    color = color.add(calcColor(rPoint, ray, level - 1, kkr, effect).scale(kr));
+                }
+                color = color.scale(1 / rayBeam.size());
             }
         }
         return color;
@@ -173,7 +193,9 @@ public class Render {
      */
     private Color calcDiffusive(double kd, Vector l, Vector n, Color iL) {
         double ln = l.dotProduct(n);
-        if (ln < 0) { ln *= -1; }
+        if (ln < 0) {
+            ln *= -1;
+        }
         return iL.scale(kd * ln);
     }
 
@@ -191,7 +213,9 @@ public class Render {
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nSh, Color iL) {
         Vector r = l.subtract(n.scale(2 * l.dotProduct(n)));
         double vr = alignZero(v.dotProduct(r));
-        if (vr >= 0) { return Color.BLACK; }
+        if (vr >= 0) {
+            return Color.BLACK;
+        }
         return iL.scale(ks * (Math.pow(-vr, nSh)));
     }
 
@@ -216,7 +240,9 @@ public class Render {
      * the image, according to pixel color matrix in the directory
      * of the project.
      */
-    public void writeToImage() { _imageWriter.writeToImage(); }
+    public void writeToImage() {
+        _imageWriter.writeToImage();
+    }
 
     /**
      * not in use
@@ -235,7 +261,9 @@ public class Render {
         double lightDistance = light.getDistance(geoPoint.point);
 
         List<GeoPoint> intersections = _scene.getGeometries().findIntersections(shadeRay, lightDistance);
-        if (intersections == null) { return true; }
+        if (intersections == null) {
+            return true;
+        }
 
         for (GeoPoint gp : intersections) {
             if (isZero(gp.geometry.getMaterial().getKT())) { // check if at least one of the point is "atum" in Hebrew.
@@ -262,12 +290,16 @@ public class Render {
         double lightDistance = ls.getDistance(geoPoint.point);
 
         List<GeoPoint> intersections = _scene.getGeometries().findIntersections(shadeRay, lightDistance);
-        if (intersections == null) { return 1d; }
+        if (intersections == null) {
+            return 1d;
+        }
 
         double ktr = 1d;
         for (GeoPoint gp : intersections) {
             ktr *= gp.geometry.getMaterial().getKT();
-            if (ktr < MIN_CALC_COLOR_K) { return 0d; }
+            if (ktr < MIN_CALC_COLOR_K) {
+                return 0d;
+            }
         }
         return ktr;
     }

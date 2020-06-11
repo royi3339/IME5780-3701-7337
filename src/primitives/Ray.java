@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * implements the Ray class.
  *
@@ -13,6 +15,7 @@ public class Ray {
      * the value of the checking range
      */
     private static final double DELTA = 0.1;
+    private static final int NUM_OF_RAYS_IN_BEAM = 50;
 
     /**
      * <b> {@link Ray} constructor. </b>
@@ -31,7 +34,9 @@ public class Ray {
      *
      * @param r <b> the {@link Ray} </b>
      */
-    public Ray(Ray r) { this(r._head, r._direction); }
+    public Ray(Ray r) {
+        this(r._head, r._direction);
+    }
 
     /**
      * <b> {@link Ray} constructor. </b>
@@ -49,12 +54,16 @@ public class Ray {
     /**
      * @return {@link Point3D} <b> head </b>
      */
-    public Point3D getHead() { return _head; }
+    public Point3D getHead() {
+        return _head;
+    }
 
     /**
      * @return {@link Vector} <b> normalized direction {@link Vector} </b>
      */
-    public Vector getDirection() {return _direction;}
+    public Vector getDirection() {
+        return _direction;
+    }
 
     /**
      * @param obj <b> the other Object </b>
@@ -87,5 +96,16 @@ public class Ray {
         Vector v = _direction;
         p = p0.add(v.scale(t));
         return p;
+    }
+
+    public List<Ray> getRayBeam(double r) {
+        Vector v = _direction;
+        Vector vX = _direction.getOrthogonal().normalize();
+        Vector vZ = v.crossProduct(vX).normalize();
+
+        double d=1;
+        
+
+
     }
 }
