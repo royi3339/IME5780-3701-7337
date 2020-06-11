@@ -5,7 +5,7 @@ package primitives;
  *
  * @author Royi Alishayev idan darmoni
  */
-public class Vector {//
+public class Vector {
     private Point3D _head;
 
     /**

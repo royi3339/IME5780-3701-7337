@@ -104,7 +104,6 @@ public class Ray {
 
         double d = 1;
 
-
-        return null;
+        return null; //
     }
 }
