@@ -20,7 +20,7 @@ public class ShadowTests {
      */
     @Test
     public void SphereTriangleInitial() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -48,7 +48,7 @@ public class ShadowTests {
      */
     @Test
     public void SphereTriangleMove1() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -76,7 +76,7 @@ public class ShadowTests {
      */
     @Test
     public void SphereTriangleMove2() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -104,7 +104,7 @@ public class ShadowTests {
      */
     @Test
     public void SphereTriangleSpot1() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -132,7 +132,7 @@ public class ShadowTests {
      */
     @Test
     public void SphereTriangleSpot2() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -160,7 +160,7 @@ public class ShadowTests {
      */
     @Test
     public void trianglesSphere() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));

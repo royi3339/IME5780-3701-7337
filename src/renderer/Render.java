@@ -25,13 +25,12 @@ public class Render {
     private Scene _scene;
     private ImageWriter _imageWriter;
 
-    private int _threads = 4;
+    private int _threads = 3;
     private final int SPARE_THREADS = 2;
     private boolean _print = true;
 
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
-    private static final int SUPER_SAMPLING = 50;
 
     /**
      * <b> {@link Render} constructor. </b>
@@ -135,10 +134,14 @@ public class Render {
         }
     }
 
+
     /**
      * creating the image, with the objects.
+     *
+     * @param effect <b> the num of the {@link Ray}s that we want to send,
+     *               <p> when effect == 0 will be send only a single {@link Ray} </b>
      */
-    public void renderImage(boolean effect) {
+    public void renderImage(int effect) {
         java.awt.Color background = _scene.getBackground().getColor(); ////////////////////////
 
         Camera camera = _scene.getCamera();
@@ -157,7 +160,6 @@ public class Render {
                 while (thePixel.nextPixel(pixel)) {
                     Ray ray = camera.constructRayThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height);
                     GeoPoint closestPoint = findClosestIntersection(ray);
-                //    _imageWriter.writePixel(pixel.col, pixel.row, calcColor(closestPoint, ray, effect).getColor());
                     _imageWriter.writePixel(pixel.col, pixel.row, closestPoint == null ? background : calcColor(closestPoint, ray, effect).getColor());
                 }
             });
@@ -245,10 +247,10 @@ public class Render {
      *
      * @param geoPoint <b> the given {@link GeoPoint} </b>
      * @param inRay    <b> the {@link Ray} that we check in this step os the recursion </b>
-     * @param effect   <b> the feature which controlling on the option of a single {@link Ray} of beam of {@link Ray}s </b>
+     * @param effect   <b> the feature which controlling on the option of a single {@link Ray} of beam of {@link Ray}s, and the amount of the {@link Ray}s </b>
      * @return {@link Color} <b> of the given {@link Point3D} </b>
      */
-    private Color calcColor(GeoPoint geoPoint, Ray inRay, boolean effect) {
+    private Color calcColor(GeoPoint geoPoint, Ray inRay, int effect) {
         return _scene.getAmbientLight().getIntensity().add(calcColor(geoPoint, inRay, MAX_CALC_COLOR_LEVEL, 1.0, effect)); // ka * ia + calcColor
     }
 
@@ -259,10 +261,10 @@ public class Render {
      * @param inRay    <b> the {@link Ray} that we check in this step os the recursion </b>
      * @param level    <b> the parameter of the recursion </b>
      * @param k        <b> the multiple value of the all previous kr </b>
-     * @param effect   <b> the feature which controlling on the option of a single {@link Ray} of beam of {@link Ray}s </b>
+     * @param effect   <b> the feature which controlling on the option of a single {@link Ray} of beam of {@link Ray}s, and the amount of the {@link Ray}s </b>
      * @return {@link Color} <b> of the given {@link GeoPoint} {@link Point3D} intersection </b>
      */
-    private Color calcColor(GeoPoint geoPoint, Ray inRay, int level, double k, boolean effect) {
+    private Color calcColor(GeoPoint geoPoint, Ray inRay, int level, double k, int effect) {
         if (geoPoint == null) { return _scene.getBackground(); }
         double kd = geoPoint.geometry.getMaterial().getKD();
         double ks = geoPoint.geometry.getMaterial().getKS();
@@ -290,19 +292,18 @@ public class Render {
         if (level == 1) { return Color.BLACK; }
 
         double kr = geoPoint.geometry.getMaterial().getKR();            // the reflection factor
-        double glossy = geoPoint.geometry.getMaterial().getGlossy();
+        double glurry = geoPoint.geometry.getMaterial().getGlurry();
         double kkr = k * kr;
         if (kkr > MIN_CALC_COLOR_K) {
             Ray reflectedRay = constructReflectedRay(n, geoPoint.point, inRay);
-            color = color.add(callRecursiveCalcColor(reflectedRay, level, kkr, kr, effect, glossy, n));
+            color = color.add(callRecursiveCalcColor(reflectedRay, level, kkr, kr, effect, glurry, n));
         }
 
         double kt = geoPoint.geometry.getMaterial().getKT();            // the transparency (refraction) factor
-        double blurry = geoPoint.geometry.getMaterial().getBlurry();
         double kkt = k * kt;
         if (kkt > MIN_CALC_COLOR_K) {
             Ray refractedRay = constructRefractedRay(n, geoPoint.point, inRay);
-            color = color.add(callRecursiveCalcColor(refractedRay, level, kkt, kt, effect, blurry, n));
+            color = color.add(callRecursiveCalcColor(refractedRay, level, kkt, kt, effect, glurry, n));
         }
         return color;
     }
@@ -321,9 +322,9 @@ public class Render {
      * @param normal  <b> the normal {@link Vector} </b>
      * @return {@link Color} <b> of the given {@link GeoPoint} {@link Point3D} intersection </b>
      */
-    private Color callRecursiveCalcColor(Ray inRay, int level, double kk, double k, boolean effect, double texture, Vector normal) {
+    private Color callRecursiveCalcColor(Ray inRay, int level, double kk, double k, int effect, double texture, Vector normal) {
         Color color = Color.BLACK;
-        List<Ray> rayBeam = inRay.getRayBeam(texture, normal, effect ? SUPER_SAMPLING : 0);
+        List<Ray> rayBeam = inRay.getRayBeam(texture, normal, effect);
         for (Ray ray : rayBeam) {
             GeoPoint rPoint = findClosestIntersection(ray);
             Color c = calcColor(rPoint, ray, level - 1, kk, effect).scale(k);
@@ -332,19 +333,6 @@ public class Render {
         color = color.scale(1d / rayBeam.size());
         return color;
     }
-
-    /**
-     * calculating the diffusive.
-     *
-     * @param kd <b> the diffuse's attenuation factor of the Material </b>
-     * @param nl <b> dot Product between: the normalized {@link Vector} of the {@link Light}, and the normalized orthogonal {@link Vector} to the object <b>
-     * @param iL <b> the light intensity of the {@link Light} at the specific intersection point with the object </b>
-     * @return {@link Color} <b> the diffusive {@link Color} </b>
-     */
- /*   private Color calcDiffusive(double kd, double nl, Color iL) {
-        if (nl < 0) { nl = -nl; }
-        return iL.scale(nl * kd);
-    }       */
 
     /**
      * calculating the diffusive.
@@ -361,7 +349,6 @@ public class Render {
         return iL.scale(kd * ln);
     }
 
-
     /**
      * calculating the specular.
      *
@@ -373,12 +360,6 @@ public class Render {
      * @param iL  <b> the light intensity of the {@link Light} at the specific intersection point with the object </b>
      * @return {@link Color} <b> the specular {@link Color} </b>
      */
-  /*  private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nSh, Color iL) {
-        Vector r = l.subtract(n.scale(2 * n.dotProduct(l)));
-        double vr = alignZero(v.dotProduct(r));
-        if (vr >= 0) { return Color.BLACK; }
-        return iL.scale(ks * (Math.pow(-vr, nSh)));
-    }       */
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nSh, Color iL) {
         Vector r = l.subtract(n.scale(2 * l.dotProduct(n)));
         double vr = alignZero(v.dotProduct(r));
@@ -464,13 +445,14 @@ public class Render {
     }
 
     /**
-     * helper method for the test which checking if we want the pictures in 4K resolution or not.
+     * helper method for the test which checking if we want the pictures in 4K resolution or not.*
      *
      * @param b4K        <b> true = 4K resolution, false = regular resolution </b>
      * @param cameraList <b> the List of the {@link Camera}s </b>
      * @param scene      <b> the {@link Scene} of our numOfObjectsTest </b>
+     * @param effect     <b> the feature which controlling on the option of a single {@link Ray} of beam of {@link Ray}s, and the amount of the {@link Ray}s </b>
      */
-    public static void imagesWriter4K(boolean b4K, List<Camera> cameraList, Scene scene, boolean effect) {
+ /*   public static void imagesWriter4K(boolean b4K, List<Camera> cameraList, Scene scene, int effect) {
         String str;
         int nX, nY;
         // 4K or regular resolution checker
@@ -500,7 +482,7 @@ public class Render {
             render.writeToImage();
             i++;
         }
-    }
+    }       */
 }
 
 /*

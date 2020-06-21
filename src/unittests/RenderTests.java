@@ -23,7 +23,7 @@ public class RenderTests {
      */
     @Test
     public void basicRenderTwoColorTest() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -49,7 +49,7 @@ public class RenderTests {
 
     @Test
     public void basicRenderMultiColorTest() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));

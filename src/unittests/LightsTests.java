@@ -20,7 +20,7 @@ public class LightsTests {
      */
     @Test
     public void sphereDirectional() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -45,7 +45,7 @@ public class LightsTests {
      */
     @Test
     public void spherePoint() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -70,7 +70,7 @@ public class LightsTests {
      */
     @Test
     public void sphereSpot() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -96,7 +96,7 @@ public class LightsTests {
      */
     @Test
     public void trianglesDirectional() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -124,7 +124,7 @@ public class LightsTests {
      */
     @Test
     public void trianglesPoint() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -154,7 +154,7 @@ public class LightsTests {
      */
     @Test
     public void trianglesSpot() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -184,7 +184,7 @@ public class LightsTests {
      */
     @Test
     public void trianglesMultiLight() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Multi triangles Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
@@ -218,7 +218,7 @@ public class LightsTests {
      */
     @Test
     public void sphereMultiLight() {
-        final boolean EFFECT = false;
+        final int EFFECT = 0;
 
         Scene scene = new Scene("Multi sphere Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
