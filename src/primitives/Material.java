@@ -19,7 +19,7 @@ public class Material {
      * @param nShininess <b> the object’s shininess value of the {@link Material} </b>
      * @param kT         <b> the transparency factor of the {@link Material} </b>
      * @param kR         <b> the reflection factor of the {@link Material} </b>
-     * @param glurry     <b>  </b>
+     * @param glurry     <b> the value of the Blurry/Glossy factors of the {@link Material} </b>
      */
     public Material(double kD, double kS, int nShininess, double kT, double kR, double glurry) {
         _kD = kD;

@@ -134,11 +134,10 @@ public class Render {
         }
     }
 
-
     /**
      * creating the image, with the objects.
      *
-     * @param effect <b> the num of the {@link Ray}s that we want to send,
+     * @param effect <b> the number of the {@link Ray}s that we want to send,
      *               <p> when effect == 0 will be send only a single {@link Ray} </b>
      */
     public void renderImage(int effect) {
@@ -174,7 +173,7 @@ public class Render {
 
     /**
      * Set multithreading <br>
-     * - if the parameter is 0 - number of coress less 2 is taken
+     * - if the parameter is 0 - number of cores less 2 is taken
      *
      * @param threads number of threads
      * @return the Render object itself
@@ -317,7 +316,7 @@ public class Render {
      * @param level   <b> the parameter of the recursion </b>
      * @param kk      <b> the value of the kkt or of the kkr respectively </b>
      * @param k       <b> the value of the kt or of the kr respectively </b>
-     * @param effect  <b> the feature of our Project, decide with or without the "Blurry&Glossy" </b>
+     * @param effect  <b> the feature of our Project, decide with or without the "Blurry&Glossy", and the amount of the {@link Ray}s </b>
      * @param texture <b> the value of the Blurry/Glossy of the Object </b>
      * @param normal  <b> the normal {@link Vector} </b>
      * @return {@link Color} <b> of the given {@link GeoPoint} {@link Point3D} intersection </b>
@@ -391,7 +390,7 @@ public class Render {
     public void writeToImage() { _imageWriter.writeToImage(); }
 
     /**
-     * not in use
+     * not in use !!!!!!!!!!!!!!!!!!!!
      *
      * @param light    <b> the given {@link LightSource} </b>
      * @param l        <b> the forward {@link Vector} of the {@link LightSource} </b>
@@ -443,46 +442,6 @@ public class Render {
         }
         return ktr;
     }
-
-    /**
-     * helper method for the test which checking if we want the pictures in 4K resolution or not.*
-     *
-     * @param b4K        <b> true = 4K resolution, false = regular resolution </b>
-     * @param cameraList <b> the List of the {@link Camera}s </b>
-     * @param scene      <b> the {@link Scene} of our numOfObjectsTest </b>
-     * @param effect     <b> the feature which controlling on the option of a single {@link Ray} of beam of {@link Ray}s, and the amount of the {@link Ray}s </b>
-     */
- /*   public static void imagesWriter4K(boolean b4K, List<Camera> cameraList, Scene scene, int effect) {
-        String str;
-        int nX, nY;
-        // 4K or regular resolution checker
-        if (b4K) {
-            str = "#Royi_&&_Darmon_4K_Test";
-            nX = 2600;
-            nY = 3840;
-        } else {
-            str = "#Darmon_&&_Royi_Test";
-            //    nX = 650;
-            nX = 750;
-            //  nY = 960;
-            nY = 750;
-        }
-        int i = 1;
-        ImageWriter imageWriter;
-        for (Camera camera : cameraList) {
-            scene.setCamera(camera);
-            if (i == 1) {
-                //     imageWriter = new ImageWriter(str + i, 3900, 5760, nX, nY);
-                imageWriter = new ImageWriter(str + i, 4000, 4000, nX, nY);
-            } else {
-                imageWriter = new ImageWriter(str + i, 5760, 3900, nY, nX);
-            }
-            Render render = new Render(imageWriter, scene);
-            render.renderImage(effect);
-            render.writeToImage();
-            i++;
-        }
-    }       */
 }
 
 /*
