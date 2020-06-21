@@ -72,7 +72,7 @@ public class Sphere extends RadialGeometry {
      * @return String <b> the info </b>
      */
     @Override
-    public String toString() { return "Sphere:\t" + "center = " + _center.toString() + ", " + super.toString(); }
+    public String toString() { return "Sphere:\t" + " center = " + _center.toString() + ", " + super.toString(); }
 
     /**
      * checking the Points which intersections with the object, and with the given {@link Ray}, and return a List of those points.

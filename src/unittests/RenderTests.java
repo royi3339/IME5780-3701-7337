@@ -10,12 +10,6 @@ import renderer.ImageWriter;
 import renderer.Render;
 import scene.Scene;
 
-import geometries.Intersectable.GeoPoint;
-
-import java.util.List;
-
-import static junit.framework.TestCase.assertEquals;
-
 /**
  * Test rendering abasic image
  *
@@ -29,6 +23,8 @@ public class RenderTests {
      */
     @Test
     public void basicRenderTwoColorTest() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(100);
@@ -46,13 +42,15 @@ public class RenderTests {
         ImageWriter imageWriter = new ImageWriter("base render test", 500, 500, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.printGrid(50, java.awt.Color.YELLOW);
         render.writeToImage();
     }
 
     @Test
     public void basicRenderMultiColorTest() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(100);
@@ -74,7 +72,7 @@ public class RenderTests {
         ImageWriter imageWriter = new ImageWriter("color render test", 500, 500, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.printGrid(50, java.awt.Color.WHITE);
         render.writeToImage();
     }

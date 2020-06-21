@@ -11,7 +11,13 @@ import primitives.*;
 import renderer.*;
 import scene.Scene;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import static renderer.Render.imagesWriter4K;
+
+//import static renderer.Render.imagesWriter4K;
 
 /**
  * Tests for reflection and transparency functionality, test for partial shadows
@@ -26,6 +32,7 @@ public class ReflectionRefractionTests {
     @Test
     public void twoSpheres() {
         final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -60,7 +67,7 @@ public class ReflectionRefractionTests {
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
         scene.addGeometries(
-                new Sphere(new Color(0, 0, 100), new Material(0.25, 0.25, 20, 0.5, 0), 400, new Point3D(-950, 900, 1000)),
+                new Sphere(new Color(0, 0, 100), new Material(0.25, 0.25, 20, 0.5, 0, 0.001, 0), 400, new Point3D(-950, 900, 1000)),
                 new Sphere(new Color(100, 20, 20), new Material(0.25, 0.25, 20), 200, new Point3D(-950, 900, 1000)),
                 new Triangle(new Color(20, 20, 20), new Material(0, 0, 0, 0, 1), new Point3D(1500, 1500, 1500),
                         new Point3D(-1500, -1500, 1500), new Point3D(670, -670, -3000)),
@@ -71,7 +78,9 @@ public class ReflectionRefractionTests {
                 new Vector(-1, 1, 4), 1, 0.00001, 0.000005));
 
         ImageWriter imageWriter = new ImageWriter("twoSpheresMirrored", 2500, 2500, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        //     Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setMultithreading(1).setDebugPrint();
+        ;
 
         render.renderImage(EFFECT);
         render.writeToImage();
@@ -113,7 +122,7 @@ public class ReflectionRefractionTests {
      */
     @Test
     public void numOfObjectsTest() {
-        final boolean EFFECT = false;
+        final boolean EFFECT = true;
 
         Scene scene = new Scene("Objects Test scene");
         scene.setDistance(10000);
@@ -124,7 +133,7 @@ public class ReflectionRefractionTests {
         Camera c1 = new Camera(new Point3D(-150, -4620, 90), new Vector(1300, 5800, 150), new Vector(-5800, 1300, 0)); // picture #1
         Camera c2 = new Camera(new Point3D(0, -450, -7000), new Vector(20, 7, 100), new Vector(-100, 0, 20)); // picture #2
         Camera c3 = new Camera(new Point3D(0, -450, -5900), new Vector(20, 200, 100), new Vector(-100, 0, 20)); // picture #3
-        List<Camera> cameraList = List.of(c1, c2, c3);
+        List<Camera> cameraList = List.of(c1); //, c2, c3);
 
         //          creating 5 Point3D to the pyramid with a Square base.
         Point3D p1 = new Point3D(850, -750, -200);
@@ -135,15 +144,15 @@ public class ReflectionRefractionTests {
 
         scene.addGeometries(
                 //          creating a 3 Spheres which the third Sphere is a mirror.
-                new Sphere(new Color(0, 0, 0), new Material(0.25, 0.25, 20, 0.7, 0), 200, new Point3D(900, -850, -300))    // אפור
-                , new Sphere(new Color(95, 0, 50), new Material(0.25, 0.75, 20, 0.5, 0), 200, new Point3D(900, -1600, 0))    // וורוד
-                , new Sphere(new Color(java.awt.Color.darkGray), new Material(0, 0.25, 20, 0, 1), 400, new Point3D(1100, 0, 200))    //מראה
+                new Sphere(new Color(20, 20, 20), new Material(0.25, 0.25, 20, 0.7, 0, 20, 0), 200, new Point3D(900, -850, -300))    // אפור
+               ,  new Sphere(new Color(95, 0, 50), new Material(0.25, 0.75, 20, 0.5, 0, 0, 0), 200, new Point3D(900, -1600, 0))    // וורוד
+                , new Sphere(new Color(java.awt.Color.darkGray), new Material(0.25, 0.75, 20, 0, 0.7, 0, 0), 400, new Point3D(1100, 0, 200))    //מראה
 
                 //          creating a 4 infinity mirrors.
                 , new Plane(new Color(20, 20, 20), new Material(0.5, 0, 0, 0, 0.7), new Point3D(0, 0, 0), new Vector(0, 1, 0)) // קדמי
-                , new Plane(new Color(40, 40, 40), new Material(0, 0, 0, 0, 1), new Point3D(0, 0, 200), new Vector(0, 0, -1)) // צדדי
-                , new Plane(new Color(20, 20, 20), new Material(0, 0, 0, 0, 1), new Point3D(1000, -4621, 0), new Point3D(-800, -4621, 1000), new Point3D(0, -4621, 0)) // אחורי
-                , new Plane(new Color(java.awt.Color.black), new Material(0.2, 0, 20, 0, 0.2), new Point3D(1100, 0, 0), new Vector(-1, 0, 0)) // תחתון
+                , new Plane(new Color(40, 40, 40), new Material(0, 0, 0, 0, 0.7,0, 15), new Point3D(0, 0, 200), new Vector(0, 0, -1)) // צדדי
+        //        , new Plane(new Color(20, 20, 20), new Material(0, 0, 0, 0, 1), new Point3D(1000, -4621, 0), new Point3D(-800, -4621, 1000), new Point3D(0, -4621, 0)) // אחורי
+             //   , new Plane(new Color(java.awt.Color.black), new Material(0.2, 0, 20, 0, 0), new Point3D(1100, 0, 0), new Vector(-1, 0, 0)) // תחתון
 
                 //          creating a pyramid with a Square base.
                 , new Polygon(new Color(java.awt.Color.GREEN), new Material(0.25, 0.75, 20, 0.5, 0), p1, p2, p3, p4)
@@ -155,42 +164,6 @@ public class ReflectionRefractionTests {
         scene.addLights(new DirectionalLight(new Color(255, 255, 255), new Vector(1, 0, 0)));
         boolean b4K = false; // לא חייב את זה ....
         // helper method
-        imagesWriter4K(b4K, cameraList, scene,EFFECT);
-    }
-
-    /**
-     * helper method for the test which checking if we want the pictures in 4K resolution or not.
-     *
-     * @param b4K        <b> true = 4K resolution, false = regular resolution </b>
-     * @param cameraList <b> the List of the {@link Camera}s </b>
-     * @param scene      <b> the {@link Scene} of our numOfObjectsTest </b>
-     */
-    private void imagesWriter4K(boolean b4K, List<Camera> cameraList, Scene scene,boolean effect) {
-        String str;
-        int nX, nY;
-        // 4K or regular resolution checker
-        if (b4K) {
-            str = "#Royi_&&_Darmon_4K_Test";
-            nX = 2600;
-            nY = 3840;
-        } else {
-            str = "#Darmon_&&_Royi_Test";
-            nX = 1300;
-            nY = 1920;
-        }
-        int i = 1;
-        ImageWriter imageWriter;
-        for (Camera camera : cameraList) {
-            scene.setCamera(camera);
-            if (i == 1) {
-                imageWriter = new ImageWriter(str + i, 3900, 5760, nX, nY);
-            } else {
-                imageWriter = new ImageWriter(str + i, 5760, 3900, nY, nX);
-            }
-            Render render = new Render(imageWriter, scene);
-            render.renderImage(effect);
-            render.writeToImage();
-            i++;
-        }
+        imagesWriter4K(b4K, cameraList, scene, EFFECT);
     }
 }

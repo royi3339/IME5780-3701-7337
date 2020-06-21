@@ -173,4 +173,10 @@ public class Color {
         return new Color(r, g, b);
     }
 
+
+
+
+
+    @Override
+    public String toString() { return "Color :" + " red = " + _r + ", green = " + _g + ", blue = " + _b; }
 }

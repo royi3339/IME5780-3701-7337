@@ -20,6 +20,8 @@ public class LightsTests {
      */
     @Test
     public void sphereDirectional() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -34,7 +36,7 @@ public class LightsTests {
         ImageWriter imageWriter = new ImageWriter("sphereDirectional", 150, 150, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -43,6 +45,8 @@ public class LightsTests {
      */
     @Test
     public void spherePoint() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -57,7 +61,7 @@ public class LightsTests {
         ImageWriter imageWriter = new ImageWriter("spherePoint", 150, 150, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -66,6 +70,8 @@ public class LightsTests {
      */
     @Test
     public void sphereSpot() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -81,7 +87,7 @@ public class LightsTests {
         ImageWriter imageWriter = new ImageWriter("sphereSpot", 150, 150, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -90,6 +96,8 @@ public class LightsTests {
      */
     @Test
     public void trianglesDirectional() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -107,7 +115,7 @@ public class LightsTests {
         ImageWriter imageWriter = new ImageWriter("trianglesDirectional", 200, 200, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -116,6 +124,8 @@ public class LightsTests {
      */
     @Test
     public void trianglesPoint() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -135,7 +145,7 @@ public class LightsTests {
         ImageWriter imageWriter = new ImageWriter("trianglesPoint", 200, 200, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -144,6 +154,8 @@ public class LightsTests {
      */
     @Test
     public void trianglesSpot() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -163,7 +175,7 @@ public class LightsTests {
         ImageWriter imageWriter = new ImageWriter("trianglesSpot", 200, 200, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -172,6 +184,8 @@ public class LightsTests {
      */
     @Test
     public void trianglesMultiLight() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Multi triangles Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -195,7 +209,7 @@ public class LightsTests {
         ImageWriter imageWriter = new ImageWriter("trianglesMultiLight", 200, 200, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -204,6 +218,8 @@ public class LightsTests {
      */
     @Test
     public void sphereMultiLight() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Multi sphere Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -224,7 +240,7 @@ public class LightsTests {
         ImageWriter imageWriter = new ImageWriter("sphereMultiLight", 150, 150, 500, 500);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 }

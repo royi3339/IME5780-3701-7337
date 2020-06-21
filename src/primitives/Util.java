@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.Random;
+
 /**
  * Util class is used for some internal utilities, e.g. controlling accuracy
  *
@@ -53,5 +55,19 @@ public abstract class Util {
     public static boolean sameSign(double a, double b) {
         if ((a < 0 && b < 0) || (a > 0 && b > 0)) { return true; }
         return false;
+    }
+
+    /**
+     * provided a random (double) number between the 2 given numbers.
+     * <p>
+     * usually a <= b.
+     *
+     * @param a <b> the first number </b>
+     * @param b <b> the second number </b>
+     * @return double <b> random number </b>
+     */
+    public static double random(double a, double b) {
+        Random r = new Random();
+        return r.nextDouble() * (b - a) + a;
     }
 }

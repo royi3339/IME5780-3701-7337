@@ -1,6 +1,9 @@
 package primitives;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static primitives.Util.*;
 
 /**
  * implements the Ray class.
@@ -15,7 +18,6 @@ public class Ray {
      * the value of the checking range
      */
     private static final double DELTA = 0.1;
-    private static final int NUM_OF_RAYS_IN_BEAM = 50;
 
     /**
      * <b> {@link Ray} constructor. </b>
@@ -97,13 +99,36 @@ public class Ray {
         return p;
     }
 
-    public List<Ray> getRayBeam(double r) {
+    /**
+     * calculate the beam of the {@link Ray} with the given parameters.
+     *
+     * @param r         <b> the radius in percent (%) </b>
+     * @param n         <b> the normal {@link Vector} </b>
+     * @param numOfRays <b> the number of the {@link Ray}s that we want to calculate, in excluded the original {@link Ray} </b>
+     * @return List<Ray> <b> the beam of the {@link Ray}s </b>
+     */
+    public List<Ray> getRayBeam(double r, Vector n, int superSampling) {
         Vector v = _direction;
         Vector vX = _direction.getOrthogonal().normalize();
-        Vector vZ = v.crossProduct(vX).normalize();
+        Vector vY = v.crossProduct(vX).normalize();
 
-        double d = 1;
+        List<Ray> rayList = new ArrayList<>();
+        rayList.add(this);
 
-        return null; //
+        Point3D pC = _head.add(v.scale(100));
+        for (int i = 0; i < superSampling; i++) {
+            double cosT = random(-1, 1);
+            double sinT = Math.sqrt(1 - cosT * cosT);
+
+            double d = random(-r, r);
+            double x = d * cosT;
+            double y = d * sinT;
+            try {
+                Point3D pi = pC.add(vX.scale(x)).add(vY.scale(y));
+                Vector rayVec = pi.subtract(_head);
+                if (sameSign(v.dotProduct(n), rayVec.dotProduct(n))) { rayList.add(new Ray(_head, rayVec)); }
+            } catch (IllegalArgumentException e) {}
+        }
+        return rayList;
     }
 }

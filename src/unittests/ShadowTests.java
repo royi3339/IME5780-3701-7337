@@ -20,6 +20,8 @@ public class ShadowTests {
      */
     @Test
     public void SphereTriangleInitial() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -37,7 +39,7 @@ public class ShadowTests {
         ImageWriter imageWriter = new ImageWriter("sphereTriangleInitial", 200, 200, 400, 400);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -46,6 +48,8 @@ public class ShadowTests {
      */
     @Test
     public void SphereTriangleMove1() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -63,7 +67,7 @@ public class ShadowTests {
         ImageWriter imageWriter = new ImageWriter("sphereTriangleMove1", 200, 200, 400, 400);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -72,6 +76,8 @@ public class ShadowTests {
      */
     @Test
     public void SphereTriangleMove2() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -89,7 +95,7 @@ public class ShadowTests {
         ImageWriter imageWriter = new ImageWriter("sphereTriangleMove2", 200, 200, 400, 400);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -98,6 +104,8 @@ public class ShadowTests {
      */
     @Test
     public void SphereTriangleSpot1() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -115,7 +123,7 @@ public class ShadowTests {
         ImageWriter imageWriter = new ImageWriter("sphereTriangleSpot1", 200, 200, 400, 400);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -124,6 +132,8 @@ public class ShadowTests {
      */
     @Test
     public void SphereTriangleSpot2() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -141,7 +151,7 @@ public class ShadowTests {
         ImageWriter imageWriter = new ImageWriter("sphereTriangleSpot2", 200, 200, 400, 400);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 
@@ -150,6 +160,8 @@ public class ShadowTests {
      */
     @Test
     public void trianglesSphere() {
+        final boolean EFFECT = false;
+
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -170,7 +182,7 @@ public class ShadowTests {
         ImageWriter imageWriter = new ImageWriter("trianglesSphere", 200, 200, 600, 600);
         Render render = new Render(imageWriter, scene);
 
-        render.renderImage();
+        render.renderImage(EFFECT);
         render.writeToImage();
     }
 }

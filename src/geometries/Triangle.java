@@ -20,9 +20,7 @@ public class Triangle extends Polygon {
      * @param pB       <b> the second {@link Point3D} of  the {@link Triangle} </b>
      * @param pC       <b> the third {@link Point3D} of  the {@link Triangle} </b>
      */
-    public Triangle(Color color, Material material, Point3D pA, Point3D pB, Point3D pC) {
-        super(color, material, pA, pB, pC);
-    }
+    public Triangle(Color color, Material material, Point3D pA, Point3D pB, Point3D pC) { super(color, material, pA, pB, pC); }
 
     /**
      * <b> {@link Triangle} with {@link Color} constructor. </b>
