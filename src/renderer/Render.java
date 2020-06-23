@@ -31,6 +31,9 @@ public class Render {
 
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
+    private static final double GLURRY_DISTANCE = 100;
+
+    private int _superSampling = 0;
 
     /**
      * <b> {@link Render} constructor. </b>
@@ -135,13 +138,21 @@ public class Render {
     }
 
     /**
-     * creating the image, with the objects.
+     * setting the value of the superSampling (number of {@link Ray}s).
      *
-     * @param effect <b> the number of the {@link Ray}s that we want to send,
-     *               <p> when effect == 0 will be send only a single {@link Ray} </b>
+     * @param superSampling <b> the value of the number of the {@link Ray}s </b>
+     * @return {@link Render} <b> the Render object itself </b>
      */
-    public void renderImage(int effect) {
-        java.awt.Color background = _scene.getBackground().getColor(); ////////////////////////
+    public Render setSuperSampling(int superSampling) {
+        _superSampling = superSampling;
+        return this;
+    }
+
+    /**
+     * creating the image, with the objects.
+     */
+    public void renderImage() {
+        java.awt.Color background = _scene.getBackground().getColor();
 
         Camera camera = _scene.getCamera();
         int nX = _imageWriter.getNx();
@@ -159,7 +170,7 @@ public class Render {
                 while (thePixel.nextPixel(pixel)) {
                     Ray ray = camera.constructRayThroughPixel(nX, nY, pixel.col, pixel.row, distance, width, height);
                     GeoPoint closestPoint = findClosestIntersection(ray);
-                    _imageWriter.writePixel(pixel.col, pixel.row, closestPoint == null ? background : calcColor(closestPoint, ray, effect).getColor());
+                    _imageWriter.writePixel(pixel.col, pixel.row, closestPoint == null ? background : calcColor(closestPoint, ray).getColor());
                 }
             });
         }
@@ -246,11 +257,10 @@ public class Render {
      *
      * @param geoPoint <b> the given {@link GeoPoint} </b>
      * @param inRay    <b> the {@link Ray} that we check in this step os the recursion </b>
-     * @param effect   <b> the feature which controlling on the option of a single {@link Ray} of beam of {@link Ray}s, and the amount of the {@link Ray}s </b>
      * @return {@link Color} <b> of the given {@link Point3D} </b>
      */
-    private Color calcColor(GeoPoint geoPoint, Ray inRay, int effect) {
-        return _scene.getAmbientLight().getIntensity().add(calcColor(geoPoint, inRay, MAX_CALC_COLOR_LEVEL, 1.0, effect)); // ka * ia + calcColor
+    private Color calcColor(GeoPoint geoPoint, Ray inRay) {
+        return _scene.getAmbientLight().getIntensity().add(calcColor(geoPoint, inRay, MAX_CALC_COLOR_LEVEL, 1.0)); // ka * ia + calcColor
     }
 
     /**
@@ -260,10 +270,9 @@ public class Render {
      * @param inRay    <b> the {@link Ray} that we check in this step os the recursion </b>
      * @param level    <b> the parameter of the recursion </b>
      * @param k        <b> the multiple value of the all previous kr </b>
-     * @param effect   <b> the feature which controlling on the option of a single {@link Ray} of beam of {@link Ray}s, and the amount of the {@link Ray}s </b>
      * @return {@link Color} <b> of the given {@link GeoPoint} {@link Point3D} intersection </b>
      */
-    private Color calcColor(GeoPoint geoPoint, Ray inRay, int level, double k, int effect) {
+    private Color calcColor(GeoPoint geoPoint, Ray inRay, int level, double k) {
         if (geoPoint == null) { return _scene.getBackground(); }
         double kd = geoPoint.geometry.getMaterial().getKD();
         double ks = geoPoint.geometry.getMaterial().getKS();
@@ -295,14 +304,14 @@ public class Render {
         double kkr = k * kr;
         if (kkr > MIN_CALC_COLOR_K) {
             Ray reflectedRay = constructReflectedRay(n, geoPoint.point, inRay);
-            color = color.add(callRecursiveCalcColor(reflectedRay, level, kkr, kr, effect, glurry, n));
+            color = color.add(callRecursiveCalcColor(reflectedRay, level, kkr, kr, glurry, n));
         }
 
         double kt = geoPoint.geometry.getMaterial().getKT();            // the transparency (refraction) factor
         double kkt = k * kt;
         if (kkt > MIN_CALC_COLOR_K) {
             Ray refractedRay = constructRefractedRay(n, geoPoint.point, inRay);
-            color = color.add(callRecursiveCalcColor(refractedRay, level, kkt, kt, effect, glurry, n));
+            color = color.add(callRecursiveCalcColor(refractedRay, level, kkt, kt, glurry, n));
         }
         return color;
     }
@@ -316,20 +325,19 @@ public class Render {
      * @param level   <b> the parameter of the recursion </b>
      * @param kk      <b> the value of the kkt or of the kkr respectively </b>
      * @param k       <b> the value of the kt or of the kr respectively </b>
-     * @param effect  <b> the feature of our Project, decide with or without the "Blurry&Glossy", and the amount of the {@link Ray}s </b>
      * @param texture <b> the value of the Blurry/Glossy of the Object </b>
      * @param normal  <b> the normal {@link Vector} </b>
      * @return {@link Color} <b> of the given {@link GeoPoint} {@link Point3D} intersection </b>
      */
-    private Color callRecursiveCalcColor(Ray inRay, int level, double kk, double k, int effect, double texture, Vector normal) {
+    private Color callRecursiveCalcColor(Ray inRay, int level, double kk, double k, double texture, Vector normal) {
         Color color = Color.BLACK;
-        List<Ray> rayBeam = inRay.getRayBeam(texture, normal, effect);
+        List<Ray> rayBeam = inRay.getRayBeam(texture, normal, _superSampling, GLURRY_DISTANCE);
         for (Ray ray : rayBeam) {
             GeoPoint rPoint = findClosestIntersection(ray);
-            Color c = calcColor(rPoint, ray, level - 1, kk, effect).scale(k);
+            Color c = calcColor(rPoint, ray, level - 1, kk).scale(k);
             color = color.add(c);
         }
-        color = color.scale(1d / rayBeam.size());
+        color = color.reduce(rayBeam.size());
         return color;
     }
 
@@ -453,7 +461,7 @@ public class Render {
                     for (int j = 0; j < nX; j++) { //j is pixel in the row number
                         Ray ray = camera.constructRayThroughPixel(nX, nY, j, i, distance, width, height);
                         GeoPoint closestPoint = findClosestIntersection(ray);
-                        _imageWriter.writePixel(j, i, calcColor(closestPoint, ray, effect).getColor());
+                        _imageWriter.writePixel(j, i, calcColor(closestPoint, ray).getColor());
                     }
                 }
             });

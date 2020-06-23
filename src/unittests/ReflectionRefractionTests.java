@@ -25,8 +25,6 @@ public class ReflectionRefractionTests {
      */
     @Test
     public void twoSpheres() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -42,9 +40,9 @@ public class ReflectionRefractionTests {
                 0.0004, 0.0000006));
 
         ImageWriter imageWriter = new ImageWriter("twoSpheres", 150, 150, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -53,7 +51,6 @@ public class ReflectionRefractionTests {
      */
     @Test
     public void twoSpheresOnMirrors() {
-        final int EFFECT = 0;
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -10000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(10000);
@@ -72,11 +69,11 @@ public class ReflectionRefractionTests {
                 new Vector(-1, 1, 4), 1, 0.00001, 0.000005));
 
         ImageWriter imageWriter = new ImageWriter("twoSpheresMirrored", 2500, 2500, 500, 500);
-        //     Render render = new Render(imageWriter, scene);
-        Render render = new Render(imageWriter, scene).setMultithreading(1).setDebugPrint();
+        //     Render render = new Render(imageWriter, scene).setSuperSampling();
+        Render render = new Render(imageWriter, scene).setSuperSampling(0).setMultithreading(1).setDebugPrint();
         ;
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -86,7 +83,6 @@ public class ReflectionRefractionTests {
      */
     @Test
     public void trianglesTransparentSphere() {
-        final int EFFECT = 0;
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -105,9 +101,9 @@ public class ReflectionRefractionTests {
                 new Point3D(60, -50, 0), new Vector(0, 0, 1), 1, 4E-5, 2E-7));
 
         ImageWriter imageWriter = new ImageWriter("shadow with transparency", 200, 200, 600, 600);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -116,8 +112,6 @@ public class ReflectionRefractionTests {
      */
     @Test
     public void numOfObjectsTest() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Objects Test scene");
         scene.setDistance(10000);
         scene.setBackground(Color.BLACK);
@@ -175,8 +169,8 @@ public class ReflectionRefractionTests {
             } else {
                 imageWriter = new ImageWriter(str + i, 8000, 8000, nY, nX);
             }
-            Render render = new Render(imageWriter, scene);
-            render.renderImage(EFFECT);
+            Render render = new Render(imageWriter, scene).setSuperSampling(0);
+            render.renderImage();
             render.writeToImage();
             i++;
         }
@@ -187,8 +181,6 @@ public class ReflectionRefractionTests {
      */
     @Test
     public void MiniProjectGlossyTest() {
-        final int EFFECT = 1000;
-
         Scene scene = new Scene("Mini Project Glossy Test scene");
         scene.setDistance(10000);
         scene.setBackground(Color.BLACK);
@@ -204,19 +196,17 @@ public class ReflectionRefractionTests {
 
         scene.addLights(new PointLight(new Color(255, 255, 255), new Point3D(-1, 1, 10), 1, 0.0005, 0.0005));
         ImageWriter imageWriter = new ImageWriter("Mini Project Glossy #1", 8000, 8000, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(1000);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 
     /**
      * creating a picture with Blurry effect.
      */
-    @Test
+/*    @Test
     public void MiniProjectBlurryTest() {
-        final int EFFECT = 20;
-
         Scene scene = new Scene("Mini Project Blurry Test scene");
         scene.setDistance(10000);
         scene.setBackground(Color.BLACK);
@@ -251,11 +241,11 @@ public class ReflectionRefractionTests {
         scene.addLights(new DirectionalLight(new Color(255, 255, 255), new Vector(1, 0, 0)));
         ImageWriter imageWriter = new ImageWriter("Mini Project Blurry #1", 4000, 4000, 750, 750);
 
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(50);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
-    }
+    }           */
 }
 
 

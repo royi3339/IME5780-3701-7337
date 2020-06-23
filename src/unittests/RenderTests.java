@@ -23,8 +23,6 @@ public class RenderTests {
      */
     @Test
     public void basicRenderTwoColorTest() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(100);
@@ -40,17 +38,15 @@ public class RenderTests {
                 new Triangle(new Point3D(-100, 0, 100), new Point3D(0, -100, 100), new Point3D(-100, -100, 100)));
 
         ImageWriter imageWriter = new ImageWriter("base render test", 500, 500, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.printGrid(50, java.awt.Color.YELLOW);
         render.writeToImage();
     }
 
     @Test
     public void basicRenderMultiColorTest() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(100);
@@ -70,9 +66,9 @@ public class RenderTests {
                         new Point3D(-100, 0, 100), new Point3D(0, -100, 100), new Point3D(-100, -100, 100))); // upper left
 
         ImageWriter imageWriter = new ImageWriter("color render test", 500, 500, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.printGrid(50, java.awt.Color.WHITE);
         render.writeToImage();
     }
@@ -89,7 +85,7 @@ public class RenderTests {
         ImageWriter imageWriter = new ImageWriter("renderTest", 800, 500, 16, 10);
         Scene scene = new Scene("sceneTest");
         scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(1, 0, 0)));
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
         Sphere sphere = new Sphere(9, new Point3D(0,0 , 33));
         scene.addGeometries(sphere);
         GeoPoint g = new GeoPoint(sphere, new Point3D(0, 0, 24));

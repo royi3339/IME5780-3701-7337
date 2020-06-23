@@ -20,8 +20,6 @@ public class LightsTests {
      */
     @Test
     public void sphereDirectional() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -34,9 +32,9 @@ public class LightsTests {
         scene.addLights(new DirectionalLight(new Color(500, 300, 0), new Vector(1, -1, 1)));
 
         ImageWriter imageWriter = new ImageWriter("sphereDirectional", 150, 150, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -45,8 +43,6 @@ public class LightsTests {
      */
     @Test
     public void spherePoint() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -59,9 +55,9 @@ public class LightsTests {
         scene.addLights(new PointLight(new Color(500, 300, 0), new Point3D(-50, 50, -50), 1, 0.00001, 0.000001));
 
         ImageWriter imageWriter = new ImageWriter("spherePoint", 150, 150, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -70,8 +66,6 @@ public class LightsTests {
      */
     @Test
     public void sphereSpot() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -85,9 +79,9 @@ public class LightsTests {
                 new Vector(1, -1, 2), 1, 0.00001, 0.00000001));
 
         ImageWriter imageWriter = new ImageWriter("sphereSpot", 150, 150, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -96,8 +90,6 @@ public class LightsTests {
      */
     @Test
     public void trianglesDirectional() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -113,9 +105,9 @@ public class LightsTests {
         scene.addLights(new DirectionalLight(new Color(300, 150, 150), new Vector(0, 0, 1)));
 
         ImageWriter imageWriter = new ImageWriter("trianglesDirectional", 200, 200, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -124,8 +116,6 @@ public class LightsTests {
      */
     @Test
     public void trianglesPoint() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -143,9 +133,9 @@ public class LightsTests {
                 1, 0.0005, 0.0005));
 
         ImageWriter imageWriter = new ImageWriter("trianglesPoint", 200, 200, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -154,8 +144,6 @@ public class LightsTests {
      */
     @Test
     public void trianglesSpot() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -173,9 +161,9 @@ public class LightsTests {
                 1, 0.0001, 0.000005));
 
         ImageWriter imageWriter = new ImageWriter("trianglesSpot", 200, 200, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -184,8 +172,6 @@ public class LightsTests {
      */
     @Test
     public void trianglesMultiLight() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Multi triangles Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -207,9 +193,9 @@ public class LightsTests {
         );
 
         ImageWriter imageWriter = new ImageWriter("trianglesMultiLight", 200, 200, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -218,8 +204,6 @@ public class LightsTests {
      */
     @Test
     public void sphereMultiLight() {
-        final int EFFECT = 0;
-
         Scene scene = new Scene("Multi sphere Test scene");
         scene.setCamera(new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)));
         scene.setDistance(1000);
@@ -238,9 +222,9 @@ public class LightsTests {
         );
 
         ImageWriter imageWriter = new ImageWriter("sphereMultiLight", 150, 150, 500, 500);
-        Render render = new Render(imageWriter, scene);
+        Render render = new Render(imageWriter, scene).setSuperSampling(0);
 
-        render.renderImage(EFFECT);
+        render.renderImage();
         render.writeToImage();
     }
 }

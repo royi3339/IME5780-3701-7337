@@ -102,33 +102,35 @@ public class Ray {
     /**
      * calculate the beam of the {@link Ray} with the given parameters.
      *
-     * @param r         <b> the radius in percent (%) </b>
-     * @param n         <b> the normal {@link Vector} </b>
-     * @param numOfRays <b> the number of the {@link Ray}s that we want to calculate, in excluded the original {@link Ray} </b>
+     * @param r             <b> the radius in percent (%) </b>
+     * @param n             <b> the normal {@link Vector} </b>
+     * @param superSampling <b> the number of the {@link Ray}s that we want to calculate, in excluded the original {@link Ray} </b>
+     * @param distance      <b> the value of the distance </b>
      * @return List<Ray> <b> the beam of the {@link Ray}s </b>
      */
-    public List<Ray> getRayBeam(double r, Vector n, int superSampling) {
+    public List<Ray> getRayBeam(double r, Vector n, int superSampling, double distance) {
         Vector v = _direction;
         Vector vX = _direction.getOrthogonal().normalize();
         Vector vY = v.crossProduct(vX).normalize();
 
         List<Ray> rayList = new ArrayList<>();
         rayList.add(this);
-
-        Point3D pC = _head.add(v.scale(100));
-        for (int i = 0; i < superSampling; i++) {
-            double cosT = random(-1, 1);
-            double sinT = Math.sqrt(1 - cosT * cosT);
-
-            double d = random(-r, r);
-            double x = d * cosT;
-            double y = d * sinT;
-            try {
-                Point3D pi = pC.add(vX.scale(x)).add(vY.scale(y));
+        if (isZero(r)) { return rayList; }
+        Point3D pC = _head.add(v.scale(distance));
+        for (int i = 0; i < superSampling; ) {
+            double x = random(-r, r);
+            double y = random(-r, r);
+            if (x * x + y * y <= r * r) {
+                i++;
+                Point3D pi = pC;
+                if (!isZero(x)) { pi = pi.add(vX.scale(x)); }
+                if (!isZero(y)) { pi = pi.add(vY.scale(y)); }
                 Vector rayVec = pi.subtract(_head);
                 if (sameSign(v.dotProduct(n), rayVec.dotProduct(n))) { rayList.add(new Ray(_head, rayVec)); }
-            } catch (IllegalArgumentException e) {}
+            }
         }
         return rayList;
     }
 }
+
+
