@@ -205,7 +205,7 @@ public class ReflectionRefractionTests {
     /**
      * creating a picture with Blurry effect.
      */
-/*    @Test
+    @Test
     public void MiniProjectBlurryTest() {
         Scene scene = new Scene("Mini Project Blurry Test scene");
         scene.setDistance(10000);
@@ -245,7 +245,7 @@ public class ReflectionRefractionTests {
 
         render.renderImage();
         render.writeToImage();
-    }           */
+    }
 }
 
 
