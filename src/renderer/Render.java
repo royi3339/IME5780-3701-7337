@@ -3,6 +3,7 @@ package renderer;
 import elements.Camera;
 import elements.Light;
 import elements.LightSource;
+import geometries.Intersectable;
 import geometries.Intersectable.GeoPoint;
 import primitives.Color;
 import primitives.Point3D;
@@ -148,6 +149,18 @@ public class Render {
         return this;
     }
 
+
+    /**
+     * setting the Bounding Box effect on or off.
+     *
+     * @param boxEffect <b> the feature that is a true / false </b>
+     * @return {@link Render} <b> for concatenation... </b>
+     */
+    public Render setBoundingBoxEffect(boolean boxEffect) {
+        Intersectable.setBoxEffect(boxEffect);
+        return this;
+    }
+
     /**
      * creating the image, with the objects.
      */
@@ -237,7 +250,7 @@ public class Render {
      * @return {@link GeoPoint} <b> the most closest point to the {@link Ray}'s start point </b>
      */
     private GeoPoint findClosestIntersection(Ray ray) {
-        List<GeoPoint> intersections = _scene.getGeometries().findIntersections(ray);
+        List<GeoPoint> intersections = _scene.getGeometries().findBoxIntersections(ray);
         if (intersections == null) { return null; }
         Point3D p0 = ray.getHead();
         double minDistance = p0.distance(intersections.get(0).point);
@@ -413,7 +426,7 @@ public class Render {
 
         double lightDistance = light.getDistance(geoPoint.point);
 
-        List<GeoPoint> intersections = _scene.getGeometries().findIntersections(shadeRay, lightDistance);
+        List<GeoPoint> intersections = _scene.getGeometries().findBoxIntersections(shadeRay, lightDistance);
         if (intersections == null) { return true; }
 
         for (GeoPoint gp : intersections) {
@@ -440,7 +453,7 @@ public class Render {
 
         double lightDistance = ls.getDistance(geoPoint.point);
 
-        List<GeoPoint> intersections = _scene.getGeometries().findIntersections(shadeRay, lightDistance);
+        List<GeoPoint> intersections = _scene.getGeometries().findBoxIntersections(shadeRay, lightDistance);
         if (intersections == null) { return 1d; }
 
         double ktr = 1d;

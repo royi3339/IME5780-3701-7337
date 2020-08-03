@@ -28,6 +28,20 @@ public class Plane extends Geometry {
         super(color, material);
         _normal = new Vector(normalVec);
         _header = new Point3D(h);
+        double x = normalVec.getPointX(), y = normalVec.getPointY(), z = normalVec.getPointZ();
+        box = new BoundingBox();
+        if (isZero(x) && isZero(y)) {
+            box.setZ1(h.getZ());
+            box.setZ2(h.getZ());
+        }
+        if (isZero(x) && isZero(z)) {
+            box.setY1(h.getY());
+            box.setY2(h.getY());
+        }
+        if (isZero(y) && isZero(z)) {
+            box.setX1(h.getX());
+            box.setX2(h.getX());
+        }
     }
 
     /**

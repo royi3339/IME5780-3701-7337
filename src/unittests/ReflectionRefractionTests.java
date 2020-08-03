@@ -241,7 +241,7 @@ public class ReflectionRefractionTests {
         scene.addLights(new DirectionalLight(new Color(255, 255, 255), new Vector(1, 0, 0)));
         ImageWriter imageWriter = new ImageWriter("Mini Project Blurry #1", 4000, 4000, 750, 750);
 
-        Render render = new Render(imageWriter, scene).setSuperSampling(50);
+        Render render = new Render(imageWriter, scene).setSuperSampling(50).setMultithreading(3).setBoundingBoxEffect(true);
 
         render.renderImage();
         render.writeToImage();

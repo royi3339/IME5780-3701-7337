@@ -6,11 +6,11 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- * implements the Geometry abstract class, which implements the {@link Intersectable} interface.
+ * implements the Geometry abstract class, which extends the {@link Intersectable} abstract class.
  *
  * @author Royi Alishayev idan darmoni
  */
-public abstract class Geometry implements Intersectable {
+public abstract class Geometry extends Intersectable {
     protected Color _emission;
     protected Material _material;
 

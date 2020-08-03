@@ -25,6 +25,7 @@ public class Tube extends RadialGeometry {
     public Tube(Color color, Material material, double r, Ray a) {
         super(color, material, r);
         axis = new Ray(a);
+        box = new BoundingBox();
     }
 
     /**

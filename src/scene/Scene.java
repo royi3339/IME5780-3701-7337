@@ -3,6 +3,7 @@ package scene;
 import elements.LightSource;
 import geometries.Geometries;
 import geometries.Intersectable;
+import geometries.Plane;
 import primitives.Color;
 import elements.AmbientLight;
 import elements.Camera;
@@ -107,4 +108,14 @@ public class Scene {
      * @param geometries <b> a List of {@link Intersectable} </b>
      */
     public void addGeometries(Intersectable... geometries) { this._geometries.add(geometries); }
+
+    /**
+     * method that gets a number the number of the recursive...
+     * which implements the Tree of our Bounding Box, excluded {@link Plane}.
+     * <p>
+     * the createHierarchy method it self implements at the {@link Geometries} class.
+     *
+     * @param depthOfHierarchy <b> the depth of recursion </b>
+     */
+    public void createHierarchy(int depthOfHierarchy) { _geometries.createHierarchy(depthOfHierarchy); }
 }

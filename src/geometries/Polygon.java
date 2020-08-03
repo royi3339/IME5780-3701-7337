@@ -10,7 +10,7 @@ import static primitives.Util.*;
  * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
  * system
  *
- * @author Dan
+ * @author Dan && Royi Alishayev && Idan Darmoni
  */
 public class Polygon extends Geometry {
     /**
@@ -48,7 +48,19 @@ public class Polygon extends Geometry {
      */
     public Polygon(Color color, Material material, Point3D... vertices) {
         super(color, material);
-
+        double x1 = vertices[0].getX(), x2 = vertices[0].getX();
+        double y1 = vertices[0].getY(), y2 = vertices[0].getY();
+        double z1 = vertices[0].getZ(), z2 = vertices[0].getZ();
+        for (int i = 0; i < vertices.length; ++i) {
+            double x = vertices[i].getX(), y = vertices[i].getY(), z = vertices[i].getZ();
+            if (x < x1) {x1 = x;}
+            if (x > x2) {x2 = x;}
+            if (y < y1) {y1 = y;}
+            if (y > y2) {y2 = y;}
+            if (z < z1) {z1 = z;}
+            if (z > z2) {z2 = z;}
+        }
+        box = new BoundingBox(x1, x2, y1, y2, z1, z2);
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         _vertices = List.of(vertices);
@@ -142,9 +154,7 @@ public class Polygon extends Geometry {
      * @return {@link Vector} <b> normal </b>
      */
     @Override
-    public Vector getNormal(Point3D point) {
-        return _plane.getNormal();
-    }
+    public Vector getNormal(Point3D point) { return _plane.getNormal(); }
 
     /**
      * checking the Points which intersections with the object, and with the given {@link Ray}, and return a List of those points.

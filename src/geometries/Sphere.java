@@ -25,7 +25,9 @@ public class Sphere extends RadialGeometry {
      */
     public Sphere(Color color, Material material, double r, Point3D c) {
         super(color, material, r);
+        double x = c.getX(), y = c.getY(), z = c.getZ();
         _center = new Point3D(c);
+        box = new BoundingBox(x - r, x + r, y - r, y + r, z - r, z + r);
     }
 
     /**
@@ -38,7 +40,6 @@ public class Sphere extends RadialGeometry {
     public Sphere(Color color, double r, Point3D c) {
         this(color, new Material(0, 0, 0), r, c);
     }
-
 
     /**
      * <b> {@link Sphere}  constructor. </b>
@@ -87,7 +88,6 @@ public class Sphere extends RadialGeometry {
      */
     @Override
     public List<GeoPoint> findIntersections(Ray ray, double maxDistance) {
-
         Point3D o = _center;
         Point3D p0 = ray.getHead();
         Vector u, v = ray.getDirection();
